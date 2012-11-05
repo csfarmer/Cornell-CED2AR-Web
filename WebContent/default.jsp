@@ -10,8 +10,12 @@
     <link type="text/css" rel="stylesheet" href="main.css" />
 </head>
 <body>
-	<p>Nothing Here Yet</p>
-	<%java.text.DateFormat df = new java.text.SimpleDateFormat("dd/MM/yyyy"); %>
+	<p>Sandbox Page for Testing Stuff</p>
+	<%java.text.DateFormat df = new java.text.SimpleDateFormat("MM/dd/yyyy"); %>
 	<p>Current Date: <%= df.format(new java.util.Date()) %> </p>
+	<form action="ServletFunctions">
+	<input type="submit" value="Search"/>
+	<input type="text" name="query"/>
+	</form>
 </body>
 </html>
