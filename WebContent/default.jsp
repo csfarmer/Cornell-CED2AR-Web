@@ -6,8 +6,12 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>CED2AR Demo Interface</title>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<link type="text/css" rel="stylesheet" href="reset.css" />
+    <link type="text/css" rel="stylesheet" href="main.css" />
 </head>
 <body>
 	<p>Nothing Here Yet</p>
+	<%java.text.DateFormat df = new java.text.SimpleDateFormat("dd/MM/yyyy"); %>
+	<p>Current Date: <%= df.format(new java.util.Date()) %> </p>
 </body>
 </html>
