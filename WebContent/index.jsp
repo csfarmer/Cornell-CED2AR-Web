@@ -5,7 +5,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
   <!-- <base href="${pageContext.request.contextPath}"> -->
-  <link rel="stylesheet" type="text/css" href="css/styles.css" />
+  <link rel="stylesheet" type="text/css" href="styles/styles.css" />
   <script type="text/javascript" src="scripts/jquery.js"></script>
 <title>CED2AR</title>
 </head>
