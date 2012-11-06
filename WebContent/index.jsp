@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="java.io.BufferedReader" %>
+<%@ page import="java.io.IOException" %>
+<%@ page import="java.io.InputStreamReader" %>
+<%@ page import="java.io.PrintWriter" %>
+<%@ page import="java.net.URL" %>
+<%@ page import="java.net.URLConnection" %>
+<%@ page import="javax.xml.parsers.*" %>
+<%@ page import="org.xml.sax.InputSource" %>
+<%@ page import="org.w3c.dom.*" %>
+<%@ page import="java.io.StringReader" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -115,18 +126,55 @@
 	    <div id="browse-content">   
 	      <!--  Content div for browsing by codebook -->
 	      <div id="tab-content-codebook">
-	        <form id="chooseCodebook" name="chooseCodebook">
-	          <select name="codebook">
+	      
+	      <form id="chooseCodebook" name="chooseCodebook">
+	      	  <select name="codebook">
 	            <option value="default">Choose One Codebook</option>
-	          </select>
+						<%
+							// Get the list of all codebooks and put them in a dropdown menu
+							URL handle = new URL("http://localhost:8000/api/v1/codebooks.xml");
+							URLConnection cn = handle.openConnection();
+							BufferedReader in = new BufferedReader(new InputStreamReader(
+									cn.getInputStream()));
+							String xmlString = "\n";
+							String inputLine;
+							// Put the xml document into a string so that it can be parsed easily
+							while ((inputLine = in.readLine()) != null) {
+								xmlString += inputLine;
+							}
+							// Parse the xml into a DOM structure and fill in the dropdown list	         
+							try {
+								DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+								DocumentBuilder db = dbf.newDocumentBuilder();
+								InputSource is = new InputSource();
+								is.setCharacterStream(new StringReader(xmlString));
+
+								Document doc = db.parse(is);
+
+								NodeList titles = doc.getElementsByTagName("titl");
+								for (int i = 0; i < titles.getLength(); i++) {
+									%>
+									<option
+										value="<%=titles.item(i).getFirstChild().getNodeValue()%>">
+										<%=titles.item(i).getFirstChild().getNodeValue()%></option>
+									<%
+								}
+
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+							in.close();
+						%>
+				</select>
 	        </form>
 	      </div>
+	      
 	      <!--  Content div for browsing alphabetically -->
 	      <div id="tab-content-alphabet">
 	        <p>
 	          <% char[] ch = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
 	            for (int i=0; i<ch.length; i++) { %>
-	              <a href="#<%= ch[i] %>"><span class="space"><%= ch[i] %></span></a> | 
+	              <a href="BrowseServlet?browseByAlphabet=<%= ch[i] %>"><span class="space"><%= ch[i] %></span></a> | 
 	          <% } %>
 	        </p>
 	      </div>
