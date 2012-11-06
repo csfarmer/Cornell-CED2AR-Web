@@ -127,8 +127,8 @@
 	      <!--  Content div for browsing by codebook -->
 	      <div id="tab-content-codebook">
 	      
-	      <form id="chooseCodebook" name="chooseCodebook">
-	      	  <select name="codebook">
+	      <form class="chooseCodebook" name="chooseCodebook" action="BrowseServlet">
+	      	  <select class="chooseCodebook" name="codebook">
 	            <option value="default">Choose One Codebook</option>
 						<%
 							// Get the list of all codebooks and put them in a dropdown menu
@@ -187,5 +187,6 @@
   <script type="text/javascript" src="scripts/indexTabs.js"></script>
   <script type="text/javascript" src="scripts/advancedSearch.js"></script>
   <script type="text/javascript" src="scripts/browseTabs.js"></script>
+  <script type="text/javascript" src="scripts/BrowseFunctions.js"></script>
 </body>
 </html>
