@@ -35,7 +35,12 @@
     </div>
      
     <div id="content">
-      <a href="BrowseDataCodebook.jsp">Browse by Codebook</a> | <a href="BrowseDataAlphabet.jsp">Browse Alphabetically</a>
+      <a href="BrowseDataCodebook.jsp">Browse by Codebook</a> | <a href="BrowseDataAlphabet.jsp">Browse Alphabetically</a><br />
+      <div class="separate"></div>
+    	<% char[] ch = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+	       for (int i=0; i<ch.length; i++) { %>
+	         <a href="BrowseServlet?browseByAlphabet=<%= ch[i] %>"><span class="space"><%= ch[i] %></span></a> | 
+	      <% } %>
     </div>
        
   </div>

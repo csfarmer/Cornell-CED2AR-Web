@@ -36,6 +36,47 @@
      
     <div id="content">
       <a href="BrowseDataCodebook.jsp">Browse by Codebook</a> | <a href="BrowseDataAlphabet.jsp">Browse Alphabetically</a>
+      <div class="separate"></div>
+          <form class="chooseCodebook" name="chooseCodebook" method="get">
+	      	  <select class="chooseCodebookSelect" name="codebook">
+	            <option value="default">Choose One Codebook</option>
+						<%
+							// Get the list of all codebooks and put them in a dropdown menu
+							URL handle = new URL("http://localhost:8000/api/v1/codebooks.xml");
+							URLConnection cn = handle.openConnection();
+							BufferedReader in = new BufferedReader(new InputStreamReader(
+									cn.getInputStream()));
+							String xmlString = "\n";
+							String inputLine;
+							// Put the xml document into a string so that it can be parsed easily
+							while ((inputLine = in.readLine()) != null) {
+								xmlString += inputLine;
+							}
+							// Parse the xml into a DOM structure and fill in the dropdown list	         
+							try {
+								DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+								DocumentBuilder db = dbf.newDocumentBuilder();
+								InputSource is = new InputSource();
+								is.setCharacterStream(new StringReader(xmlString));
+
+								Document doc = db.parse(is);
+
+								NodeList titles = doc.getElementsByTagName("titl");
+								for (int i = 0; i < titles.getLength(); i++) {
+									%>
+									<option
+										value="<%=titles.item(i).getFirstChild().getNodeValue()%>">
+										<%=titles.item(i).getFirstChild().getNodeValue()%></option>
+									<%
+								}
+
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+							in.close();
+						%>
+				</select>
+	        </form>
     </div>
        
   </div>

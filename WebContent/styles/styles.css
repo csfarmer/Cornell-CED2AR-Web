@@ -46,3 +46,4 @@ table#simple_table td { padding: 15px; }
 table#advanced_table { margin: 50px 0px 0px 60px; }
 table#advanced_table td { padding: 10px 20px; }
 
+.separate { height: 25px; }
