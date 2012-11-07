@@ -81,3 +81,10 @@ table#simple_table td { padding: 15px; }
 
 table#advanced_table { margin: 50px auto 0 auto; }
 table#advanced_table td { padding: 10px 20px; }
+
+
+/* Styles for displaying the variables in a codebook */
+.codebookTable { width: 600px; }
+
+.codebookTable td.tdLeft { width: 250px; }
+.codebookTable td.tdRight { width: 350px; }

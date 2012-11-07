@@ -10,13 +10,22 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
-   	<display-name>ServletFunctions</display-name>
+    <display-name>ServletFunctions</display-name>
     <servlet-name>ServletFunctions</servlet-name>
     <servlet-class>com.src.pkg.ServletFunctions</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ServletFunctions</servlet-name>
     <url-pattern>/ServletFunctions</url-pattern>
+  </servlet-mapping>
+    <servlet>
+    <display-name>BrowseServlet</display-name>
+    <servlet-name>BrowseServlet</servlet-name>
+    <servlet-class>com.src.pkg.BrowseServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BrowseServlet</servlet-name>
+    <url-pattern>/BrowseServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>default</servlet-name>

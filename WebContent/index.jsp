@@ -127,8 +127,8 @@
 	      <!--  Content div for browsing by codebook -->
 	      <div id="tab-content-codebook">
 	      
-	      <form class="chooseCodebook" name="chooseCodebook" action="BrowseServlet">
-	      	  <select class="chooseCodebook" name="codebook">
+	      <form class="chooseCodebook" name="chooseCodebook" method="get">
+	      	  <select class="chooseCodebookSelect" name="codebook">
 	            <option value="default">Choose One Codebook</option>
 						<%
 							// Get the list of all codebooks and put them in a dropdown menu
@@ -167,6 +167,10 @@
 						%>
 				</select>
 	        </form>
+	        
+	        <div id="browseCodebookHeader"></div>
+	        
+	        <div id="browseCodebookContent"></div>
 	      </div>
 	      
 	      <!--  Content div for browsing alphabetically -->

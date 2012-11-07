@@ -17,6 +17,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
@@ -40,10 +41,10 @@ public class BrowseServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
-		out.print(request.getQueryString()+"\n");
-		
-		// Test if browse by codebook form was used and call the API for that codebook if it was
+
+		// Get the variable info for browse by the selected codebook
 		if (request.getParameter("codebook") != null) {
+			response.setContentType("text/html");
 			URL handle = new URL("http://localhost:8000/api/v1/codebooks/" + request.getParameter("codebook") + "/variables.xml");
 			URLConnection cn = handle.openConnection();
 	        BufferedReader in = new BufferedReader(
@@ -54,7 +55,7 @@ public class BrowseServlet extends HttpServlet {
 	        while ((inputLine = in.readLine()) != null) {
 				xmlString += inputLine;
 			}
-			// Parse the xml into a DOM structure and fill in the dropdown list	         
+	         
 			try {
 				DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 				DocumentBuilder db = dbf.newDocumentBuilder();
@@ -63,11 +64,19 @@ public class BrowseServlet extends HttpServlet {
 
 				Document doc = db.parse(is);
 
-				NodeList titles = doc.getElementsByTagName("var");
-				for (int i = 0; i < titles.getLength(); i++) {
-					out.print(titles.item(i).getAttributes().item(0));
+				NodeList variableNames = doc.getElementsByTagName("var");
+				out.print("<table class=\"codebookTable\">");
+				for (int i = 0; i < variableNames.getLength(); i++) {
+					out.print("<tr>");
+					Element element = (Element) variableNames.item(i);
+					out.print("<td class=\"tdLeft\">" + element.getAttributes().getNamedItem("name").getNodeValue() + "</td>");
+					try { NodeList label = element.getElementsByTagName("labl");
+						  out.print("<td class=\"tdRight\">" + label.item(0).getFirstChild().getNodeValue() + "</td>"); 
+						  out.print("</tr>"); }
+					catch (NullPointerException ne){ out.print("<td class=\"tdRight\"></td>");
+													 out.print("</tr>");}
 				}
-
+				out.print("</table>");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
