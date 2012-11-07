@@ -20,36 +20,25 @@
 <title>CED2AR</title>
 </head>
 <body>
-
-<div id="main">
   <div id="header">
     <h1 class="center">CED2AR</h1>
   </div>
   
-    <div id="navDiv">
+  <div id="main">
+  
+  	<div id="navDiv">
 	  <ul id="navList">
-	    <li id="tab-simple" class="selected"><a href="index.jsp">Simple Search</a></li>
+	    <li id="tab-simple"><a href="index.jsp">Simple Search</a></li>
 	    <li id="tab-advanced"><a href="AdvancedSearch.jsp">Advanced Search</a></li>
-	    <li id="tab-browse"><a href="BrowseDataCodebook.jsp">Browse Data</a></li>
-	  </ul> 
-	</div>
- 
-  <div id="content">
-	    <form id="simple_search" name="simple_search" method="post">
-	      <table id="simple_table">
-	        <tr>
-	          <td>
-	            <input type="text" name="simple_search" size="40" maxlength="40" />
-	          </td>
-	          <td>
-	            <input type="submit" value="Search" />
-	          </td>
-	        </tr>
-	      </table>
-	    </form>
-  </div> 
-
-</div>
+	    <li id="tab-browse" class="selected"><a href="BrowseDataCodebook.jsp">Browse Data</a></li>
+	  </ul>
+    </div>
+     
+    <div id="content">
+      <a href="BrowseDataCodebook.jsp">Browse by Codebook</a> | <a href="BrowseDataAlphabet.jsp">Browse Alphabetically</a>
+    </div>
+       
+  </div>
   <!-- JavaScript Files -->
 </body>
 </html>
