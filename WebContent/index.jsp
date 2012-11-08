@@ -35,11 +35,11 @@
 	</div>
  
   <div id="content">
-	    <form id="simple_search" name="simple_search" method="post">
+	    <form id="simple_search" name="simple_search" action="SearchServlet" method="get">
 	      <table id="simple_table">
 	        <tr>
 	          <td>
-	            <input type="text" name="simple_search" size="40" maxlength="40" />
+	            <input type="text" name="query" size="40" maxlength="40" />
 	          </td>
 	          <td>
 	            <input type="submit" value="Search" />
