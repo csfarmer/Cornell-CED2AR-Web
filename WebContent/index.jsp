@@ -16,7 +16,9 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
   <link rel="stylesheet" type="text/css" href="styles/styles.css" />
-  <script type="text/javascript" src="scripts/jquery.js"></script>
+  <script type="text/javascript" src="scripts/searchAJAX.js"></script>
+  <!--  <script type="text/javascript" src="scripts/jquery.js"></script>-->
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
 <title>CED2AR</title>
 </head>
 <body>
@@ -35,7 +37,7 @@
 	</div>
  
   <div id="content">
-	    <form id="simple_search" name="simple_search" action="SearchServlet" method="get">
+	    <form id="simple_search" name="simple_search" action="javascript:search()" method="get">
 	      <table id="simple_table">
 	        <tr>
 	          <td>
@@ -47,6 +49,9 @@
 	        </tr>
 	      </table>
 	    </form>
+	    <div id="results">
+	    
+	    </div>
   </div> 
 
 </div>

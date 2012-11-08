@@ -8,15 +8,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-import sun.misc.BASE64Encoder;
+import org.basex.util.Base64;
 
 public class Functions {
-	
-	public static String base64Encode(String s) {
-	    BASE64Encoder encoder = new BASE64Encoder();
-	    return encoder.encodeBuffer(s.getBytes());
-	}
-	
 	
 	public static String getXML(String xquery) {
 			String response = "";
@@ -32,8 +26,8 @@ public class Functions {
 				String pw ="admin";
 				
 				// Encode user name and password pair with a base64 implementation.
-				//String encoded = base64Encode(user + ":" + pw);
-				String encoded = "YWRtaW46YWRtaW4=";
+				String encoded = Base64.encode(user + ":" + pw);
+
 				// Basic access authentication header to connection request.		
 				uConn = (HttpURLConnection) url.openConnection();
 				uConn.setRequestProperty("Authorization", "Basic " + encoded);

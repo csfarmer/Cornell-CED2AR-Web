@@ -17,6 +17,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
@@ -51,13 +52,39 @@ public class SearchServlet extends HttpServlet {
 
 		
 		}
-
+		
 		xquery += "]}</xml>";
-		xquery = xquery.replace(" ", "%20");	
 		String xml = Functions.getXML(xquery);
 		PrintWriter out = response.getWriter();
-		out.write(xquery);
-		out.write(xml);
+		
+		//out.write(xquery);
+		
+		try {
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			DocumentBuilder db = dbf.newDocumentBuilder();
+			InputSource is = new InputSource();
+			is.setCharacterStream(new StringReader(xml));
+
+			Document doc = db.parse(is);
+
+			NodeList variableNames = doc.getElementsByTagName("var");
+			out.print("<table class=\"codebookTable\">");
+			for (int i = 0; i < variableNames.getLength(); i++) {
+				out.print("<tr>");
+				Element element = (Element) variableNames.item(i);
+				out.print("<td class=\"tdLeft\">" + element.getAttributes().getNamedItem("name").getNodeValue() + "</td>");
+				try { NodeList label = element.getElementsByTagName("labl");
+					  out.print("<td class=\"tdRight\">" + label.item(0).getFirstChild().getNodeValue() + "</td>"); 
+					  out.print("</tr>"); }
+				catch (NullPointerException ne){ out.print("<td class=\"tdRight\"></td>");
+												 out.print("</tr>");}
+			}
+			out.print("</table>");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		out.close();
 	}
 
 	/**

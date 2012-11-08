@@ -5,7 +5,9 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>CED2AR Demo Interface</title>
-	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	 <!--  <script type="text/javascript" src="scripts/jquery.js"></script>-->
+  	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	
 	<link type="text/css" rel="stylesheet" href="reset.css" />
     <link type="text/css" rel="stylesheet" href="main.css" />
 </head>
@@ -13,7 +15,7 @@
 	<p>Sandbox Page for Testing Stuff</p>
 	<%java.text.DateFormat df = new java.text.SimpleDateFormat("MM/dd/yyyy"); %>
 	<p>Current Date: <%= df.format(new java.util.Date()) %> </p>
-	<form action="ServletFunctions">
+	<form action="SearchServlet">
 	<input type="submit" value="Search"/>
 	<input type="text" name="query"/>
 	</form>

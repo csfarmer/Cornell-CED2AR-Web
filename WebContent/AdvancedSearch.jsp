@@ -16,7 +16,9 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
   <link rel="stylesheet" type="text/css" href="styles/styles.css" />
-  <script type="text/javascript" src="scripts/jquery.js"></script>
+  <!--  <script type="text/javascript" src="scripts/jquery.js"></script>-->
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  
 <title>CED2AR</title>
 </head>
 <body>
