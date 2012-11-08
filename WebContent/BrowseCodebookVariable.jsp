@@ -35,15 +35,23 @@
     </div>
      
     <div id="content">
-      <a href="BrowseDataCodebook.jsp">Browse by Codebook</a> | <a href="BrowseDataAlphabet.jsp" class="selected-browse">Browse Alphabetically</a><br />
-      <div class="separate"></div>
-    	<% char[] ch = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
-	       for (int i=0; i<ch.length; i++) { %>
-	         <a href="BrowseServlet?browseByAlphabet=<%= ch[i] %>"><span class="space"><%= ch[i] %></span></a> | 
-	      <% } %>
+      <p><a href="javascript:history.back()">&lt;&lt; Back To List</a><br /></p>
+		
+	        <div id="browseCodebookHeader">
+	        <hr /> 
+    			<h2><%= request.getAttribute("variableName") %></h2> 
+    		<hr />
+	        </div>
+	        
+	        <div id="browseCodebookContent">
+	        <p>
+	         <%= request.getAttribute("HTMLString") %>
+	        </p>
+	        </div>
     </div>
        
   </div>
   <!-- JavaScript Files -->
+  <script type="text/javascript" src="scripts/BrowseCodebookFunctions.js"></script>
 </body>
 </html>

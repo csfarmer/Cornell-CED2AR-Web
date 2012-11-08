@@ -35,8 +35,8 @@ body { background-color: #C0C0C0; }
 			 color: #000000;
 			 font-weight: bold; }
 
-#content { width: 800px;
-		   margin: 0px;
+#content { width: 715px;
+		   margin: 10px 0px 0px 0px;
 		   padding: 0px 50px 50px 50px;
 		   overflow: hidden; }
 
@@ -47,3 +47,12 @@ table#advanced_table { margin: 50px 0px 0px 60px; }
 table#advanced_table td { padding: 10px 20px; }
 
 .separate { height: 25px; }
+
+.selected-browse { text-decoration: none; }
+
+#content a:visited { color: blue; }
+/* Styles for displaying the variables in a codebook */
+.codebookTable { width: 600px; }
+
+.codebookTable td.tdLeft { width: 250px; }
+.codebookTable td.tdRight { width: 350px; }

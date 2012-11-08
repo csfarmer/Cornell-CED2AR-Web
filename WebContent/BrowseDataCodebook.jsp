@@ -35,10 +35,10 @@
     </div>
      
     <div id="content">
-      <a href="BrowseDataCodebook.jsp">Browse by Codebook</a> | <a href="BrowseDataAlphabet.jsp">Browse Alphabetically</a>
+      <a href="BrowseDataCodebook.jsp" class="selected-browse">Browse by Codebook</a> | <a href="BrowseDataAlphabet.jsp">Browse Alphabetically</a>
       <div class="separate"></div>
-          <form class="chooseCodebook" name="chooseCodebook" method="get">
-	      	  <select class="chooseCodebookSelect" name="codebook">
+          <form id="chooseCodebook" name="chooseCodebook" action="" method="get">
+	      	  <select id="chooseCodebookSelect" name="codebook">
 	            <option value="default">Choose One Codebook</option>
 						<%
 							// Get the list of all codebooks and put them in a dropdown menu
@@ -77,9 +77,14 @@
 						%>
 				</select>
 	        </form>
+	        
+	        <div id="browseCodebookHeader"></div>
+	        
+	        <div id="browseCodebookContent"></div>
     </div>
        
   </div>
   <!-- JavaScript Files -->
+  <script type="text/javascript" src="scripts/BrowseCodebookFunctions.js"></script>
 </body>
 </html>

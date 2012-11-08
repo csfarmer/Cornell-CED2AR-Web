@@ -18,7 +18,7 @@
     <servlet-name>ServletFunctions</servlet-name>
     <url-pattern>/ServletFunctions</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <display-name>BrowseServlet</display-name>
     <servlet-name>BrowseServlet</servlet-name>
     <servlet-class>com.src.pkg.BrowseServlet</servlet-class>
