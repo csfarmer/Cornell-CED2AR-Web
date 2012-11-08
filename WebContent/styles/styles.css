@@ -56,3 +56,10 @@ table#advanced_table td { padding: 10px 20px; }
 
 .codebookTable td.tdLeft { width: 250px; }
 .codebookTable td.tdRight { width: 350px; }
+
+.variableTable { width: 500px; }
+
+.variableTable td.tdLeft { width: 200px;
+						   padding: 10px 0px; }
+.variableTable td.tdRight { width: 300px;
+						    padding: 10px 0px; }
