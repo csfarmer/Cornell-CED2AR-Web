@@ -51,15 +51,13 @@ public class SearchServlet extends HttpServlet {
 
 		
 		}
-		
 
 		xquery += "]}</xml>";
 		xquery = xquery.replace(" ", "%20");	
-		//String xml = functions.getXML(xquery);
-			
-		
+		String xml = Functions.getXML(xquery);
 		PrintWriter out = response.getWriter();
 		out.write(xquery);
+		out.write(xml);
 	}
 
 	/**
