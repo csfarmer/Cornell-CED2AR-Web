@@ -27,6 +27,15 @@
     <servlet-name>BrowseServlet</servlet-name>
     <url-pattern>/BrowseServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <display-name>SimpleSearchViewVariable</display-name>
+    <servlet-name>SimpleSearchViewVariable</servlet-name>
+    <servlet-class>com.src.pkg.SimpleSearchViewVariable</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SimpleSearchViewVariable</servlet-name>
+    <url-pattern>/SimpleSearchViewVariable</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>default</servlet-name>
     <url-pattern>*.html</url-pattern>

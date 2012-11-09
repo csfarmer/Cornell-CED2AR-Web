@@ -72,7 +72,7 @@ public class SearchServlet extends HttpServlet {
 			for (int i = 0; i < variableNames.getLength(); i++) {
 				out.print("<tr>");
 				Element element = (Element) variableNames.item(i);
-				out.print("<td class=\"tdLeft\">" + element.getAttributes().getNamedItem("name").getNodeValue() + "</td>");
+				out.print("<td class=\"tdLeft\"><a href=\"SimpleSearchViewVariable?variableName=" + element.getAttributes().getNamedItem("name").getNodeValue() + "&codebook=ACS2009G\" class=\"variableName\">" + element.getAttributes().getNamedItem("name").getNodeValue() + "</a></td>");
 				try { NodeList label = element.getElementsByTagName("labl");
 					  out.print("<td class=\"tdRight\">" + label.item(0).getFirstChild().getNodeValue() + "</td>"); 
 					  out.print("</tr>"); }
