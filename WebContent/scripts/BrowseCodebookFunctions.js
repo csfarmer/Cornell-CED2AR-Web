@@ -17,6 +17,8 @@ $(document).ready(function(){
 		 <hr />';
 
 		$("#browseCodebookHeader").html(codebookHeader);
+		
+		//TODO: Adding loading GIF?
 		$("#browseCodebookContent").html("Loading...");
 		// AJAX Call to BrowseServlet and retrieve HTML Data
 		$.ajax({

@@ -15,7 +15,7 @@
 	<p>Sandbox Page for Testing Stuff</p>
 	<%java.text.DateFormat df = new java.text.SimpleDateFormat("MM/dd/yyyy"); %>
 	<p>Current Date: <%= df.format(new java.util.Date()) %> </p>
-	<form action="SearchServlet">
+	<form action="Test">
 	<input type="submit" value="Search"/>
 	<input type="text" name="query"/>
 	</form>
