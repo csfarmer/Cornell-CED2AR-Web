@@ -55,6 +55,7 @@ public class ViewBrowseCodebook extends HttpServlet {
 	        while ((inputLine = in.readLine()) != null) {
 				xmlString += inputLine;
 			}
+	        out.print(xmlString);
 	         
 			try {
 				DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -65,6 +66,7 @@ public class ViewBrowseCodebook extends HttpServlet {
 				Document doc = db.parse(is);
 
 				NodeList variableNames = doc.getElementsByTagName("var");
+				//out.print(doc.getElementsByTagName("var").getLength());
 				out.print("<table class=\"codebookTable\">");
 				for (int i = 0; i < variableNames.getLength(); i++) {
 					out.print("<tr>");
@@ -76,6 +78,7 @@ public class ViewBrowseCodebook extends HttpServlet {
 					catch (NullPointerException ne){ out.print("<td class=\"tdRight\"></td>");
 													 out.print("</tr>");}
 				}
+				
 				out.print("</table>");
 			} catch (Exception e) {
 				e.printStackTrace();

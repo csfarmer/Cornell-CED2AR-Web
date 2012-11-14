@@ -68,7 +68,7 @@ public class SimpleSearchViewVariable extends HttpServlet {
 				Element element = (Element) variableNode.item(0);
 				// Get data from the DOM to use for returning as HTML and  
 				// output the HTML to return to the client
-				HTMLString +=  "<table class=\"codebookTable\">";
+				HTMLString +=  "<table class=\"variableTable\">";
 				HTMLString +=  "<tr>";
 				HTMLString +=  "<td class=\"tdLeft\">Codebook:</td>";
 				HTMLString +=  "<td class=\"tdRight\">" + request.getParameter("codebook") + "</td>";	
