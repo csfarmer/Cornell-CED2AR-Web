@@ -3,6 +3,8 @@ package com.src.pkg;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -11,10 +13,36 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 public class Security {
-
-	public void signup(String personID, String password, String fname, String lname, String org, String field, String Email) {
+	//TODO:Check Password requirements? Length, letters, numbers, special characters?
+	/*
+	 *Wrote regex for:  
+	 * -Must start and end with letter. Can have space or hyphen in the middle. 
+	 *
+	 *Need to write regex for email address. Might use 
+	 *http://www.oracle.com/technetwork/java/javamail/javamail144-1562675.html 
+	 *to comply with RDF  standards
+	 *Look at function testInput() in this class 
+	 * 
+	 * */		
+	public void signup(String password, String fname, String lname, String org, String field, String Email) {
+		DBhandle db = new DBhandle();
 		
-		//TODO:Check Password requirements? Length, letters, numbers, special characters?
+		//This block of code generates a new PersonID for user
+		//The PersonID is simply the number of users + 1 (starting 
+		ResultSet results = db.execSQL("SELECT Count(*) as c FROM public.\"Person\"");
+		String personID = "-1";
+		if(results != null){
+			try {
+					results.next();
+					int pID = Integer.parseInt(results.getString("c"));
+					pID++;
+					personID = Integer.toString(pID);
+				} 
+				catch (SQLException e) {
+					e.printStackTrace();;
+				}
+		   }
+
 		
 		//Creates random 32 byte for password
 		Random r = new SecureRandom();
@@ -28,7 +56,7 @@ public class Security {
 		String dateStamp = dateFormat.format(date);
 		
 		//TODO: Finish SQL insert query
-		String query = "INSERT INTO public.\"Person\" VALUES()";
+		String insertQuery = "INSERT INTO public.\"Person\" VALUES()";
 		
 		/*Fields for Person table:
 			PersonID
@@ -41,12 +69,11 @@ public class Security {
 			Salt
 			DateCreated
 		 */
-		DBhandle db = new DBhandle();
-		db.execSQL(query);
+		db.execSQL(insertQuery);
 		
 	}
 	//Given username and inputed password, checks in password is correct
-	public static Boolean login(String username, String password) {
+	public static Boolean login(String email, String password) {
 		Boolean authenicated = false;
 		
 		String salt = "";//TODO: Need to make DB call to fetch user's salt
@@ -78,5 +105,26 @@ public class Security {
 		}
 		return hash.toString();
 	}
-
+	
+	/*Tests user input against regex. Provide string to test and regex. 
+	 * Never allows all whitespace
+	 * 
+	 * Must start and end with letter. Can have space or hyphen in the middle 
+	 * "^[a-zA-Z]+[- ]?[a-zA-Z]+$"
+	 * 
+	 * */
+	public static Boolean testInput(String input, String regex)
+	{
+		input = input.trim();
+		if(input.length() == 0)
+		{
+			return false;
+		}
+		if(input.matches(regex)){
+			return true;
+		}else{
+			return false;
+		}	
+		
+	}
 }

@@ -54,7 +54,11 @@ public class SearchServlet extends HttpServlet {
 		}
 		
 		xquery += "]}</xml>";
-		String xml = Functions.getXML(xquery);
+		
+		//TODO:Update
+		//String xml = Functions.getXML(xquery);
+		String xml="";
+				
 		PrintWriter out = response.getWriter();
 		
 		//out.write(xquery);

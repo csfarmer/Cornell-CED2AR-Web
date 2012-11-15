@@ -27,6 +27,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+
+
 /**
  * Servlet implementation class Test
  */
@@ -47,24 +49,32 @@ public class Test extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
+		String test = "ba.p-63@cornell.ed.u";
 		
-		//How to query the DB
-		DBhandle db = new DBhandle();
-		String query = "SELECT * from public.\"Person\"";
-		ResultSet results = db.execSQL(query);
-		if(results != null){
-	        try {
-				while (results.next()) {
-				        out.write(results.getInt(1));
-				        out.write(": ");
-				        out.write(results.getString(2)+"<br />");
-				    }
-			} catch (SQLException e) {
-				out.write(e.toString());
-			}
-        }
+		/**
+		 * Need Java.mail
+		 * http://www.oracle.com/technetwork/java/javamail/index.html
+		try {
+		    new InternetAddress(test).getAddress();
+		    out.write("Good");
+		} catch (AddressException e) {
+		    // it's not valid
+		}
+		*/
 		
+		/*
+		String regex = "";
+		Boolean good = Security.testInput(test,regex);
+	
+		if(good){
+			
+			out.write("Good");
+		}else{
+			out.write("Bad");
+		}*/	
 		
+        
+
 
 		
 

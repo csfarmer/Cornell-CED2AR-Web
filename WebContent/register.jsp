@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Register for CEDDAR</title>
 </head>
+<script src="scripts/checkReg.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <body>
 	<div id="errors"></div>
