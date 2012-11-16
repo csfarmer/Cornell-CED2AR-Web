@@ -13,8 +13,13 @@
 </head>
 <body>
 	<p>Sandbox Page for Testing Stuff</p>
-	<%java.text.DateFormat df = new java.text.SimpleDateFormat("MM/dd/yyyy"); %>
+	<%
+		java.text.DateFormat df = new java.text.SimpleDateFormat("MM/dd/yyyy"); 
+		String loggedIn =  (String)session.getAttribute("loggedIn");
+		out.println("<h1>"+loggedIn+"</h1>");
+	%>
 	<p>Current Date: <%= df.format(new java.util.Date()) %> </p>
+	
 	<form action="Test">
 	<input type="submit" value="Search"/>
 	<input type="text" name="query"/>
