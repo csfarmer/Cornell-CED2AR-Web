@@ -72,7 +72,7 @@ public class Test extends HttpServlet {
 		}else{
 			out.write("Bad");
 		}*/	
-		
+		/*
 		Boolean good = Security.login("bap63@cornell.edu", "password");
 	
 		if(good){
@@ -81,7 +81,7 @@ public class Test extends HttpServlet {
 		}else{
 			out.write("Bad");
 		}
-		
+		*/
 		
 		/*
 		Boolean good = Security.testEmail("bap63@cornell.edu");
@@ -93,6 +93,23 @@ public class Test extends HttpServlet {
 			out.write("Bad email");
 		}
 		*/
+		
+		DBhandle db = new DBhandle();
+
+		//This block of code generates a new PersonID for user
+		//The PersonID is simply the number of users + 1 (starting 
+		ResultSet results = db.execSQL("SELECT Count(*) as c FROM public.\"Person\"");
+
+		if(results != null){
+			try {
+					results.next();
+					int pID = Integer.parseInt(results.getString("c"));
+					out.write(pID);
+				} 
+				catch (SQLException e) {
+					out.write(e.toString());
+				}
+		   }
 	
 		
 	}

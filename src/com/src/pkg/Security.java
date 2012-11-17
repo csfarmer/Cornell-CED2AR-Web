@@ -41,7 +41,7 @@ public class Security {
 					personID = Integer.toString(pID);
 				} 
 				catch (SQLException e) {
-					e.printStackTrace();;
+					e.printStackTrace();
 				}
 		   }
 
