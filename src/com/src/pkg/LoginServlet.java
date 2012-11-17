@@ -31,20 +31,22 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
-		//Redirect if already logged in
-		HttpSession userSession = request.getSession();
-		try
-		{
-			String loggedIn = userSession.getAttribute("loggedIn").toString();
-			response.sendRedirect("index.jsp");
-		}
-		catch(Exception e){}
 		
 		//Sets the redirect header
 		String redirect = request.getParameter("redirect");
 		if(redirect == null){
 			redirect = "index.jsp";
 		}
+				
+		//Redirect if already logged in
+		HttpSession userSession = request.getSession();
+		try
+		{
+			String loggedIn = userSession.getAttribute("loggedIn").toString();
+			response.sendRedirect(redirect);
+		}
+		catch(Exception e){}
+		
 		
 		//Determines if previous attempt was invalid
 		String loginError = " ";
