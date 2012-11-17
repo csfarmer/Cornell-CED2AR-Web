@@ -1,7 +1,8 @@
 var xmlhttp;
 function search()
 {
- xmlhttp=GetXmlHttpObject();
+
+  xmlhttp=GetXmlHttpObject();
 
   if (xmlhttp==null)
   {
@@ -14,6 +15,13 @@ function search()
     xmlhttp.onreadystatechange=getOutput;
     xmlhttp.open("GET",url,true);
     xmlhttp.send(null);
+    
+    var simpleSearchHeader = '<p>You are searching for "' + document.getElementsByName("query")[0].value + '"</p> \
+    <hr /> \
+    <table class="codebookTable"><tr><td class=\"tdLeft\">Variable</td><td class=\"tdRight\">Label</td></tr></table> \
+    <hr />';
+    $("#simpleSearchHeader").html(simpleSearchHeader);
+    
     document.getElementById("results").innerHTML="Loading...";
 }
 

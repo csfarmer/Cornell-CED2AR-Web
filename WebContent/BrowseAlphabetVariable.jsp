@@ -36,27 +36,23 @@
     </div>
      
     <div id="content">
-      <a href="BrowseDataCodebook.jsp">Browse by Codebook</a> | <a href="BrowseDataAlphabet.jsp" class="selected-browse">Browse Alphabetically</a><br />
-      <div class="separate"></div>
-    	<% char[] ch = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
-	       for (int i=0; i<ch.length; i++) { 
-	         if (i != ch.length-1) { %>
-	         <span class="alphabetChar" id="<%= ch[i] %>"><%= ch[i] %></span> | 
-	         <%} else { %>
-	         <span class="alphabetChar" id="<%= ch[i] %>"><%= ch[i] %></span>
-	      <%  }
-	       } %>
-	       
-	  <div id="browseAlphabetHeader"></div>
+      <p><a href="javascript:history.back()">&lt;&lt; Back To List</a><br /></p>
+		
+	        <div id="browseAlphabetHeader">
+	        <hr /> 
+    			<h2><%= request.getAttribute("variableName") %></h2> 
+    		<hr />
+	        </div>
 	        
-	  <div id="browseAlphabetContent"></div>
-	
+	        <div id="browseAlphabetContent">
+	        <p>
+	         <%= request.getAttribute("HTMLString") %>
+	        </p>
+	        </div>
     </div>
-    
-
        
   </div>
   <!-- JavaScript Files -->
-    <script src="scripts/BrowseAlphabet.js"></script>
+  <script type="text/javascript" src="scripts/BrowseCodebookFunctions.js"></script>
 </body>
 </html>

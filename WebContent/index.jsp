@@ -48,6 +48,9 @@
 	        </tr>
 	      </table>
 	    </form>
+	    <div id="simpleSearchHeader">
+	    
+	    </div>
 	    <div id="results">
 	    
 	    </div>

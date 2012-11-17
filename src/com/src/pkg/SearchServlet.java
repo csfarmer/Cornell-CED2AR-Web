@@ -74,11 +74,26 @@ public class SearchServlet extends HttpServlet {
 			Document doc = db.parse(is);
 
 			NodeList variableNames = doc.getElementsByTagName("var");
+			NodeList codebookNames = doc.getElementsByTagName("titl");
+			// Create a list of variables and info to be displayed, with the variable clickable to see more info
 			out.print("<table class=\"codebookTable\">");
 			for (int i = 0; i < variableNames.getLength(); i++) {
 				out.print("<tr>");
 				Element element = (Element) variableNames.item(i);
-				out.print("<td class=\"tdLeft\"><a href=\"SimpleSearchViewVariable?variableName=" + element.getAttributes().getNamedItem("name").getNodeValue() + "&codebook=ACS2009G\" class=\"variableName\">" + element.getAttributes().getNamedItem("name").getNodeValue() + "</a></td>");
+				
+				// Calculate the name of the codebook by using the location of the codebook tag and the variable node
+				String codebookTitle = "";
+				Element codebookTagLocation = (Element) element.getParentNode().getParentNode();
+
+				// Loop through all codebook titles and find the one between the codebook tag and variable name
+				for (int j=0; j < codebookNames.getLength(); j++) {
+					Element codebookNode = (Element) codebookNames.item(j);
+					if (codebookTagLocation.compareDocumentPosition(codebookNode) == 20)
+						codebookTitle = codebookNode.getFirstChild().getNodeValue();
+				}
+
+				
+				out.print("<td class=\"tdLeft\"><a href=\"SimpleSearchViewVariable?variableName=" + element.getAttributes().getNamedItem("name").getNodeValue() + "&codebook=" + codebookTitle + "\" class=\"variableName\">" + element.getAttributes().getNamedItem("name").getNodeValue() + "</a></td>");
 				try { NodeList label = element.getElementsByTagName("labl");
 					  out.print("<td class=\"tdRight\">" + label.item(0).getFirstChild().getNodeValue() + "</td>"); 
 					  out.print("</tr>"); }

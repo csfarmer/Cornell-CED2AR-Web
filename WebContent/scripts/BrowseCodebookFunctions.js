@@ -20,7 +20,7 @@ $(document).ready(function(){
 		
 		//TODO: Adding loading GIF?
 		$("#browseCodebookContent").html("Loading...");
-		// AJAX Call to BrowseServlet and retrieve HTML Data
+		// AJAX Call to ViewBrowseCodebook and retrieve HTML Data
 		$.ajax({
 			type: "get",
 			url: "ViewBrowseCodebook",
