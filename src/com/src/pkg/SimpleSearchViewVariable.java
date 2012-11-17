@@ -45,8 +45,8 @@ public class SimpleSearchViewVariable extends HttpServlet {
 		// Get the info for a specific variable
 		if (request.getParameter("variableName") != null) {
 			response.setContentType("text/html");
-			
-			URL handle = new URL("http://localhost:8000/api/v1/codebooks/" + request.getParameter("codebook") + "/variables/" + request.getParameter("variableName") + ".xml");
+
+			URL handle = new URL("http://rschweb.ciserrsch.cornell.edu:8080/CED2AR_Query/search?return=variables&where=codebooktitle=" + request.getParameter("codebook") + ",variablename=" +request.getParameter("variableName"));
 			URLConnection cn = handle.openConnection();
 	        BufferedReader in = new BufferedReader(
 	                                new InputStreamReader(

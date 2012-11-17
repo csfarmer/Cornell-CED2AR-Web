@@ -1,7 +1,6 @@
 var xmlhttp;
 function search()
 {
-
  xmlhttp=GetXmlHttpObject();
 
   if (xmlhttp==null)
@@ -15,6 +14,7 @@ function search()
     xmlhttp.onreadystatechange=getOutput;
     xmlhttp.open("GET",url,true);
     xmlhttp.send(null);
+    document.getElementById("results").innerHTML="Loading...";
 }
 
 function getOutput()

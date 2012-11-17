@@ -43,7 +43,7 @@
 	            <option value="default">Choose One Codebook</option>
 						<%
 							// Get the list of all codebooks and put them in a dropdown menu
-							URL handle = new URL("http://localhost:8000/api/v1/codebooks.xml");
+							URL handle = new URL("http://rschweb.ciserrsch.cornell.edu:8080/CED2AR_Query/search?return=codebooks");
 							URLConnection cn = handle.openConnection();
 							BufferedReader in = new BufferedReader(new InputStreamReader(
 									cn.getInputStream()));

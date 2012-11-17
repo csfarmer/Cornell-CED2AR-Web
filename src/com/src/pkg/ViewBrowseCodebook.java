@@ -45,7 +45,7 @@ public class ViewBrowseCodebook extends HttpServlet {
 		// Get the list of all variables for browse by the selected codebook
 		if (request.getParameter("codebook") != null) {
 			response.setContentType("text/html");
-			URL handle = new URL("http://localhost:8000/api/v1/codebooks/" + request.getParameter("codebook") + "/variables.xml");
+			URL handle = new URL("http://rschweb.ciserrsch.cornell.edu:8080/CED2AR_Query/search?return=variables&where=codebooktitle=" + request.getParameter("codebook"));
 			URLConnection cn = handle.openConnection();
 	        BufferedReader in = new BufferedReader(
 	                                new InputStreamReader(
@@ -55,7 +55,6 @@ public class ViewBrowseCodebook extends HttpServlet {
 	        while ((inputLine = in.readLine()) != null) {
 				xmlString += inputLine;
 			}
-	        out.print(xmlString);
 	         
 			try {
 				DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();

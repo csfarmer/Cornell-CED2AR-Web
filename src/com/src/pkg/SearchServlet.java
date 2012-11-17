@@ -40,34 +40,36 @@ public class SearchServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String xquery = "<xml>{ for $cedar in  collection('CED2AR') return ";
+		String APIString = "http://rschweb.ciserrsch.cornell.edu:8080/CED2AR_Query/search?return=variables&where=";
 		String[] query  = request.getParameter("query").split(" ");
 		for(int i = 0; i < query.length; i++){
-			if(i == 0){
-				xquery += "$cedar/codeBook/dataDscr/var[contains(labl, '"+query[i]+"')";
+			if (i != query.length-1) {
+				APIString += "allfields=*" + query[i] + "*,";
+			} else {
+				APIString += "allfields=*" + query[i] + "*";
 			}
-			else{
-				xquery += " and contains(labl, '"+query[i]+"')";
-			}
-
-		
 		}
 		
-		xquery += "]}</xml>";
-		
-		//TODO:Update
-		//String xml = Functions.getXML(xquery);
-		String xml="";
-				
+
 		PrintWriter out = response.getWriter();
 		
-		//out.write(xquery);
+		response.setContentType("text/html");
+		URL handle = new URL(APIString);
+		URLConnection cn = handle.openConnection();
+        BufferedReader in = new BufferedReader(
+                                new InputStreamReader(
+                                cn.getInputStream()));
+        String inputLine;
+        String xmlString = "";
+        while ((inputLine = in.readLine()) != null) {
+			xmlString += inputLine;
+		}
 		
 		try {
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			InputSource is = new InputSource();
-			is.setCharacterStream(new StringReader(xml));
+			is.setCharacterStream(new StringReader(xmlString));
 
 			Document doc = db.parse(is);
 
