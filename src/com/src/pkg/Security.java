@@ -71,6 +71,21 @@ public class Security {
 			Salt
 			DateCreated
 		 */
+		
+		/*Fields for SecurityQuestions table
+		 		Question ID
+		 		Question Text
+		 */
+		
+		/*Fields for SecurityAnswer table
+ 			AnswerID
+ 			PersonID
+ 			QuestionID
+ 			AnswerHash
+ 			AnswerSalt
+		*/
+		
+		
 		db.execSQL(insertQuery);
 		
 	}

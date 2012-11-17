@@ -16,25 +16,24 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
   <link rel="stylesheet" type="text/css" href="styles/styles.css" />
+  <link rel="stylesheet" type="text/css" href="styles/reset.css" />
   <script type="text/javascript" src="scripts/searchAJAX.js"></script>
   <script src="http://code.jquery.com/jquery-latest.js"></script>
 <title>CED2AR</title>
 </head>
 <body>
-
+<%@include file='loginBar.jsp'%>
 <div id="main">
   <div id="header">
     <h1 class="center">CED2AR</h1>
   </div>
-  
-    <div id="navDiv">
+      <div id="navDiv">
 	  <ul id="navList">
 	    <li id="tab-simple" class="selected"><a href="index.jsp">Simple Search</a></li>
 	    <li id="tab-advanced"><a href="AdvancedSearch.jsp">Advanced Search</a></li>
 	    <li id="tab-browse"><a href="BrowseDataCodebook.jsp">Browse Data</a></li>
 	  </ul> 
 	</div>
- 
   <div id="content">
 	    <form id="simple_search" name="simple_search" action="javascript:search()" method="get">
 	      <table id="simple_table">
@@ -52,7 +51,6 @@
 	    
 	    </div>
 	    <div id="results">
-	    
 	    </div>
   </div> 
 
