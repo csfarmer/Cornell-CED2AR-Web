@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	var codebookName = "";
+
 	
 	// Make the dropdown list submit automatically on change
     $(".alphabetChar").click(function() { 
@@ -7,7 +7,7 @@ $(document).ready(function(){
     		
     	var alphabetHeader = '<h2>Variables Starting with "' + variableName + '"</h2> \
    		<hr /> \
-   		<table class="codebookTable"><tr><td class=\"tdLeft\">Variable</td><td class=\"tdRight\">Label</td></tr></table> \
+   		<table class="alphabetTable"><tr><td class=\"tdLeft\">Variable</td><td class=\"tdMiddle\">Label</td><td class=\"tdRight\">Codebook</td></tr></table> \
    		<hr />';
 
    		$("#browseAlphabetHeader").html(alphabetHeader);

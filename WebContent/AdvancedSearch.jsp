@@ -16,16 +16,16 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
   <link rel="stylesheet" type="text/css" href="styles/styles.css" />
-  <link rel="stylesheet" type="text/css" href="styles/reset.css" />
   <script src="http://code.jquery.com/jquery-latest.js"></script>
 <title>CED2AR</title>
 </head>
 <body>
-<%@include file='loginBar.jsp'%>
   <div id="header">
     <h1 class="center">CED2AR</h1>
   </div>
+  
   <div id="main">
+  
   	<div id="navDiv">
 	  <ul id="navList">
 	    <li id="tab-simple"><a href="index.jsp">Simple Search</a></li>
@@ -110,7 +110,7 @@
 	    </div>
     </div>
        
-  </div>
   <!-- JavaScript Files -->
+  <script type="text/javascript" src="scripts/advancedSearch.js"></script>
 </body>
 </html>

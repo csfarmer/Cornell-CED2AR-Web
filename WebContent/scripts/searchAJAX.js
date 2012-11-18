@@ -1,47 +1,25 @@
-var xmlhttp;
-function search()
-{
+$(document).ready(function() {
 
-  xmlhttp=GetXmlHttpObject();
+	$("#simple_search").submit(function() {
+		$("#simpleSearchDiv").hide();
+		$("#results").html("Loading...");
+		$("#results").show();
+		var query = document.getElementsByName("query")[0].value;
+		$.ajax({
+			type: "get",
+			url: "SearchServlet",
+			data: "query=" + query,
+			success: function(response) {
+				$("#results").html(response);
+				
+				$("#simpleSearchBack").on("click", function() { 
+					$("#results").hide();
+					$("#simpleSearchDiv").show();
+				});
+			}
+		}); 
 
-  if (xmlhttp==null)
-  {
-   alert ("Your browser does not support Ajax HTTP");
-   return;
-  }
+		return false;
+	}); 
 
-    var query = document.getElementsByName("query")[0].value;
-    url="SearchServlet?query="+query;
-    xmlhttp.onreadystatechange=getOutput;
-    xmlhttp.open("GET",url,true);
-    xmlhttp.send(null);
-    
-    var simpleSearchHeader = '<p>You are searching for "' + document.getElementsByName("query")[0].value + '"</p> \
-    <hr /> \
-    <table class="codebookTable"><tr><td class=\"tdLeft\">Variable</td><td class=\"tdRight\">Label</td></tr></table> \
-    <hr />';
-    $("#simpleSearchHeader").html(simpleSearchHeader);
-    
-    document.getElementById("results").innerHTML="Loading...";
-}
-
-function getOutput()
-{
-  if (xmlhttp.readyState==4)
-  {
-	  document.getElementById("results").innerHTML=xmlhttp.responseText;
-  }
-}
-
-function GetXmlHttpObject()
-{
-    if (window.XMLHttpRequest)
-    {
-       return new XMLHttpRequest();
-    }
-    if (window.ActiveXObject)
-    {
-      return new ActiveXObject("Microsoft.XMLHTTP");
-    }
- return null;
-}
+});

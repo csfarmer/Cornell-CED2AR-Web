@@ -66,33 +66,39 @@ public class ViewBrowseAlphabet extends HttpServlet {
 
 				NodeList variableNames = doc.getElementsByTagName("var");
 				NodeList codebookNames = doc.getElementsByTagName("titl");
+				if (variableNames.getLength() == 0) {
+					out.print("<p>There are no variables beginning with the letter \"" + request.getParameter("variableName") + "\"");
+				} else {
 				// Create a list of variables and info to be displayed, with the variable clickable to see more info
-				out.print("<table class=\"codebookTable\">");
-				for (int i = 0; i < variableNames.getLength(); i++) {
-					out.print("<tr>");
-					Element element = (Element) variableNames.item(i);
-					
-					// Calculate the name of the codebook by using the location of the codebook tag and the variable node
-					String codebookTitle = "";
-					Element codebookTagLocation = (Element) element.getParentNode().getParentNode();
-
-					// Loop through all codebook titles and find the one between the codebook tag and variable name
-					for (int j=0; j < codebookNames.getLength(); j++) {
-						Element codebookNode = (Element) codebookNames.item(j);
-						if (codebookTagLocation.compareDocumentPosition(codebookNode) == 20)
-							codebookTitle = codebookNode.getFirstChild().getNodeValue();
+				out.print("<table class=\"alphabetTable\">");
+					for (int i = 0; i < variableNames.getLength(); i++) {
+						out.print("<tr>");
+						Element element = (Element) variableNames.item(i);
+						
+						// Calculate the name of the codebook by using the location of the codebook tag and the variable node
+						String codebookTitle = "";
+						Element codebookTagLocation = (Element) element.getParentNode().getParentNode();
+	
+						// Loop through all codebook titles and find the one between the codebook tag and variable name
+						for (int j=0; j < codebookNames.getLength(); j++) {
+							Element codebookNode = (Element) codebookNames.item(j);
+							if (codebookTagLocation.compareDocumentPosition(codebookNode) == 20)
+								codebookTitle = codebookNode.getFirstChild().getNodeValue();
+						}
+						
+						
+						out.print("<td class=\"tdLeft\"><a href=\"BrowseAlphabetVariable?variableName=" + element.getAttributes().getNamedItem("name").getNodeValue() +  "&codebook=" + codebookTitle + "\"id=\"" + element.getAttributes().getNamedItem("name").getNodeValue() + "\" class=\"variableName\">" + element.getAttributes().getNamedItem("name").getNodeValue() + "</a></td>");
+						try { NodeList label = element.getElementsByTagName("labl");
+							  out.print("<td class=\"tdMiddle\">" + label.item(0).getFirstChild().getNodeValue() + "</td>"); 
+							  out.print("<td class=\"tdRight\">" + codebookTitle + "</td>"); 
+							  out.print("</tr>"); }
+						catch (NullPointerException ne){ out.print("<td class=\"tdMiddle\"></td>");
+														 out.print("<td class=\"tdRight\">" + codebookTitle + "</td>");
+														 out.print("</tr>");}
 					}
 					
-					
-					out.print("<td class=\"tdLeft\"><a href=\"BrowseAlphabetVariable?variableName=" + element.getAttributes().getNamedItem("name").getNodeValue() +  "&codebook=" + codebookTitle + "\"id=\"" + element.getAttributes().getNamedItem("name").getNodeValue() + "\" class=\"variableName\">" + element.getAttributes().getNamedItem("name").getNodeValue() + "</a></td>");
-					try { NodeList label = element.getElementsByTagName("labl");
-						  out.print("<td class=\"tdRight\">" + label.item(0).getFirstChild().getNodeValue() + "</td>"); 
-						  out.print("</tr>"); }
-					catch (NullPointerException ne){ out.print("<td class=\"tdRight\"></td>");
-													 out.print("</tr>");}
-				}
-				
-				out.print("</table>");
+					out.print("</table>");
+			    }
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
