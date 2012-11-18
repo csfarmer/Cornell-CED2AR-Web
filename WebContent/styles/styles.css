@@ -14,30 +14,30 @@ body { background-color: #C0C0C0; }
 
 .alignRight { float: right; }
 
-#navDiv { width: 800px;
-		  height: 50px; }
-		  
-#navList { width: 800px;
-		  list-style-type: none; }
-		  
-#navList li { border: 2px solid #000000;
-			  background: #FFFFFF;
-			  float: left; }
 
-#navList li#tab-advanced { border-left: 0px;
+#navDiv { width: 800px; }
+		  
+#navList { list-style-type: none;
+           overflow: hidden; }
+		  
+#navList li { float: left; }
+
+#navList li#tab-advanced a { border-left: 0px;
 					 	   border-right: 0px; }
 
-#navList li.selected { background: #99CCFF; }
+#navList a.selected { background: #99CCFF; }
 
 #navList a { display: block;
 			 text-align: center;
-			 width: 240px;
+			 width: 238px;
 			 padding: 7px 0px;
 			 text-decoration: none;
 			 color: #000000;
-			 font-weight: bold; }
+			 font-weight: bold; 
+			 border: 2px solid #000000;
+			 background: #FFFFFF; }
 
-#content { width: 715px;
+#content { width: 700px;
 		   margin: 10px 0px 0px 0px;
 		   padding: 0px 50px 50px 50px;
 		   overflow: hidden; }

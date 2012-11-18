@@ -29,7 +29,7 @@
   
   	<div id="navDiv">
 	  <ul id="navList">
-	    <li id="tab-simple" class="selected"><a href="index.jsp">Simple Search</a></li>
+	    <li id="tab-simple"><a href="index.jsp" class="selected">Simple Search</a></li>
 	    <li id="tab-advanced"><a href="AdvancedSearch.jsp">Advanced Search</a></li>
 	    <li id="tab-browse"><a href="BrowseDataCodebook.jsp">Browse Data</a></li>
 	  </ul>
