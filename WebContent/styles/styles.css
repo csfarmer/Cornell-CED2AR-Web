@@ -90,3 +90,36 @@ table#advanced_table td { padding: 10px 20px; }
 						   padding: 10px 0px; }
 .variableTable td.tdRight { width: 300px;
 						    padding: 10px 0px; }
+						    
+#passwordTable{
+
+	margin-right:auto;
+	margin-left:auto;
+	padding:1em;
+	width:20em;	
+}
+#passwordTable * input[type=password]{
+	margin-left:.25em;
+	width:12em;
+}
+#passwordTable * input[type=text]{
+	margin-left:.25em;
+	width:12em;
+}
+#passwordTable * td{
+	padding:.125em .5em;
+	margin-left:auto;
+	margin-right:auto;
+}
+.loginExtra{
+	text-align:right;
+	line-height: 1.5em;
+}
+#loginError{
+	font-style:italic;
+	color:#F00;
+}
+#topLoginBar{
+	text-align:right;
+	padding:.25em;
+}					

@@ -22,6 +22,7 @@
 <title>CED2AR</title>
 </head>
 <body>
+<%@include file='loginBar.jsp'%>
   <div id="header">
     <h1 class="center">CED2AR</h1>
   </div>
