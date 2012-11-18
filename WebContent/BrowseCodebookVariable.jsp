@@ -53,6 +53,5 @@
        
   </div>
   <!-- JavaScript Files -->
-  <script type="text/javascript" src="scripts/BrowseCodebookFunctions.js"></script>
 </body>
 </html>

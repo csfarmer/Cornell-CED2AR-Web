@@ -18,6 +18,7 @@
   <link rel="stylesheet" type="text/css" href="styles/styles.css" />
   <!--  <script type="text/javascript" src="scripts/jquery.js"></script>-->
   <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script type='text/javascript' src="http://github.com/cowboy/jquery-bbq/raw/v1.2.1/jquery.ba-bbq.js"></script>
 <title>CED2AR</title>
 </head>
 <body>
