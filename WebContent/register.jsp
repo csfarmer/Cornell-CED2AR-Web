@@ -19,6 +19,8 @@
 		Department Field<input type="text" name="field"/><br />
 		Password<input type="password" name="password1"/><br /><!-- Implement type as you go error checking? -->
 		Confirm Password<input type="password" name="password2"/><br /><!-- Implement matching password error checking? -->
+		<!-- Need to add challenge questions -->
+		
 		<input type="submit" value="Register"/>
 	</form>
 </body>

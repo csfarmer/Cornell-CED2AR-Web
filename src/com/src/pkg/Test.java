@@ -49,18 +49,6 @@ public class Test extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
-		String test = "ba.p-63@cornell.ed.u";
-		
-		/**
-		 * Need Java.mail
-		 * http://www.oracle.com/technetwork/java/javamail/index.html
-		try {
-		    new InternetAddress(test).getAddress();
-		    out.write("Good");
-		} catch (AddressException e) {
-		    // it's not valid
-		}
-		*/
 		
 		/*
 		String regex = "";
@@ -91,25 +79,31 @@ public class Test extends HttpServlet {
 			out.write("Good email");
 		}else{
 			out.write("Bad email");
-		}
-		*/
+		}*/
 		
-		DBhandle db = new DBhandle();
-
-		//This block of code generates a new PersonID for user
-		//The PersonID is simply the number of users + 1 (starting 
-		ResultSet results = db.execSQL("SELECT Count(*) as c FROM public.\"Person\"");
-
-		if(results != null){
-			try {
-					results.next();
-					int pID = Integer.parseInt(results.getString("c"));
-					out.write(pID);
-				} 
-				catch (SQLException e) {
-					out.write(e.toString());
-				}
-		   }
+		
+		String query = "SELECT Count(*) as c FROM public.\"Person\"";
+		Connection connection = null;
+		try {
+			connection = DriverManager.getConnection("jdbc:postgresql://rschdata.ciserrsch.cornell.edu:5432/CED2AR_ADM","CED2AR_WEB", "BigredCU!");
+		} catch (SQLException e) {
+			out.write(e.toString());
+			Logger lgr = Logger.getLogger(DBhandle.class.getName());
+            lgr.log(Level.SEVERE, e.getMessage(), e);
+		}
+		ResultSet results = null;
+		if (connection != null) {
+	        try {
+	        	PreparedStatement sql = connection.prepareStatement(query);
+				results = sql.executeQuery();
+				out.write(results.toString());
+			} catch (SQLException e) {
+				out.write("2");
+				out.write(e.toString());
+				Logger lgr = Logger.getLogger(DBhandle.class.getName());
+	            lgr.log(Level.SEVERE, e.getMessage(), e);
+			}
+		}	
 	
 		
 	}

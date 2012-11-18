@@ -17,13 +17,6 @@ import javax.mail.internet.InternetAddress;
 public class Security {
 	//TODO:Check Password requirements? Length, letters, numbers, special characters?
 	/*
-	 *Wrote regex for:  
-	 * -Must start and end with letter. Can have space or hyphen in the middle. 
-	 *
-	 *Need to write regex for email address. Might use 
-	 *http://www.oracle.com/technetwork/java/javamail/javamail144-1562675.html 
-	 *to comply with RDF  standards
-	 *Look at function testInput() in this class 
 	 * 
 	 * */		
 	public void signup(String password, String fname, String lname, String org, String field, String Email) {

@@ -32,12 +32,13 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
 		
+		//TODO: Add CAPTCHA to help prevent bruteforce attack
+		
 		//Sets the redirect header
 		String redirect = request.getParameter("redirect");
 		if(redirect == null){
-			redirect = "index.jsp";
-		}
-				
+			redirect = "index.jsp";	
+		}	
 		//Redirect if already logged in
 		HttpSession userSession = request.getSession();
 		try
@@ -72,7 +73,7 @@ public class LoginServlet extends HttpServlet {
 		+"	<script src='http://code.jquery.com/jquery-latest.js'></script>"
 		+"	<title>Please Login to Continue</title>"
 		+"</head><body>"
-		+"	<form action='Login' method='post'>"
+		+"	<form action='Login?redirect="+ redirect+"' method='post'>"
 		+"	<div id='passwordTable'><h2>Please Login</h2>"
 		+"		<table><tr><td>Email</td><td><input name='email' type='text' method='post'/> </td></tr>"
 		+"		<tr><td>Password</td><td><input name='password' size=15 type='password' /></td></tr>" 
@@ -80,7 +81,6 @@ public class LoginServlet extends HttpServlet {
 		+"		<p class='loginExtra' id='loginError'>"+loginError+"</p>"
 		+"		<p class='loginExtra'><a href='Forgot'>Forgot Your Password?</a></p>"
 		+"		<p class='loginExtra'>Don't have an account? <a href='Register'>Register</a></p></div>"
-		+"	<input type='hidden' name='redirect' value='"+redirect+"'/>"
 		+"</form></body></html>";
 		out.print(html); 
 	}
@@ -110,7 +110,7 @@ public class LoginServlet extends HttpServlet {
 		}
 		else{
 			badPassword = true;
-			response.sendRedirect("Login");
+			response.sendRedirect("Login?redirect="  + redirect);
 		}
 
 	}
