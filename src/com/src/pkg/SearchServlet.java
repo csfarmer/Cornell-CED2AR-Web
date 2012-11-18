@@ -64,7 +64,7 @@ public class SearchServlet extends HttpServlet {
         while ((inputLine = in.readLine()) != null) {
 			xmlString += inputLine;
 		}
-		
+        
 		try {
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder();
@@ -75,8 +75,16 @@ public class SearchServlet extends HttpServlet {
 
 			NodeList variableNames = doc.getElementsByTagName("var");
 			NodeList codebookNames = doc.getElementsByTagName("titl");
+			
+		    // Header table HTML
+	        out.print("You are searching for \"" + request.getParameter("query") + "\", " + variableNames.getLength() + " results returned.");
+	        out.print("<span class=\"alignRight\"><span id=\"simpleSearchBack\">&lt;&lt;Search again.</span></span>");
+	        out.print("<hr />");
+	        out.print("<table class=\"simpleSearchTable\"><tr><td class=\"tdLeft\">Variable</td><td class=\"tdMiddle\">Label</td><td class=\"tdRight\">Codebook</td></tr></table>");
+	        out.print("<hr />");
+	        
 			// Create a list of variables and info to be displayed, with the variable clickable to see more info
-			out.print("<table class=\"codebookTable\">");
+			out.print("<table class=\"simpleSearchTable\">");
 			for (int i = 0; i < variableNames.getLength(); i++) {
 				out.print("<tr>");
 				Element element = (Element) variableNames.item(i);
@@ -95,9 +103,11 @@ public class SearchServlet extends HttpServlet {
 				
 				out.print("<td class=\"tdLeft\"><a href=\"SimpleSearchViewVariable?variableName=" + element.getAttributes().getNamedItem("name").getNodeValue() + "&codebook=" + codebookTitle + "\" class=\"variableName\">" + element.getAttributes().getNamedItem("name").getNodeValue() + "</a></td>");
 				try { NodeList label = element.getElementsByTagName("labl");
-					  out.print("<td class=\"tdRight\">" + label.item(0).getFirstChild().getNodeValue() + "</td>"); 
+					  out.print("<td class=\"tdMiddle\">" + label.item(0).getFirstChild().getNodeValue() + "</td>"); 
+					  out.print("<td class=\"tdRight\">" + codebookTitle + "</td>"); 
 					  out.print("</tr>"); }
-				catch (NullPointerException ne){ out.print("<td class=\"tdRight\"></td>");
+				catch (NullPointerException ne){ out.print("<td class=\"tdMiddle\"></td>");
+												 out.print("<td class=\"tdRight\">" + codebookTitle + "</td>"); 
 												 out.print("</tr>");}
 			}
 			out.print("</table>");

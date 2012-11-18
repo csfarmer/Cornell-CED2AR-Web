@@ -16,12 +16,12 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
   <link rel="stylesheet" type="text/css" href="styles/styles.css" />
-  <link rel="stylesheet" type="text/css" href="styles/reset.css" />
+  <!--  <script type="text/javascript" src="scripts/jquery.js"></script>-->
   <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script type='text/javascript' src="http://github.com/cowboy/jquery-bbq/raw/v1.2.1/jquery.ba-bbq.js"></script>
 <title>CED2AR</title>
 </head>
 <body>
-<%@include file='loginBar.jsp'%>
   <div id="header">
     <h1 class="center">CED2AR</h1>
   </div>
@@ -32,7 +32,7 @@
 	  <ul id="navList">
 	    <li id="tab-simple"><a href="index.jsp">Simple Search</a></li>
 	    <li id="tab-advanced"><a href="AdvancedSearch.jsp">Advanced Search</a></li>
-	    <li id="tab-browse" class="selected"><a href="BrowseDataCodebook.jsp">Browse Data</a></li>
+	    <li id="tab-browse"><a href="BrowseDataCodebook.jsp" class="selected">Browse Data</a></li>
 	  </ul>
     </div>
      

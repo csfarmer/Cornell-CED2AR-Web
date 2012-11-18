@@ -32,7 +32,7 @@
 	  <ul id="navList">
 	    <li id="tab-simple"><a href="index.jsp">Simple Search</a></li>
 	    <li id="tab-advanced"><a href="AdvancedSearch.jsp">Advanced Search</a></li>
-	    <li id="tab-browse" class="selected"><a href="BrowseDataCodebook.jsp">Browse Data</a></li>
+	    <li id="tab-browse"><a href="BrowseDataCodebook.jsp" class="selected">Browse Data</a></li>
 	  </ul>
     </div>
      
@@ -54,6 +54,5 @@
        
   </div>
   <!-- JavaScript Files -->
-  <script type="text/javascript" src="scripts/BrowseCodebookFunctions.js"></script>
 </body>
 </html>
