@@ -79,14 +79,18 @@ public class BrowseAlphabetVariable extends HttpServlet {
 				HTMLString +=  "</tr>";
 				HTMLString +=  "<tr>";
 				HTMLString +=  "<td class=\"tdLeft\">Label:</td>";
-				if (element.getElementsByTagName("labl").item(0).getFirstChild().getNodeValue() != null) {
+				try {
 					HTMLString +=  "<td class=\"tdRight\">" + element.getElementsByTagName("labl").item(0).getFirstChild().getNodeValue() + "</td>";	
+				} catch (NullPointerException ne) { 
+					HTMLString += "<td class=\"tdRight\"></td>";
 				}
 				HTMLString +=  "</tr>";
 				HTMLString +=  "<tr>";
 				HTMLString +=  "<td class=\"tdLeft\">Var Type:</td>";
-				if (element.getElementsByTagName("varFormat").item(0).getAttributes().getNamedItem("type").getNodeValue() != null) {
+				try {
 					HTMLString +=  "<td class=\"tdRight\">" + element.getElementsByTagName("varFormat").item(0).getAttributes().getNamedItem("type").getNodeValue() + "</td>";	
+				} catch (NullPointerException ne) { 
+					HTMLString += "<td class=\"tdRight\"></td>";
 				}
 				HTMLString +=  "</tr>";
 				HTMLString +=  "</table>";
