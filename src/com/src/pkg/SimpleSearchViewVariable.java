@@ -67,12 +67,25 @@ public class SimpleSearchViewVariable extends HttpServlet {
 
 				NodeList variableNode = doc.getElementsByTagName("var");
 				Element element = (Element) variableNode.item(0);
+				
+				NodeList documentNode = doc.getElementsByTagName("docDscr");
+				Element documentInfo = (Element) documentNode.item(0);
+				
 				// Get data from the DOM to use for returning as HTML and  
 				// output the HTML to return to the client
 				HTMLString +=  "<table class=\"variableTable\">";
 				HTMLString +=  "<tr>";
 				HTMLString +=  "<td class=\"tdLeft\">Codebook:</td>";
 				HTMLString +=  "<td class=\"tdRight\">" + request.getParameter("codebook") + "</td>";	
+				HTMLString +=  "</tr>";
+				HTMLString +=  "<tr>";
+				HTMLString +=  "<td class=\"tdLeft\">Producer:</td>";
+				try { 
+					HTMLString +=  "<td class=\"tdRight\">" + documentInfo.getElementsByTagName("producer").item(0).getFirstChild().getNodeValue() + "</td>";	
+				} catch (NullPointerException ne) { }
+				try { 
+					HTMLString +=  "<td class=\"tdRight\">" + documentInfo.getElementsByTagName("software").item(0).getFirstChild().getNodeValue() + "</td>";	
+				} catch (NullPointerException ne) { }
 				HTMLString +=  "</tr>";
 				HTMLString +=  "<tr>";
 				HTMLString +=  "<td class=\"tdLeft\">Variable Name:</td>";
@@ -86,6 +99,12 @@ public class SimpleSearchViewVariable extends HttpServlet {
 					HTMLString += "<td class=\"tdRight\"></td>";
 				}
 				HTMLString +=  "</tr>";
+				try { 
+					HTMLString +=  "<tr><td class=\"tdLeft\">Full Description:</td><td class=\"tdRight\">" + element.getElementsByTagName("txt").item(0).getFirstChild().getNodeValue() + "</td></tr>";
+				} catch (NullPointerException ne) { }
+				try { 
+					HTMLString +=  "<tr><td class=\"tdLeft\">Concept:</td><td class=\"tdRight\">" + element.getElementsByTagName("concept").item(0).getFirstChild().getNodeValue() + "</td></tr>";
+				} catch (NullPointerException ne) { }
 				HTMLString +=  "<tr>";
 				HTMLString +=  "<td class=\"tdLeft\">Var Type:</td>";
 				try {

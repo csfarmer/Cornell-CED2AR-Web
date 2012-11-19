@@ -84,11 +84,11 @@ table#advanced_table td { padding: 10px 20px; }
 .simpleSearchTable td.tdRight { width: 200px;
 								padding-left: 25px; }
 							
-.variableTable { width: 500px; }
+.variableTable { width: 700px; }
 
 .variableTable td.tdLeft { width: 200px;
 						   padding: 10px 0px; }
-.variableTable td.tdRight { width: 300px;
+.variableTable td.tdRight { width: 500px;
 						    padding: 10px 0px; }
 						    
 #passwordTable{
