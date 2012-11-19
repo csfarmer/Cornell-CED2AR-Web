@@ -18,6 +18,15 @@
     <servlet-name>Test</servlet-name>
     <url-pattern>/Test</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <display-name>AdvancedSearchServlet</display-name>
+    <servlet-name>AdvancedSearchServlet</servlet-name>
+    <servlet-class>com.src.pkg.AdvancedSearchServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdvancedSearchServlet</servlet-name>
+    <url-pattern>/AdvancedSearchServlet</url-pattern>
+  </servlet-mapping> 
   <servlet>
     <display-name>LoginServlet</display-name>
     <servlet-name>LoginServlet</servlet-name>

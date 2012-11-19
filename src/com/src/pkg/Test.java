@@ -28,7 +28,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-
 /**
  * Servlet implementation class Test
  */
@@ -80,30 +79,7 @@ public class Test extends HttpServlet {
 		}else{
 			out.write("Bad email");
 		}*/
-		
-		
-		String query = "SELECT Count(*) as c FROM public.\"Person\"";
-		Connection connection = null;
-		try {
-			connection = DriverManager.getConnection("jdbc:postgresql://rschdata.ciserrsch.cornell.edu:5432/CED2AR_ADM","CED2AR_WEB", "BigredCU!");
-		} catch (SQLException e) {
-			out.write(e.toString());
-			Logger lgr = Logger.getLogger(DBhandle.class.getName());
-            lgr.log(Level.SEVERE, e.getMessage(), e);
-		}
-		ResultSet results = null;
-		if (connection != null) {
-	        try {
-	        	PreparedStatement sql = connection.prepareStatement(query);
-				results = sql.executeQuery();
-				out.write(results.toString());
-			} catch (SQLException e) {
-				out.write("2");
-				out.write(e.toString());
-				Logger lgr = Logger.getLogger(DBhandle.class.getName());
-	            lgr.log(Level.SEVERE, e.getMessage(), e);
-			}
-		}	
+
 	
 		
 	}

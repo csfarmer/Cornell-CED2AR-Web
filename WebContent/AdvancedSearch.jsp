@@ -36,7 +36,7 @@
     </div>
      
     <div id="content">
-    <form id="advanced_search" name="advanced_search" method="post">
+    <form id="advanced_search" name="advanced_search" method="post" action="AdvancedSearchServlet">
 	      <table id="advanced_table">
 	        <tr>
 	          <td>
