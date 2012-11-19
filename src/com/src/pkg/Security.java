@@ -177,6 +177,7 @@ public class Security {
 		}	
 		
 	}
+	
 	/*Validates Email address input using java.mail package*/
 	public static boolean testEmail(String email){
 	        try {

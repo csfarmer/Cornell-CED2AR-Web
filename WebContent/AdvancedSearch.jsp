@@ -17,6 +17,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
   <link rel="stylesheet" type="text/css" href="styles/styles.css" />
   <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script type="text/javascript" src="scripts/advSearchAJAX.js"></script>
 <title>CED2AR</title>
 </head>
 <body>
@@ -41,11 +42,11 @@
 	        <tr>
 	          <td>
 	            <select name="searchParam1">
-	              <option value="varName">Variable Name</option>
-	              <option value="label">Label</option>
-	              <option value="description">Full Description</option>
-	              <option value="concept">Concept</option>
-	              <option value="varType">Variable Type</option>
+	              <option value="variablename">Variable Name</option>
+	              <option value="variablelabel">Label</option>
+	              <option value="variabletext">Full Description</option>
+	              <option value="variableconcept">Concept</option>
+	              <option value="variablecodeinstructions">Variable Type</option>
 	            </select>
 	          </td>
 	          <td>
@@ -62,11 +63,11 @@
 	        <tr>
 	          <td>
 	            <select name="searchParam2">
-	              <option value="varName">Variable Name</option>
-	              <option value="label">Label</option>
-	              <option value="description">Full Description</option>
-	              <option value="concept">Concept</option>
-	              <option value="varType">Variable Type</option>
+	              <option value="variablename">Variable Name</option>
+	              <option value="variablelabel">Label</option>
+	              <option value="variabletext">Full Description</option>
+	              <option value="variableconcept">Concept</option>
+	              <option value="variablecodeinstructions">Variable Type</option>
 	            </select>
 	          </td>
 	          <td>
@@ -83,11 +84,11 @@
 	        <tr>
 	          <td>
 	            <select name="searchParam3">
-	              <option value="varName">Variable Name</option>
-	              <option value="label">Label</option>
-	              <option value="description">Full Description</option>
-	              <option value="concept">Concept</option>
-	              <option value="varType">Variable Type</option>
+	              <option value="variablename">Variable Name</option>
+	              <option value="variablelabel">Label</option>
+	              <option value="variabletext">Full Description</option>
+	              <option value="variableconcept">Concept</option>
+	              <option value="variablecodeinstructions">Variable Type</option>
 	            </select>
 	          </td>
 	          <td>

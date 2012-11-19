@@ -10,11 +10,11 @@ jQuery(function(){
 			$("#advanced_table tr:last").before('<tr> \
 					<td> \
 					<select name="searchParam'+idRowCount+'"> \
-		            <option value="varName">Variable Name</option> \
-		            <option value="label">Label</option> \
-		            <option value="description">Full Description</option> \
-		            <option value="concept">Concept</option> \
-		            <option value="varType">Variable Type</option> \
+		            <option value="variablename">Variable Name</option> \
+		            <option value="variablelabel">Label</option> \
+		            <option value="variabletext">Full Description</option> \
+		            <option value="variableconcept">Concept</option> \
+		            <option value="variablecodeinstructions">Variable Type</option> \
 					</select> \
 					</td> \
 					<td> \
