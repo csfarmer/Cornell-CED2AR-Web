@@ -46,7 +46,9 @@ public class AdvancedSearchServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		PrintWriter out = response.getWriter();
+		response.setContentType("text/html");
+		out.write("<h1>Nothing to see here...</h1>");
 		
 	}
 
@@ -55,6 +57,7 @@ public class AdvancedSearchServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
+		response.setContentType("text/html");
 		String apiString = "http://rschweb.ciserrsch.cornell.edu:8080/CED2AR_Query/search?return=variables&where=";
 		
 		//Gets list of fields that are 
@@ -129,13 +132,12 @@ public class AdvancedSearchServlet extends HttpServlet {
 			NodeList codebookNames = doc.getElementsByTagName("titl");
 			
 		    // Header table HTML
-	        out.print("<span class=\"alignRight\"><span id=\"simpleSearchBack\">&lt;&lt;Search again.</span></span>");
-	        out.print("<hr />");
-	        out.print("<table class=\"simpleSearchTable\"><tr><td class=\"tdLeft\">Variable</td><td class=\"tdMiddle\">Label</td><td class=\"tdRight\">Codebook</td></tr></table>");
-	        out.print("<hr />");
-	        
-			// Create a list of variables and info to be displayed, with the variable clickable to see more info
-			out.print("<table class=\"simpleSearchTable\">");
+			out.print("<span class=\"alignRight\"><span id=\"simpleSearchBack\">&lt;&lt;Search again.</span></span><br />");
+		    out.print("<hr />");
+		    out.print("<table class=\"simpleSearchTable\"><tr><td class=\"tdLeft\">Variable</td><td class=\"tdMiddle\">Label</td><td class=\"tdRight\">Codebook</td></tr></table>");
+		    out.print("<hr />");
+		    
+		    out.print("<table class=\"simpleSearchTable\">");
 			for (int i = 0; i < variableNames.getLength(); i++) {
 				out.print("<tr>");
 				Element element = (Element) variableNames.item(i);
@@ -152,7 +154,7 @@ public class AdvancedSearchServlet extends HttpServlet {
 				}
 
 				
-				out.print("<td class=\"tdLeft\"><a href=\"SimpleSearchViewVariable?variableName=" + element.getAttributes().getNamedItem("name").getNodeValue() + "&codebook=" + codebookTitle + "\" class=\"variableName\">" + element.getAttributes().getNamedItem("name").getNodeValue() + "</a></td>");
+				out.print("<td class=\"tdLeft\"><a href=\"Login?redirect=SimpleSearchViewVariable?variableName=" + element.getAttributes().getNamedItem("name").getNodeValue() + "&codebook=" + codebookTitle + "\" class=\"variableName\">" + element.getAttributes().getNamedItem("name").getNodeValue() + "</a></td>");
 				try { NodeList label = element.getElementsByTagName("labl");
 					  out.print("<td class=\"tdMiddle\">" + label.item(0).getFirstChild().getNodeValue() + "</td>"); 
 					  out.print("<td class=\"tdRight\">" + codebookTitle + "</td>"); 

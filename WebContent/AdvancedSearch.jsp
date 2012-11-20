@@ -17,6 +17,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
   <link rel="stylesheet" type="text/css" href="styles/styles.css" />
   <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script type="text/javascript" src="scripts/advancedSearch.js"></script>
   <script type="text/javascript" src="scripts/advSearchAJAX.js"></script>
 <title>CED2AR</title>
 </head>
@@ -37,7 +38,7 @@
     </div>
      
     <div id="content">
-    <form id="advanced_search" name="advanced_search" method="post" action="AdvancedSearchServlet">
+    <form id="advanced_search" name="advanced_search" method="post" action="">
 	      <table id="advanced_table">
 	        <tr>
 	          <td>
@@ -109,10 +110,8 @@
 	        </tr>
 	      </table>
 	    </form>
-	    </div>
-    </div>
-       
-  <!-- JavaScript Files -->
-  <script type="text/javascript" src="scripts/advancedSearch.js"></script>
+	<div id="advSearchHeader"></div>
+	<div id="results"></div>
+	</div>
 </body>
 </html>

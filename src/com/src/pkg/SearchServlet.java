@@ -49,10 +49,7 @@ public class SearchServlet extends HttpServlet {
 				APIString += "allfields=*" + query[i] + "*";
 			}
 		}
-		
-
 		PrintWriter out = response.getWriter();
-		
 		response.setContentType("text/html");
 		URL handle = new URL(APIString);
 		URLConnection cn = handle.openConnection();
@@ -101,7 +98,7 @@ public class SearchServlet extends HttpServlet {
 				}
 
 				
-				out.print("<td class=\"tdLeft\"><a href=\"SimpleSearchViewVariable?variableName=" + element.getAttributes().getNamedItem("name").getNodeValue() + "&codebook=" + codebookTitle + "\" class=\"variableName\">" + element.getAttributes().getNamedItem("name").getNodeValue() + "</a></td>");
+				out.print("<td class=\"tdLeft\"><a href=\"Login?redirect=SimpleSearchViewVariable?variableName=" + element.getAttributes().getNamedItem("name").getNodeValue() + "&codebook=" + codebookTitle + "\" class=\"variableName\">" + element.getAttributes().getNamedItem("name").getNodeValue() + "</a></td>");
 				try { NodeList label = element.getElementsByTagName("labl");
 					  out.print("<td class=\"tdMiddle\">" + label.item(0).getFirstChild().getNodeValue() + "</td>"); 
 					  out.print("<td class=\"tdRight\">" + codebookTitle + "</td>"); 

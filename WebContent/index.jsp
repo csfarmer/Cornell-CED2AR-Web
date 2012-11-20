@@ -26,7 +26,6 @@
   <div id="header">
     <h1 class="center">CED2AR</h1>
   </div>
-  
     <div id="navDiv">
 	  <ul id="navList">
 	    <li id="tab-simple"><a href="index.jsp" class="selected">Simple Search</a></li>
@@ -34,7 +33,6 @@
 	    <li id="tab-browse"><a href="BrowseDataCodebook.jsp">Browse Data</a></li>
 	  </ul> 
 	</div>
- 
   <div id="content">
      <div id="simpleSearchDiv">
 	    <form id="simple_search" name="simple_search" action="" method="get">
@@ -50,13 +48,8 @@
 	      </table>
 	    </form>
 	  </div>
-	  
-	    <div id="simpleSearchHeader">
-	    
-	    </div>
-	    <div id="results">
-	    
-	    </div>
+	    <div id="simpleSearchHeader"></div>
+	    <div id="results"></div>
   </div> 
 
 </div>
