@@ -37,7 +37,7 @@
     </div>
      
     <div id="content">
-      <p><a href="javascript:history.back()">&lt;&lt; Back To List</a><br /></p>
+      <p><a href="BrowseDataAlphabet.jsp#<%= request.getAttribute("backInfo") %>">&lt;&lt; Back To List</a><br /></p>
 		
 	        <div id="browseAlphabetHeader">
 	        <hr /> 

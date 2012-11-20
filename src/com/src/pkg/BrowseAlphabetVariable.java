@@ -81,10 +81,9 @@ public class BrowseAlphabetVariable extends HttpServlet {
 				HTMLString +=  "<td class=\"tdLeft\">Producer:</td>";
 				try { 
 					HTMLString +=  "<td class=\"tdRight\">" + documentInfo.getElementsByTagName("producer").item(0).getFirstChild().getNodeValue() + "</td>";	
-				} catch (NullPointerException ne) { }
-				try { 
-					HTMLString +=  "<td class=\"tdRight\">" + documentInfo.getElementsByTagName("software").item(0).getFirstChild().getNodeValue() + "</td>";	
-				} catch (NullPointerException ne) { }
+				} catch (NullPointerException ne) {
+					HTMLString += "<td class=\"tdRight\"></td>";
+				}
 				HTMLString +=  "</tr>";
 				HTMLString +=  "<tr>";
 				HTMLString +=  "<td class=\"tdLeft\">Variable Name:</td>";
@@ -112,6 +111,24 @@ public class BrowseAlphabetVariable extends HttpServlet {
 					HTMLString += "<td class=\"tdRight\"></td>";
 				}
 				HTMLString +=  "</tr>";
+				try {
+					NodeList categoryNode = element.getElementsByTagName("catgry");
+					
+					HTMLString +=  "<tr><td class=\"tdLeft\">Values: </td>";	
+					HTMLString +=  "<td class=\"tdRight\">";
+					for (int i=0; i<categoryNode.getLength(); i++) {
+						Element categories = (Element) categoryNode.item(i);
+						HTMLString += categories.getElementsByTagName("catValu").item(0).getFirstChild().getNodeValue() + " ";
+						try {
+							HTMLString += categories.getElementsByTagName("labl").item(0).getFirstChild().getNodeValue() + "<br />";
+						} catch (NullPointerException ne) {
+							HTMLString += "<br />";
+						}
+					}
+				    HTMLString += "</td></tr>";	
+				} catch (NullPointerException ne) { 
+					HTMLString += "<tr><td class=\"tdLeft\"><td class=\"tdRight\"></td></tr>";
+				}
 				HTMLString +=  "</table>";
 				
 			} catch (Exception e) {
@@ -122,6 +139,7 @@ public class BrowseAlphabetVariable extends HttpServlet {
 		
 		request.setAttribute("HTMLString", HTMLString);
 		request.setAttribute("variableName", request.getParameter("variableName"));
+		request.setAttribute("backInfo", request.getParameter("backInfo"));
 		request.getRequestDispatcher("/BrowseAlphabetVariable.jsp").forward(request,response); 
 	}
 

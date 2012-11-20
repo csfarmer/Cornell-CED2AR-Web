@@ -38,7 +38,10 @@ public class LoginServlet extends HttpServlet {
 		String redirect = request.getParameter("redirect");
 		if(redirect == null){
 			redirect = "index.jsp";	
-		}	
+		}
+		redirect += "?variableName=" + request.getParameter("variableName");
+		redirect += "&codebook=" + request.getParameter("codebook");
+		redirect += "&backInfo=" + request.getParameter("backInfo");
 		//Redirect if already logged in
 		HttpSession userSession = request.getSession();
 		try
@@ -73,7 +76,7 @@ public class LoginServlet extends HttpServlet {
 		+"	<script src='http://code.jquery.com/jquery-latest.js'></script>"
 		+"	<title>Please Login to Continue</title>"
 		+"</head><body>"
-		+"	<form action='Login?redirect="+ redirect+"' method='post'>"
+		+"	<form action='Login?redirect="+ request.getParameter("redirect") +"&variableName=" + request.getParameter("variableName") + "&codebook=" + request.getParameter("codebook") + "&backInfo=" + request.getParameter("backInfo") + "' method='post'>"
 		+"	<div id='passwordTable'><h2>Please Login</h2>"
 		+"		<table><tr><td>Email</td><td><input name='email' type='text' method='post'/> </td></tr>"
 		+"		<tr><td>Password</td><td><input name='password' size=15 type='password' /></td></tr>" 
@@ -94,6 +97,11 @@ public class LoginServlet extends HttpServlet {
 		if(redirect == null){
 			redirect = "index.jsp";
 		}
+		
+		redirect += "?variableName=" + request.getParameter("variableName");
+		redirect += "&codebook=" + request.getParameter("codebook");
+		redirect += "&backInfo=" + request.getParameter("backInfo");
+		
 		String loggedIn = request.getParameter("loggedIn");
 		if(loggedIn!=null)
 		{

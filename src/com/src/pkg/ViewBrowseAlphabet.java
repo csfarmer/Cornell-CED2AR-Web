@@ -87,7 +87,7 @@ public class ViewBrowseAlphabet extends HttpServlet {
 						}
 						
 						
-						out.print("<td class=\"tdLeft\"><a href=\"Login?redirect=BrowseAlphabetVariable?variableName=" + element.getAttributes().getNamedItem("name").getNodeValue() +  "&codebook=" + codebookTitle + "\"id=\"" + element.getAttributes().getNamedItem("name").getNodeValue() + "\" class=\"variableName\">" + element.getAttributes().getNamedItem("name").getNodeValue() + "</a></td>");
+						out.print("<td class=\"tdLeft\"><a href=\"Login?redirect=BrowseAlphabetVariable&variableName=" + element.getAttributes().getNamedItem("name").getNodeValue() +  "&codebook=" + codebookTitle + "&backInfo=" + request.getParameter("variableName") + "\" id=\"" + element.getAttributes().getNamedItem("name").getNodeValue() + "\" class=\"variableName\">" + element.getAttributes().getNamedItem("name").getNodeValue() + "</a></td>");
 						try { NodeList label = element.getElementsByTagName("labl");
 							  out.print("<td class=\"tdMiddle\">" + label.item(0).getFirstChild().getNodeValue() + "</td>"); 
 							  out.print("<td class=\"tdRight\">" + codebookTitle + "</td>"); 
