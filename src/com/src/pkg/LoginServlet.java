@@ -39,7 +39,8 @@ public class LoginServlet extends HttpServlet {
 		if(redirect == null){
 			redirect = "index.jsp";	
 		} 
-		if (request.getParameter("variableName") != null)
+		String varName = request.getParameter("variableName");
+		if (varName != null && !varName.equals("null"))
 			redirect += "?variableName=" + request.getParameter("variableName");
 		if (request.getParameter("codebook") != null)
 			redirect += "&codebook=" + request.getParameter("codebook");
@@ -105,7 +106,8 @@ public class LoginServlet extends HttpServlet {
 			redirect = "index.jsp";
 		}	
 		
-		if (request.getParameter("variableName") != null)
+		String varName = request.getParameter("variableName");
+		if (varName != null && !varName.equals("null"))
 			redirect += "?variableName=" + request.getParameter("variableName");
 		if (request.getParameter("codebook") != null)
 			redirect += "&codebook=" + request.getParameter("codebook");

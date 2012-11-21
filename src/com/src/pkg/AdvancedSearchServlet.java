@@ -153,9 +153,15 @@ public class AdvancedSearchServlet extends HttpServlet {
 					if (codebookTagLocation.compareDocumentPosition(codebookNode) == 20)
 						codebookTitle = codebookNode.getFirstChild().getNodeValue();
 				}
-
+				//"&backInfo=" + request.getParameter("query") +
+				String urlHTML = "<td class=\"tdLeft\">"
+				+"<a href=\"Login?redirect=AdvancedSearchViewVariable?variableName=" 
+				+ element.getAttributes().getNamedItem("name").getNodeValue() 
+				+ "&backInfo="
+				+ "&codebook="+ codebookTitle + "\" class=\"variableName\">" 	
+				+ element.getAttributes().getNamedItem("name").getNodeValue() + "</a></td>";
 				
-				out.print("<td class=\"tdLeft\"><a href=\"Login?redirect=AdvancedSearchViewVariable?variableName=" + element.getAttributes().getNamedItem("name").getNodeValue() + "&codebook=" + codebookTitle + "\" class=\"variableName\">" + element.getAttributes().getNamedItem("name").getNodeValue() + "</a></td>");
+				out.print(urlHTML);
 				try { NodeList label = element.getElementsByTagName("labl");
 					  out.print("<td class=\"tdMiddle\">" + label.item(0).getFirstChild().getNodeValue() + "</td>"); 
 					  out.print("<td class=\"tdRight\">" + codebookTitle + "</td>"); 
@@ -169,9 +175,6 @@ public class AdvancedSearchServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		out.close();
-		
-		
+		out.close();				
 	}
-
 }

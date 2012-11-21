@@ -21,10 +21,10 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 /**
- * Servlet implementation class SimpleSearchViewVariable
+ * Servlet implementation class AdvancedSearchViewVariable
  */
 
-@WebServlet("/SimpleSearchViewVariable")
+@WebServlet("/AdvancedSearchViewVariable")
 public class AdvancedSearchViewVariable extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
