@@ -11,7 +11,8 @@ $(document).ready(function() {
 			data: $('#advanced_search').serialize(),
 			success: function(response) {
 				$("#results").html(response);
-				$("#simpleSearchBack").on("click", function() { 
+
+				$("#advancedSearchBack").on("click", function() { 
 					$("#results").hide();
 					$("#advanced_search").show();
 				});
@@ -30,6 +31,11 @@ $(document).ready(function() {
 			data: $('#advanced_search').serialize(),
 			success: function(response) {
 				$("#results").html(response);
+
+				$("#advancedSearchBack").on("click", function() { 
+					$("#results").hide();
+					$("#advanced_search").show();
+				});
 			}
 		}); 
 

@@ -132,7 +132,8 @@ public class AdvancedSearchServlet extends HttpServlet {
 			NodeList codebookNames = doc.getElementsByTagName("titl");
 			
 		    // Header table HTML
-			out.print("<span class=\"alignRight\"><span id=\"simpleSearchBack\">&lt;&lt;Search again.</span></span><br />");
+	        out.print(variableNames.getLength() + " results returned.");
+			out.print("<span class=\"alignRight\"><span id=\"advancedSearchBack\">&lt;&lt;Search again.</span></span><br />");
 		    out.print("<hr />");
 		    out.print("<table class=\"simpleSearchTable\"><tr><td class=\"tdLeft\">Variable</td><td class=\"tdMiddle\">Label</td><td class=\"tdRight\">Codebook</td></tr></table>");
 		    out.print("<hr />");
@@ -154,7 +155,7 @@ public class AdvancedSearchServlet extends HttpServlet {
 				}
 
 				
-				out.print("<td class=\"tdLeft\"><a href=\"Login?redirect=SimpleSearchViewVariable?variableName=" + element.getAttributes().getNamedItem("name").getNodeValue() + "&codebook=" + codebookTitle + "\" class=\"variableName\">" + element.getAttributes().getNamedItem("name").getNodeValue() + "</a></td>");
+				out.print("<td class=\"tdLeft\"><a href=\"Login?redirect=AdvancedSearchViewVariable?variableName=" + element.getAttributes().getNamedItem("name").getNodeValue() + "&codebook=" + codebookTitle + "\" class=\"variableName\">" + element.getAttributes().getNamedItem("name").getNodeValue() + "</a></td>");
 				try { NodeList label = element.getElementsByTagName("labl");
 					  out.print("<td class=\"tdMiddle\">" + label.item(0).getFirstChild().getNodeValue() + "</td>"); 
 					  out.print("<td class=\"tdRight\">" + codebookTitle + "</td>"); 

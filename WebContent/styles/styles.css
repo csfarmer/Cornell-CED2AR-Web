@@ -61,6 +61,11 @@ table#advanced_table td { padding: 10px 20px; }
 				text-decoration: underline; 
 				cursor: hand; 
 				cursor: pointer; }
+				
+#advancedSearchBack { color: blue;
+				text-decoration: underline; 
+				cursor: hand; 
+				cursor: pointer; }
 
 #content a:visited { color: blue; }
 
