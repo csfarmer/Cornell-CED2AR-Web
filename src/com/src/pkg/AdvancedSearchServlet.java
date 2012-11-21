@@ -58,7 +58,8 @@ public class AdvancedSearchServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
 		response.setContentType("text/html");
-		String apiString = "http://rschweb.ciserrsch.cornell.edu:8080/CED2AR_Query/search?return=variables&where=";
+		String baseURL = "http://rschweb.ciserrsch.cornell.edu:8080/CED2AR_Query/search?return=variables&where=";
+		String apiString = "";
 		
 		//Gets list of fields that are 
 		List<String> queries = new ArrayList<String>();
@@ -107,7 +108,7 @@ public class AdvancedSearchServlet extends HttpServlet {
 			}
 		}
 		catch(NullPointerException e){}
-		URL handle = new URL(apiString);
+		URL handle = new URL(baseURL + apiString);
 		URLConnection cn = handle.openConnection();
         BufferedReader in = new BufferedReader(
                                 new InputStreamReader(
@@ -157,7 +158,7 @@ public class AdvancedSearchServlet extends HttpServlet {
 				String urlHTML = "<td class=\"tdLeft\">"
 				+"<a href=\"Login?redirect=AdvancedSearchViewVariable?variableName=" 
 				+ element.getAttributes().getNamedItem("name").getNodeValue() 
-				+ "&backInfo="
+				+ "&backInfo=" + apiString
 				+ "&codebook="+ codebookTitle + "\" class=\"variableName\">" 	
 				+ element.getAttributes().getNamedItem("name").getNodeValue() + "</a></td>";
 				
