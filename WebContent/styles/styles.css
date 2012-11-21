@@ -1,31 +1,51 @@
 @CHARSET "ISO-8859-1";
 
-body { background-color: #C0C0C0; }
+body { background-color: #FFFFFF; font-family: Arial, Helvetica, sans-serif; font-size: 1em; margin: 0; padding: 0; }
+
+sup { font-size: 0.6em; }
+.smallText { font-size: 0.75em; }
+.alignRight { float: right; }
 
 #main { width: 800px;
 		margin: auto;}
 
-#header { height: 100px; 
-		  padding-top: 25px; }
+#header { background-color: #b31b1b;
+		  padding: 15px 0 30px 0; }
 		  
-#header h1 { color: #D80000; }
+#header h1 { color: #ffffff; font-family: Verdana, Geneva, sans-serif; margin: auto; width: 715px; }
+#header .subhead { font-size: 0.4em; font-weight: normal; }
+
+#navTop { font-size: 0.8em; margin: auto; text-align: right; width: 715px; }
+#navTop a { color: #000000; padding: 0 5px; text-decoration: none; } 
+#navTop a:hover { text-decoration: underline; }
 
 .center { text-align: center; }
+.clear {
+	clear: both;
+	display: block;
+	overflow: hidden;
+	visibility: hidden;
+	width: 0;
+	height: 0;
+}
 
-#navDiv { width: 800px;
-		  height: 50px; }
+#navDiv { width: 800px; position: relative; top: 1px; }
 		  
 #navList { width: 800px;
 		  list-style-type: none; }
 		  
-#navList li { border: 2px solid #000000;
-			  background: #FFFFFF;
+#navList li { border: 1px solid #000000;
+				-moz-border-radius-topleft: 10px;
+				-moz-border-radius-topright: 10px;
+				-webkit-border-top-left-radius: 10px;
+				-webkit-border-top-right-radius: 10px;
+			  background-color: #EEEEEE;
 			  float: left; }
 
 #navList li#tab-advanced { border-left: 0px;
 					 	   border-right: 0px; }
 
-#navList li.selected { background: #99CCFF; }
+#navList li.selected { background-color: #FFFFFF; border-bottom-color: #FFFFFF; }
 
 #navList a { display: block;
 			 text-align: center;
@@ -34,14 +54,21 @@ body { background-color: #C0C0C0; }
 			 text-decoration: none;
 			 color: #000000;
 			 font-weight: bold; }
+			 
+#navList li:hover { background-color: #FFFFFF; }
 
 #content { width: 715px;
-		   margin: 10px 0px 0px 0px;
-		   padding: 0px 50px 50px 50px;
+		   border: 1px solid #000000;
+		   margin: 0;
+		   padding: 30px 50px;
 		   overflow: hidden; }
+		   
+input[type="text"] { border: 1px solid #000000; font-size: 14px; padding: 5px; }
+input[type="submit"] { background-color: #4d4e53; border: none; color: #FFFFFF; font-size: 14px; font-weight: bold; padding: 5px; }
+input[type="submit"]:hover { background-color: #666666; }
 
-table#simple_table { margin: 50px 0px 0px 150px; }
-table#simple_table td { padding: 15px; }
+table#simple_table { margin: 10px 0px 0px 0px; }
+table#simple_table td { padding-right: 15px; }
 
 table#advanced_table { margin: 50px 0px 0px 60px; }
 table#advanced_table td { padding: 10px 20px; }
@@ -51,6 +78,14 @@ table#advanced_table td { padding: 10px 20px; }
 .selected-browse { text-decoration: none; }
 
 #content a:visited { color: blue; }
+
+.searchResultHeader { font-size: 1.1em; font-weight: bold; }
+#simpleSearchBack { color: blue; cursor: pointer; font-size: 0.75em; margin-top: 5px; text-decoration: underline; }
+.simpleSearchTable { border-top: 1px solid #4d4e53; margin-top: 20px; width: 100%; }
+.simpleSearchTable th { border-bottom: 1px solid #4d4e53; padding: 10px; text-align: left; }
+.simpleSearchTable td { padding: 5px 10px; text-align: left; }
+
+
 /* Styles for displaying the variables in a codebook */
 .codebookTable { width: 600px; }
 
