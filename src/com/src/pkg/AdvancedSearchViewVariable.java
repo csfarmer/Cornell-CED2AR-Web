@@ -137,7 +137,7 @@ public class AdvancedSearchViewVariable extends HttpServlet {
 			}
 			in.close();			
 		}
-		
+		//System.out.println(request.getParameter("backInfo"));
 		request.setAttribute("HTMLString", HTMLString);
 		request.setAttribute("variableName", request.getParameter("variableName"));
 		request.setAttribute("backInfo", request.getParameter("backInfo"));	

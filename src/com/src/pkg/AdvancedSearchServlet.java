@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.io.StringReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -58,11 +59,11 @@ public class AdvancedSearchServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
 		response.setContentType("text/html");
-		String baseURL = "http://rschweb.ciserrsch.cornell.edu:8080/CED2AR_Query/search?return=variables&where=";
-		String apiString = "";
+		String apiString = "http://rschweb.ciserrsch.cornell.edu:8080/CED2AR_Query/search?return=variables&where=";
 		
 		//Gets list of fields that are 
 		List<String> queries = new ArrayList<String>();
+		String backInfo = "";
 		try{
 			int i = 1;
 			boolean not = false;//Used later to determine if previous statement contains and_not
@@ -74,6 +75,9 @@ public class AdvancedSearchServlet extends HttpServlet {
 				}
 				String p = request.getParameter("searchParam"+i);
 				String b = request.getParameter("searchBool"+i);
+				backInfo += "searchParam" + i + "=" + p + "!";
+				backInfo += "advanced_search" + i + "=" + temp + "!";
+				backInfo += "searchBool" + i + "=" + b + "!";
 				//Filters out non-alphanumeric characters
 				temp = temp.replaceAll("[^A-Za-z0-9 ]", "").trim();
 				String[] tempArray = temp.split(" ");
@@ -108,7 +112,7 @@ public class AdvancedSearchServlet extends HttpServlet {
 			}
 		}
 		catch(NullPointerException e){}
-		URL handle = new URL(baseURL + apiString);
+		URL handle = new URL(apiString);
 		URLConnection cn = handle.openConnection();
         BufferedReader in = new BufferedReader(
                                 new InputStreamReader(
@@ -119,8 +123,7 @@ public class AdvancedSearchServlet extends HttpServlet {
 			xmlString += inputLine;
 		}
 		
-		//out.print(apiString);
-		
+        backInfo = backInfo.substring(0, backInfo.length()-1);
 		try {
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder();
@@ -158,10 +161,11 @@ public class AdvancedSearchServlet extends HttpServlet {
 				String urlHTML = "<td class=\"tdLeft\">"
 				+"<a href=\"Login?redirect=AdvancedSearchViewVariable?variableName=" 
 				+ element.getAttributes().getNamedItem("name").getNodeValue() 
-				+ "&backInfo=" + apiString
+				+ "&backInfo=" + backInfo
 				+ "&codebook="+ codebookTitle + "\" class=\"variableName\">" 	
 				+ element.getAttributes().getNamedItem("name").getNodeValue() + "</a></td>";
 				
+
 				out.print(urlHTML);
 				try { NodeList label = element.getElementsByTagName("labl");
 					  out.print("<td class=\"tdMiddle\">" + label.item(0).getFirstChild().getNodeValue() + "</td>"); 

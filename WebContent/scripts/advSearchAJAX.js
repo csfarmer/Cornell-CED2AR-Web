@@ -5,13 +5,15 @@ $(document).ready(function() {
 		$("#results").html("Loading...");
 		$("#results").show();
 		query = location.hash.replace('#', '');
+		query = query.replace(/!/g, '&');
+
 		$.ajax({
 			type: "POST",
 			url: "AdvancedSearchServlet",
-			data: $('#advanced_search').serialize(),
+			data: query,
 			success: function(response) {
 				$("#results").html(response);
-
+				
 				$("#advancedSearchBack").on("click", function() { 
 					$("#results").hide();
 					$("#advanced_search").show();

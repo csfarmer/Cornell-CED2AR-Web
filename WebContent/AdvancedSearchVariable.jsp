@@ -37,7 +37,7 @@
     </div>
      
     <div id="content">
-      <p><a href="index.jsp#<%= request.getAttribute("backInfo") %>">&lt;&lt; Back To List</a><br /></p>
+      <p><a href="AdvancedSearch.jsp#<%= request.getAttribute("backInfo") %>">&lt;&lt; Back To List</a><br /></p>
 		
 	        <div id="browseCodebookHeader">
 	        <hr /> 
