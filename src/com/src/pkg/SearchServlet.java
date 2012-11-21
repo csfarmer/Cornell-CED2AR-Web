@@ -148,25 +148,11 @@ public class SearchServlet extends HttpServlet {
 				out.print("<tr>");
 				Element element = (Element) variableNames.item(i);
 				
-				// Calculate the name of the codebook by using the location of the codebook tag and the variable node
-<<<<<<< HEAD
-				String codebookTitle = "";
-				Element codebookTagLocation = (Element) element.getParentNode().getParentNode();
 
-				// Loop through all codebook titles and find the one between the codebook tag and variable name
-				for (int j=0; j < codebookNames.getLength(); j++) {
-					Element codebookNode = (Element) codebookNames.item(j);
-					if (codebookTagLocation.compareDocumentPosition(codebookNode) == 20)
-						codebookTitle = codebookNode.getFirstChild().getNodeValue();
-				}
-
-				
-				out.print("<td class=\"tdLeft\"><a href=\"Login?redirect=SimpleSearchViewVariable&variableName=" + element.getAttributes().getNamedItem("name").getNodeValue() + "&codebook=" + codebookTitle + "&backInfo=" + request.getParameter("query") + "\" class=\"variableName\">" + element.getAttributes().getNamedItem("name").getNodeValue() + "</a></td>");
-=======
 				String codebookTitle = element.getAttribute("codeBook");
 								
 				out.print("<td class=\"tdLeft\"><a href=\"SimpleSearchViewVariable?variableName=" + element.getAttributes().getNamedItem("name").getNodeValue() + "&codebook=" + codebookTitle + "\" class=\"variableName\">" + element.getAttributes().getNamedItem("name").getNodeValue() + "</a></td>");
->>>>>>> added xmlutil, a class containing paging and counting static method
+				
 				try { NodeList label = element.getElementsByTagName("labl");
 					  out.print("<td class=\"tdMiddle\">" + label.item(0).getFirstChild().getNodeValue() + "</td>"); 
 					  out.print("<td class=\"tdRight\">" + codebookTitle + "</td>"); 
