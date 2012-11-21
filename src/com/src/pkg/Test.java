@@ -28,7 +28,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-
 /**
  * Servlet implementation class Test
  */
@@ -49,18 +48,6 @@ public class Test extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
-		String test = "ba.p-63@cornell.ed.u";
-		
-		/**
-		 * Need Java.mail
-		 * http://www.oracle.com/technetwork/java/javamail/index.html
-		try {
-		    new InternetAddress(test).getAddress();
-		    out.write("Good");
-		} catch (AddressException e) {
-		    // it's not valid
-		}
-		*/
 		
 		/*
 		String regex = "";
@@ -72,12 +59,28 @@ public class Test extends HttpServlet {
 		}else{
 			out.write("Bad");
 		}*/	
+		/*
+		Boolean good = Security.login("bap63@cornell.edu", "password");
+	
+		if(good){
+			
+			out.write("Good");
+		}else{
+			out.write("Bad");
+		}
+		*/
 		
-        
+		/*
+		Boolean good = Security.testEmail("bap63@cornell.edu");
+	
+		if(good){
+			
+			out.write("Good email");
+		}else{
+			out.write("Bad email");
+		}*/
 
-
-		
-
+	
 		
 	}
 

@@ -1,0 +1,130 @@
+@CHARSET "ISO-8859-1";
+
+body { background-color: #C0C0C0; }
+
+#main { width: 800px;
+		margin: auto;}
+
+#header { height: 100px; 
+		  padding-top: 25px; }
+		  
+#header h1 { color: #D80000; }
+
+.center { text-align: center; }
+
+.alignRight { float: right; }
+
+
+#navDiv { width: 800px; }
+		  
+#navList { list-style-type: none;
+           overflow: hidden; }
+		  
+#navList li { float: left; }
+
+#navList li#tab-advanced a { border-left: 0px;
+					 	   border-right: 0px; }
+
+#navList a.selected { background: #99CCFF; }
+
+#navList a { display: block;
+			 text-align: center;
+			 width: 238px;
+			 padding: 7px 0px;
+			 text-decoration: none;
+			 color: #000000;
+			 font-weight: bold; 
+			 border: 2px solid #000000;
+			 background: #FFFFFF; }
+
+#content { width: 700px;
+		   margin: 10px 0px 0px 0px;
+		   padding: 0px 50px 50px 50px;
+		   overflow: hidden; }
+
+table#simple_table { margin: 50px 0px 0px 150px; }
+table#simple_table td { padding: 15px; }
+
+table#advanced_table { margin: 50px 0px 0px 60px; }
+table#advanced_table td { padding: 10px 20px; }
+
+.separate { height: 25px; }
+
+.selected-browse { text-decoration: none; }
+
+.alphabetChar { color: blue;
+				text-decoration: underline; 
+				cursor: hand; 
+				cursor: pointer; }
+				
+#simpleSearchBack { color: blue;
+				text-decoration: underline; 
+				cursor: hand; 
+				cursor: pointer; }
+				
+#advancedSearchBack { color: blue;
+				text-decoration: underline; 
+				cursor: hand; 
+				cursor: pointer; }
+
+#content a:visited { color: blue; }
+
+/* Styles for the tables displaying the variables for browsing and searching */
+.codebookTable { width: 600px; }
+
+.codebookTable td.tdLeft { width: 250px; }
+.codebookTable td.tdRight { width: 350px; }
+
+.alphabetTable { width: 700px; }
+
+.alphabetTable td.tdLeft { width: 150px; }
+.alphabetTable td.tdMiddle { width: 250px; }
+.alphabetTable td.tdRight { width: 200px;
+							padding-left: 25px; }
+
+.simpleSearchTable { width: 700px; }
+
+.simpleSearchTable td.tdLeft { width: 150px; }
+.simpleSearchTable td.tdMiddle { width: 250px; }
+.simpleSearchTable td.tdRight { width: 200px;
+								padding-left: 25px; }
+							
+.variableTable { width: 700px; }
+
+.variableTable td.tdLeft { width: 200px;
+						   padding: 10px 0px; }
+.variableTable td.tdRight { width: 500px;
+						    padding: 10px 0px; }
+						    
+#passwordTable{
+
+	margin-right:auto;
+	margin-left:auto;
+	padding:1em;
+	width:20em;	
+}
+#passwordTable * input[type=password]{
+	margin-left:.25em;
+	width:12em;
+}
+#passwordTable * input[type=text]{
+	margin-left:.25em;
+	width:12em;
+}
+#passwordTable * td{
+	padding:.125em .5em;
+	margin-left:auto;
+	margin-right:auto;
+}
+.loginExtra{
+	text-align:right;
+	line-height: 1.5em;
+}
+#loginError{
+	font-style:italic;
+	color:#F00;
+}
+#topLoginBar{
+	text-align:right;
+	padding:.25em;
+}					

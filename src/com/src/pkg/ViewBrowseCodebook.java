@@ -45,7 +45,7 @@ public class ViewBrowseCodebook extends HttpServlet {
 		// Get the list of all variables for browse by the selected codebook
 		if (request.getParameter("codebook") != null) {
 			response.setContentType("text/html");
-			URL handle = new URL("http://localhost:8000/api/v1/codebooks/" + request.getParameter("codebook") + "/variables.xml");
+			URL handle = new URL("http://rschweb.ciserrsch.cornell.edu:8080/CED2AR_Query/search?return=variables&where=codebooktitle=" + request.getParameter("codebook"));
 			URLConnection cn = handle.openConnection();
 	        BufferedReader in = new BufferedReader(
 	                                new InputStreamReader(
@@ -55,7 +55,6 @@ public class ViewBrowseCodebook extends HttpServlet {
 	        while ((inputLine = in.readLine()) != null) {
 				xmlString += inputLine;
 			}
-	        out.print(xmlString);
 	         
 			try {
 				DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -71,7 +70,7 @@ public class ViewBrowseCodebook extends HttpServlet {
 				for (int i = 0; i < variableNames.getLength(); i++) {
 					out.print("<tr>");
 					Element element = (Element) variableNames.item(i);
-					out.print("<td class=\"tdLeft\"><a href=\"BrowseCodebookVariable?variableName=" + element.getAttributes().getNamedItem("name").getNodeValue() +  "&codebook=" + request.getParameter("codebook") + "\"id=\"" + element.getAttributes().getNamedItem("name").getNodeValue() + "\" class=\"variableName\">" + element.getAttributes().getNamedItem("name").getNodeValue() + "</a></td>");
+					out.print("<td class=\"tdLeft\"><a href=\"Login?redirect=BrowseCodebookVariable&variableName=" + element.getAttributes().getNamedItem("name").getNodeValue() +  "&codebook=" + request.getParameter("codebook") + "&backInfo=" + request.getParameter("codebook") + "\"id=\"" + element.getAttributes().getNamedItem("name").getNodeValue() + "\" class=\"variableName\">" + element.getAttributes().getNamedItem("name").getNodeValue() + "</a></td>");
 					try { NodeList label = element.getElementsByTagName("labl");
 						  out.print("<td class=\"tdRight\">" + label.item(0).getFirstChild().getNodeValue() + "</td>"); 
 						  out.print("</tr>"); }

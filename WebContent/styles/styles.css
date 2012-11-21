@@ -20,6 +20,7 @@ sup { font-size: 0.6em; }
 #navTop a:hover { text-decoration: underline; }
 
 .center { text-align: center; }
+.alignRight { float: right; }
 .clear {
 	clear: both;
 	display: block;
@@ -29,11 +30,12 @@ sup { font-size: 0.6em; }
 	height: 0;
 }
 
-#navDiv { width: 800px; position: relative; top: 1px; }
-		  
-#navList { width: 800px;
-		  list-style-type: none; }
-		  
+#navDiv { width: 800px; position: relative; top: 1px; }	  
+#navList { list-style-type: none;
+           margin-bottom: 0;
+		   overflow: hidden; 
+		   padding: 0; 
+}
 #navList li { border: 1px solid #000000;
 				-moz-border-radius-topleft: 10px;
 				-moz-border-radius-topright: 10px;
@@ -41,22 +43,18 @@ sup { font-size: 0.6em; }
 				-webkit-border-top-right-radius: 10px;
 			  background-color: #EEEEEE;
 			  float: left; }
-
-#navList li#tab-advanced { border-left: 0px;
+#navList li#tab-advanced a { border-left: 0px;
 					 	   border-right: 0px; }
-
 #navList li.selected { background-color: #FFFFFF; border-bottom-color: #FFFFFF; }
-
+#navList li:hover { background-color: #FFFFFF; }
 #navList a { display: block;
 			 text-align: center;
-			 width: 240px;
+			 width: 238px;
 			 padding: 7px 0px;
 			 text-decoration: none;
 			 color: #000000;
 			 font-weight: bold; }
 			 
-#navList li:hover { background-color: #FFFFFF; }
-
 #content { width: 715px;
 		   border: 1px solid #000000;
 		   margin: 0;
@@ -77,24 +75,81 @@ table#advanced_table td { padding: 10px 20px; }
 
 .selected-browse { text-decoration: none; }
 
+.alphabetChar { color: blue;
+				text-decoration: underline; 
+				cursor: hand; 
+				cursor: pointer; }
+				
+#simpleSearchBack { color: blue; cursor: pointer; font-size: 0.75em; margin-top: 5px; text-decoration: underline; }
+				
+#advancedSearchBack { color: blue;
+				text-decoration: underline; 
+				cursor: hand; 
+				cursor: pointer; }
+
 #content a:visited { color: blue; }
 
 .searchResultHeader { font-size: 1.1em; font-weight: bold; }
-#simpleSearchBack { color: blue; cursor: pointer; font-size: 0.75em; margin-top: 5px; text-decoration: underline; }
-.simpleSearchTable { border-top: 1px solid #4d4e53; margin-top: 20px; width: 100%; }
-.simpleSearchTable th { border-bottom: 1px solid #4d4e53; padding: 10px; text-align: left; }
-.simpleSearchTable td { padding: 5px 10px; text-align: left; }
 
 
-/* Styles for displaying the variables in a codebook */
+/* Styles for the tables displaying the variables for browsing and searching */
+
 .codebookTable { width: 600px; }
 
 .codebookTable td.tdLeft { width: 250px; }
 .codebookTable td.tdRight { width: 350px; }
 
-.variableTable { width: 500px; }
+.alphabetTable { width: 700px; }
+
+.alphabetTable td.tdLeft { width: 150px; }
+.alphabetTable td.tdMiddle { width: 250px; }
+.alphabetTable td.tdRight { width: 200px;
+							padding-left: 25px; }
+
+.simpleSearchTable { border-top: 1px solid #4d4e53; margin-top: 20px; width: 100%; }
+.simpleSearchTable th { border-bottom: 1px solid #4d4e53; padding: 10px; text-align: left; }
+.simpleSearchTable td { padding: 5px 10px; text-align: left; }
+.simpleSearchTable td.tdLeft { width: 150px; }
+.simpleSearchTable td.tdMiddle { width: 250px; }
+.simpleSearchTable td.tdRight { width: 200px;
+								padding-left: 25px; }
+							
+.variableTable { width: 700px; }
 
 .variableTable td.tdLeft { width: 200px;
 						   padding: 10px 0px; }
-.variableTable td.tdRight { width: 300px;
+.variableTable td.tdRight { width: 500px;
 						    padding: 10px 0px; }
+						    
+#passwordTable{
+
+	margin-right:auto;
+	margin-left:auto;
+	padding:1em;
+	width:20em;	
+}
+#passwordTable * input[type=password]{
+	margin-left:.25em;
+	width:12em;
+}
+#passwordTable * input[type=text]{
+	margin-left:.25em;
+	width:12em;
+}
+#passwordTable * td{
+	padding:.125em .5em;
+	margin-left:auto;
+	margin-right:auto;
+}
+.loginExtra{
+	text-align:right;
+	line-height: 1.5em;
+}
+#loginError{
+	font-style:italic;
+	color:#F00;
+}
+#topLoginBar{
+	text-align:right;
+	padding:.25em;
+}					

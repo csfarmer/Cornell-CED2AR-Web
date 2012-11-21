@@ -11,17 +11,12 @@ import java.util.Random;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 
 public class Security {
 	//TODO:Check Password requirements? Length, letters, numbers, special characters?
 	/*
-	 *Wrote regex for:  
-	 * -Must start and end with letter. Can have space or hyphen in the middle. 
-	 *
-	 *Need to write regex for email address. Might use 
-	 *http://www.oracle.com/technetwork/java/javamail/javamail144-1562675.html 
-	 *to comply with RDF  standards
-	 *Look at function testInput() in this class 
 	 * 
 	 * */		
 	public void signup(String password, String fname, String lname, String org, String field, String Email) {
@@ -39,14 +34,14 @@ public class Security {
 					personID = Integer.toString(pID);
 				} 
 				catch (SQLException e) {
-					e.printStackTrace();;
+					e.printStackTrace();
 				}
 		   }
 
 		
-		//Creates random 32 byte for password
+		//Creates random 20 byte salt for password
 		Random r = new SecureRandom();
-		byte[] s = new byte[32];
+		byte[] s = new byte[20];
 		r.nextBytes(s);
 		String salt = s.toString();
 		String hash = hash(salt + password);
@@ -69,18 +64,73 @@ public class Security {
 			Salt
 			DateCreated
 		 */
+		
+		/*Fields for SecurityQuestions table
+		 		Question ID
+		 		Question Text
+		 */
+		
+		/*Fields for SecurityAnswer table
+ 			AnswerID
+ 			PersonID
+ 			QuestionID
+ 			AnswerHash
+ 			AnswerSalt
+		*/
+		
+		
 		db.execSQL(insertQuery);
 		
 	}
-	//Given username and inputed password, checks in password is correct
-	public static Boolean login(String email, String password) {
+	/*Given email and inputed password, checks in password is correct. If email isn't found, returns false.*/
+	public static boolean login(String email, String password) {
+		String salt = "";
+		String hash = "";
 		Boolean authenicated = false;
+		DBhandle db = new DBhandle();
 		
-		String salt = "";//TODO: Need to make DB call to fetch user's salt
+		//Checks to see if email address is valid. Will return false if bad.
+		boolean validEmail = testEmail(email);
+		if(!validEmail){
+			return false;
+		}
+
+		//Checks to see if email address exists. If false, returns invalid username password combination"
+		ResultSet emailExists = db.execSQL("SELECT Count(*) as c FROM public.\"Person\" where \"Person\".\"Email\"='"+email+"'");
+		if(emailExists != null){
+			try {
+					emailExists.next();
+					int pID = Integer.parseInt(emailExists.getString("c"));
+					if(pID != 1)
+					{
+						return false;
+					}
+				} 
+				catch (SQLException e) {
+					e.printStackTrace();;
+				}
+		   }
+		
+		//Fetches Password and Salt from DB
+		ResultSet hashResult = db.execSQL("SELECT \"Person\".\"PassHash\" as h FROM public.\"Person\" where \"Person\".\"Email\"='"+email+"'");
+		ResultSet saltResult = db.execSQL("SELECT \"Person\".\"Salt\" as s FROM public.\"Person\" where \"Person\".\"Email\"='"+email+"'");
+		if(hashResult != null && saltResult != null){
+			try {
+					hashResult.next();
+					saltResult.next();
+					hash = hashResult.getString("h");
+					salt = saltResult.getString("s");
+				} 
+				catch (SQLException e) {
+					e.printStackTrace();;
+				}
+		   }
+		
+		//Generated Hash based off salt from the db + what user inputed
 		String givenSalted = salt + password ;
 		String givenHash = hash(givenSalted);
 
-		String hash = "";;//TODO: Need to make DB call to fetch user's hashed password
+		//Compares given hash with stored db hash
 		if(givenHash.equals(hash)){
 			authenicated = true;
 		}else{
@@ -92,7 +142,7 @@ public class Security {
 	public static String hash(String password) {
 		StringBuilder hash = new StringBuilder();
 		try {
-			MessageDigest sha = MessageDigest.getInstance("SHA-1");
+			MessageDigest sha = MessageDigest.getInstance("SHA-512");
 			byte[] hashedBytes = sha.digest(password.getBytes());
 			char[] digits = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9','a', 'b', 'c', 'd', 'e', 'f' };
 			for (int idx = 0; idx < hashedBytes.length; ++idx) {
@@ -113,7 +163,7 @@ public class Security {
 	 * "^[a-zA-Z]+[- ]?[a-zA-Z]+$"
 	 * 
 	 * */
-	public static Boolean testInput(String input, String regex)
+	public static boolean testInput(String input, String regex)
 	{
 		input = input.trim();
 		if(input.length() == 0)
@@ -127,4 +177,14 @@ public class Security {
 		}	
 		
 	}
+	
+	/*Validates Email address input using java.mail package*/
+	public static boolean testEmail(String email){
+	        try {
+	            new InternetAddress(email).validate();
+	        } catch (AddressException ex) {
+	            return false;
+	        }
+	        return true;
+	}	
 }

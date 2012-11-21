@@ -18,8 +18,13 @@ public class DBhandle {
 	//Connects to CEDDAR DB
 	public DBhandle(){
 		try {
+			Class.forName("org.postgresql.Driver");
 			connection = DriverManager.getConnection("jdbc:postgresql://rschdata.ciserrsch.cornell.edu:5432/CED2AR_ADM","CED2AR_WEB", "BigredCU!");
 		} catch (SQLException e) {
+			Logger lgr = Logger.getLogger(DBhandle.class.getName());
+            lgr.log(Level.SEVERE, e.getMessage(), e);
+		}
+		catch (ClassNotFoundException e) {
 			Logger lgr = Logger.getLogger(DBhandle.class.getName());
             lgr.log(Level.SEVERE, e.getMessage(), e);
 		}

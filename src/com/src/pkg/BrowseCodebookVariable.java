@@ -46,7 +46,7 @@ public class BrowseCodebookVariable extends HttpServlet {
 		if (request.getParameter("variableName") != null) {
 			response.setContentType("text/html");
 			
-			URL handle = new URL("http://localhost:8000/api/v1/codebooks/" + request.getParameter("codebook") + "/variables/" + request.getParameter("variableName") + ".xml");
+			URL handle = new URL("http://rschweb.ciserrsch.cornell.edu:8080/CED2AR_Query/search?return=variables&where=codebooktitle=" + request.getParameter("codebook") + ",variablename=" + request.getParameter("variableName"));
 			URLConnection cn = handle.openConnection();
 	        BufferedReader in = new BufferedReader(
 	                                new InputStreamReader(
@@ -67,6 +67,10 @@ public class BrowseCodebookVariable extends HttpServlet {
 
 				NodeList variableNode = doc.getElementsByTagName("var");
 				Element element = (Element) variableNode.item(0);
+				
+				NodeList documentNode = doc.getElementsByTagName("docDscr");
+				Element documentInfo = (Element) documentNode.item(0);
+				
 				// Get data from the DOM to use for returning as HTML and  
 				// output the HTML to return to the client
 				HTMLString +=  "<table class=\"variableTable\">";
@@ -75,21 +79,57 @@ public class BrowseCodebookVariable extends HttpServlet {
 				HTMLString +=  "<td class=\"tdRight\">" + request.getParameter("codebook") + "</td>";	
 				HTMLString +=  "</tr>";
 				HTMLString +=  "<tr>";
+				HTMLString +=  "<td class=\"tdLeft\">Producer:</td>";
+				try { 
+					HTMLString +=  "<td class=\"tdRight\">" + documentInfo.getElementsByTagName("producer").item(0).getFirstChild().getNodeValue() + "</td>";	
+				} catch (NullPointerException ne) { 
+					HTMLString += "<td class=\"tdRight\"></td>";
+				}
+				HTMLString +=  "</tr>";
+				HTMLString +=  "<tr>";
 				HTMLString +=  "<td class=\"tdLeft\">Variable Name:</td>";
 				HTMLString +=  "<td class=\"tdRight\">" + request.getParameter("variableName") + "</td>";	
 				HTMLString +=  "</tr>";
 				HTMLString +=  "<tr>";
 				HTMLString +=  "<td class=\"tdLeft\">Label:</td>";
-				if (element.getElementsByTagName("labl").item(0).getFirstChild().getNodeValue() != null) {
+				try { 
 					HTMLString +=  "<td class=\"tdRight\">" + element.getElementsByTagName("labl").item(0).getFirstChild().getNodeValue() + "</td>";	
+				} catch (NullPointerException ne) { 
+					HTMLString += "<td class=\"tdRight\"></td>";
 				}
 				HTMLString +=  "</tr>";
+				try { 
+					HTMLString +=  "<tr><td class=\"tdLeft\">Full Description:</td><td class=\"tdRight\">" + element.getElementsByTagName("txt").item(0).getFirstChild().getNodeValue() + "</td></tr>";
+				} catch (NullPointerException ne) { }
+				try { 
+					HTMLString +=  "<tr><td class=\"tdLeft\">Concept:</td><td class=\"tdRight\">" + element.getElementsByTagName("concept").item(0).getFirstChild().getNodeValue() + "</td></tr>";
+				} catch (NullPointerException ne) { }
 				HTMLString +=  "<tr>";
 				HTMLString +=  "<td class=\"tdLeft\">Var Type:</td>";
-				if (element.getElementsByTagName("varFormat").item(0).getAttributes().getNamedItem("type").getNodeValue() != null) {
+				try {
 					HTMLString +=  "<td class=\"tdRight\">" + element.getElementsByTagName("varFormat").item(0).getAttributes().getNamedItem("type").getNodeValue() + "</td>";	
+				} catch (NullPointerException ne) { 
+					HTMLString += "<td class=\"tdRight\"></td>";
 				}
 				HTMLString +=  "</tr>";
+				try {
+					NodeList categoryNode = element.getElementsByTagName("catgry");
+					
+					HTMLString +=  "<tr><td class=\"tdLeft\">Values: </td>";	
+					HTMLString +=  "<td class=\"tdRight\">";
+					for (int i=0; i<categoryNode.getLength(); i++) {
+						Element categories = (Element) categoryNode.item(i);
+						HTMLString += categories.getElementsByTagName("catValu").item(0).getFirstChild().getNodeValue() + " ";
+						try {
+							HTMLString += categories.getElementsByTagName("labl").item(0).getFirstChild().getNodeValue() + "<br />";
+						} catch (NullPointerException ne) {
+							HTMLString += "<br />";
+						}
+					}
+				    HTMLString += "</td></tr>";	
+				} catch (NullPointerException ne) { 
+					HTMLString += "<tr><td class=\"tdLeft\"><td class=\"tdRight\"></td></tr>";
+				}
 				HTMLString +=  "</table>";
 				
 			} catch (Exception e) {
@@ -100,6 +140,7 @@ public class BrowseCodebookVariable extends HttpServlet {
 		
 		request.setAttribute("HTMLString", HTMLString);
 		request.setAttribute("variableName", request.getParameter("variableName"));
+		request.setAttribute("backInfo", request.getParameter("backInfo"));
 		request.getRequestDispatcher("/BrowseCodebookVariable.jsp").forward(request,response); 
 	}
 
