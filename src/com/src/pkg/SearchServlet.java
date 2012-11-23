@@ -74,14 +74,12 @@ public class SearchServlet extends HttpServlet {
 			NodeList codebookNames = doc.getElementsByTagName("titl");
 			
 		    // Header table HTML
-	        out.print("You are searching for \"" + request.getParameter("query") + "\", " + variableNames.getLength() + " results returned.");
+	        out.print("<span class=\"searchResultHeader\">You searched for \"" + request.getParameter("query") + "\", " + variableNames.getLength() + " results returned.</span>");
 	        out.print("<span class=\"alignRight\"><span id=\"simpleSearchBack\">&lt;&lt;Search again.</span></span>");
-	        out.print("<hr />");
-	        out.print("<table class=\"simpleSearchTable\"><tr><td class=\"tdLeft\">Variable</td><td class=\"tdMiddle\">Label</td><td class=\"tdRight\">Codebook</td></tr></table>");
-	        out.print("<hr />");
+	        out.print("<table class=\"simpleSearchTable\">");
+          out.print("<tr><th class=\"tdLeft\">Variable</th><th class=\"tdMiddle\">Label</th><th class=\"tdRight\">Codebook</th></tr>");
 	        
 			// Create a list of variables and info to be displayed, with the variable clickable to see more info
-			out.print("<table class=\"simpleSearchTable\">");
 			for (int i = 0; i < variableNames.getLength(); i++) {
 				out.print("<tr>");
 				Element element = (Element) variableNames.item(i);

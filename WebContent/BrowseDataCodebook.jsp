@@ -22,19 +22,17 @@
 <title>CED2AR</title>
 </head>
 <body>
-<%@include file='loginBar.jsp'%>
-  <div id="header">
-    <h1 class="center">CED2AR</h1>
-  </div>
+<%@include file='header.jsp'%>
   
   <div id="main">
   
   	<div id="navDiv">
-	  <ul id="navList">
-	    <li id="tab-simple"><a href="index.jsp">Simple Search</a></li>
-	    <li id="tab-advanced"><a href="AdvancedSearch.jsp">Advanced Search</a></li>
-	    <li id="tab-browse"><a href="BrowseDataCodebook.jsp" class="selected">Browse Data</a></li>
-	  </ul>
+  	  <ul id="navList">
+  	    <li id="tab-simple"><a href="index.jsp">Simple Search</a></li>
+  	    <li id="tab-advanced"><a href="AdvancedSearch.jsp">Advanced Search</a></li>
+  	    <li id="tab-browse" class="selected"><a href="BrowseDataCodebook.jsp">Browse Data</a></li>
+  	  </ul>
+      <div class="clear"></div>
     </div>
      
     <div id="content">
@@ -42,7 +40,7 @@
       <div class="separate"></div>
           <form id="chooseCodebook" name="chooseCodebook" action="" method="get">
 	      	  <select id="chooseCodebookSelect" name="codebook">
-	            <option value="default">Choose One Codebook</option>
+	            <option value="default">Choose a Codebook</option>
 						<%
 							// Get the list of all codebooks and put them in a dropdown menu
 							URL handle = new URL("http://rschweb.ciserrsch.cornell.edu:8080/CED2AR_Query/search?return=codebooks");
@@ -81,7 +79,7 @@
 				</select>
 	        </form>
 	        
-	        <div id="browseCodebookHeader"></div>
+	        <div id="browseCodebookHeader" class="searchResultHeader"></div>
 	        
 	        <div id="browseCodebookContent"></div>
     </div>

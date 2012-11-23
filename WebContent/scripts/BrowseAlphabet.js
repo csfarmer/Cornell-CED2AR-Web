@@ -11,9 +11,10 @@ $(document).ready(function(){
    		<hr />';
 
    		$("#browseAlphabetHeader").html(alphabetHeader);
+      $("#"+variableName).addClass("selected-browse");
    		
-		//TODO: Adding loading GIF?
-		$("#browseAlphabetContent").html("Loading...");
+		$("#browseAlphabetContent").html("<img src=\"images/loading.gif\">");
+    
 		// AJAX Call to ViewBrowseCodebook and retrieve HTML Data
 		$.ajax({
 			type: "get",
@@ -28,6 +29,8 @@ $(document).ready(function(){
 	// Make the dropdown list submit automatically on change
     $(".alphabetChar").click(function() { 
     	var variableName = $(this).attr("id");
+      $("#content").find(".alphabetChar.selected-browse").removeClass("selected-browse");
+      $(this).addClass("selected-browse");
     	location.hash = variableName;
     	var alphabetHeader = '<h2>Variables Starting with "' + variableName + '"</h2> \
    		<hr /> \
@@ -36,8 +39,8 @@ $(document).ready(function(){
 
    		$("#browseAlphabetHeader").html(alphabetHeader);
    		
-		//TODO: Adding loading GIF?
-		$("#browseAlphabetContent").html("Loading...");
+		$("#browseAlphabetContent").html("<img src=\"images/loading.gif\">");
+    
 		// AJAX Call to ViewBrowseCodebook and retrieve HTML Data
 		$.ajax({
 			type: "get",
