@@ -31,7 +31,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
-import sun.org.mozilla.javascript.internal.Context;
+
 
 /**
  * Servlet implementation class SearchServlet

@@ -21,66 +21,77 @@ public class Security {
 	 * */		
 	public void signup(String password, String fname, String lname, String org, String field, String Email) {
 		DBhandle db = new DBhandle();
-		
-		//This block of code generates a new PersonID for user
-		//The PersonID is simply the number of users + 1 (starting 
-		ResultSet results = db.execSQL("SELECT Count(*) as c FROM public.\"Person\"");
-		String personID = "-1";
-		if(results != null){
-			try {
-					results.next();
-					int pID = Integer.parseInt(results.getString("c"));
-					pID++;
-					personID = Integer.toString(pID);
-				} 
-				catch (SQLException e) {
+		try{
+			//This block of code generates a new PersonID for user
+			//The PersonID is simply the number of users + 1 (starting 
+			ResultSet results = db.execSQL("SELECT Count(*) as c FROM public.\"Person\"");
+			try{
+				String personID = "-1";
+				if(results != null){
+					try {
+							results.next();
+							int pID = Integer.parseInt(results.getString("c"));
+							pID++;
+							personID = Integer.toString(pID);
+						} 
+						catch (SQLException e) {
+							e.printStackTrace();
+						}
+				   }
+			}
+			//Close ResultSet object. NOTE add these blocks around SQL functions to close once finished
+			finally{
+				try {
+					results.close();
+				} catch (SQLException e) {
 					e.printStackTrace();
 				}
-		   }
-
-		
-		//Creates random 20 byte salt for password
-		Random r = new SecureRandom();
-		byte[] s = new byte[20];
-		r.nextBytes(s);
-		String salt = s.toString();
-		String hash = hash(salt + password);
-		//Gets Current date
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-		Date date = new Date();
-		String dateStamp = dateFormat.format(date);
-		
-		//TODO: Finish SQL insert query
-		String insertQuery = "INSERT INTO public.\"Person\" VALUES()";
-		
-		/*Fields for Person table:
-			PersonID
-			FirstName
-			LastName
-			OrganizationName
-			DeptField
-			Email
-			PassHash
-			Salt
-			DateCreated
-		 */
-		
-		/*Fields for SecurityQuestions table
-		 		Question ID
-		 		Question Text
-		 */
-		
-		/*Fields for SecurityAnswer table
- 			AnswerID
- 			PersonID
- 			QuestionID
- 			AnswerHash
- 			AnswerSalt
-		*/
-		
-		
-		db.execSQL(insertQuery);
-		
+			}
+			//java.security.signedObject?
+			//Creates random 20 byte salt for password
+			Random r = new SecureRandom();
+			byte[] s = new byte[20];
+			r.nextBytes(s);
+			String salt = s.toString();
+			String hash = hash(salt + password);
+			//Gets Current date
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+			Date date = new Date();
+			String dateStamp = dateFormat.format(date);
+			
+			//TODO: Finish SQL insert query
+			String insertQuery = "INSERT INTO public.\"Person\" VALUES()";
+			
+			/*Fields for Person table:
+				PersonID
+				FirstName
+				LastName
+				OrganizationName
+				DeptField
+				Email
+				PassHash
+				Salt
+				DateCreated
+			 */
+			
+			/*Fields for SecurityQuestions table
+			 		Question ID
+			 		Question Text
+			 */
+			
+			/*Fields for SecurityAnswer table
+	 			AnswerID
+	 			PersonID
+	 			QuestionID
+	 			AnswerHash
+	 			AnswerSalt
+			*/
+			
+			db.execSQL(insertQuery);
+		}
+		finally{
+			db.close();
+		}
 	}
 	/*Given email and inputed password, checks in password is correct. If email isn't found, returns false.*/
 	public static boolean login(String email, String password) {
@@ -88,55 +99,79 @@ public class Security {
 		String hash = "";
 		Boolean authenicated = false;
 		DBhandle db = new DBhandle();
-		
-		//Checks to see if email address is valid. Will return false if bad.
-		boolean validEmail = testEmail(email);
-		if(!validEmail){
-			return false;
-		}
-
-		//Checks to see if email address exists. If false, returns invalid username password combination"
-		ResultSet emailExists = db.execSQL("SELECT Count(*) as c FROM public.\"Person\" where \"Person\".\"Email\"='"+email+"'");
-		if(emailExists != null){
-			try {
-					emailExists.next();
-					int pID = Integer.parseInt(emailExists.getString("c"));
-					if(pID != 1)
-					{
-						return false;
+		try{
+			//Checks to see if email address is valid. Will return false if bad.
+			boolean validEmail = testEmail(email);
+			if(!validEmail){
+				return false;
+			}
+	
+			//Checks to see if email address exists. If false, returns invalid username password combination"
+			ResultSet emailExists = db.execSQL("SELECT Count(*) as c FROM public.\"Person\" where \"Person\".\"Email\"='"+email+"'");
+			if(emailExists != null){
+				try {
+						emailExists.next();
+						int pID = Integer.parseInt(emailExists.getString("c"));
+						if(pID != 1)
+						{
+							return false;
+						}
+					} 
+					catch (SQLException e) {
+						e.printStackTrace();;
 					}
-				} 
-				catch (SQLException e) {
-					e.printStackTrace();;
+			   }
+			
+			//Fetches Password and Salt from DB
+			
+			ResultSet hashResult = db.execSQL("SELECT \"Person\".\"PassHash\" as h FROM public.\"Person\" where \"Person\".\"Email\"='"+email+"'");
+			try{
+				ResultSet saltResult = db.execSQL("SELECT \"Person\".\"Salt\" as s FROM public.\"Person\" where \"Person\".\"Email\"='"+email+"'");
+				try{
+				if(hashResult != null && saltResult != null){
+					try {
+							hashResult.next();
+							saltResult.next();
+							hash = hashResult.getString("h");
+							salt = saltResult.getString("s");
+						} 
+						catch (SQLException e) {
+							e.printStackTrace();
+						}
+				   }
 				}
-		   }
-		
-		//Fetches Password and Salt from DB
-		ResultSet hashResult = db.execSQL("SELECT \"Person\".\"PassHash\" as h FROM public.\"Person\" where \"Person\".\"Email\"='"+email+"'");
-		ResultSet saltResult = db.execSQL("SELECT \"Person\".\"Salt\" as s FROM public.\"Person\" where \"Person\".\"Email\"='"+email+"'");
-		if(hashResult != null && saltResult != null){
-			try {
-					hashResult.next();
-					saltResult.next();
-					hash = hashResult.getString("h");
-					salt = saltResult.getString("s");
-				} 
-				catch (SQLException e) {
-					e.printStackTrace();;
+				finally{
+					try {
+						saltResult.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
 				}
-		   }
+			}
+			finally{
+				try {
+					hashResult.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			//Generated Hash based off salt from the db + what user inputed
+			String givenSalted = salt + password ;
+			String givenHash = hash(givenSalted);
 		
-		//Generated Hash based off salt from the db + what user inputed
-		String givenSalted = salt + password ;
-		String givenHash = hash(givenSalted);
-
-		//Compares given hash with stored db hash
-		if(givenHash.equals(hash)){
-			authenicated = true;
-		}else{
-			authenicated = false;
+			//Compares given hash with stored db hash
+			if(givenHash.equals(hash)){
+				authenicated = true;
+			}else{
+				authenicated = false;
+			}	
 		}
+		finally{
+			db.close();
+		}
+		
 		return authenicated;
+		
 	}
 	//Creates a new hash given a string
 	public static String hash(String password) {

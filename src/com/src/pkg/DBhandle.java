@@ -43,4 +43,12 @@ public class DBhandle {
 		}	
 		return results;
 	}
+	public void close(){
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			
+		}
+		
+	}
 }
