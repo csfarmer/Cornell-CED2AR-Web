@@ -2,7 +2,7 @@ $(document).ready(function() {
 	var query = "";
 	if (location.hash.length) {
 		$("#advanced_search").hide();
-		$("#results").html("Loading...");
+		$("#results").html("<img src=\"../images/loading.gif\">");
 		$("#results").show();
 		query = location.hash.replace('#', '');
 		query = query.replace(/!/g, '&');
@@ -24,7 +24,7 @@ $(document).ready(function() {
 	
 	$("#advanced_search").submit(function() {
 		$("#advanced_search").hide();
-		$("#results").html("Loading...");
+		$("#results").html("<img src=\"../images/loading.gif\">");
 		$("#results").show();
 		location.hash = $('#advanced_search').serialize();
 		$.ajax({

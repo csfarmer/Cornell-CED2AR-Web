@@ -22,25 +22,34 @@
 <title>CED2AR</title>
 </head>
 <body>
-  <%@include file='loginBar.jsp'%>
-  <div id="header">
-    <h1 class="center">CED2AR</h1>
-  </div>
+  <%@include file='header.jsp'%>
   
   <div id="main">
   
   	<div id="navDiv">
-	  <ul id="navList">
-	    <li id="tab-simple"><a href="index.jsp">Simple Search</a></li>
-	    <li id="tab-advanced"><a href="AdvancedSearch.jsp" class="selected">Advanced Search</a></li>
-	    <li id="tab-browse"><a href="BrowseDataCodebook.jsp">Browse Data</a></li>
-	  </ul>
+  	  <ul id="navList">
+  	    <li id="tab-simple"><a href="index.jsp">Simple Search</a></li>
+  	    <li id="tab-advanced" class="selected"><a href="AdvancedSearch.jsp">Advanced Search</a></li>
+  	    <li id="tab-browse"><a href="BrowseDataCodebook.jsp">Browse Data</a></li>
+  	  </ul>
+      <div class="clear"></div>
     </div>
      
     <div id="content">
     <form id="advanced_search" name="advanced_search" method="post" action="">
-	      <table id="advanced_table">
+	      Use the form below to construct a more complex search of the available codebook metadata:
+          <ul>
+            <li>The dropdown lists on the left contain all searchable fields.</li>
+            <li>Type your keyword into the middle field.</li>
+            <li>The dropdown lists on the right can be used to construct a boolean search.</li>
+          </ul> 
+        <table id="advanced_table">
 	        <tr>
+            <th>Search Field</th>
+            <th>Search Term</th>
+            <th>Boolean Term</th>
+          </tr>
+          <tr>
 	          <td>
 	            <select name="searchParam1">
 	              <option value="variablename">Variable Name</option>
@@ -103,14 +112,16 @@
 	            </select><br />
 	          </td>
 	        </tr>
-	        <tr>
-	          <td colspan="3" class="center">
-	            <input type="submit" value="Search" />
+          <tr>
+            <td></td>
+	          <td class="center">
+	            <input type="submit" value="Search">
 	          </td>
+            <td></td>
 	        </tr>
 	      </table>
 	    </form>
-	<div id="advSearchHeader"></div>
+	<div id="advSearchHeader" class="searchResultHeader"></div>
 	<div id="results"></div>
 	</div>
 </body>

@@ -136,21 +136,19 @@ public class SearchServlet extends HttpServlet {
 			NodeList variableNames = doc.getElementsByTagName("var");
 						
 		    // Header table HTML
-	        out.print("You are searching for \"" + request.getParameter("query") + "\", " + XmlUtil.getNodeCount("var", xmlString) + " results returned.");
+	        out.print("<span class=\"searchResultHeader\">You searched for \"" + request.getParameter("query") + "\", " + XmlUtil.getNodeCount("var", xmlString) + " results returned.</span>");
 	        out.print("<span class=\"alignRight\"><span id=\"simpleSearchBack\">&lt;&lt;Search again.</span></span>");
-	        out.print("<hr />");
-	        out.print("<table class=\"simpleSearchTable\"><tr><td class=\"tdLeft\">Variable</td><td class=\"tdMiddle\">Label</td><td class=\"tdRight\">Codebook</td></tr></table>");
-	        out.print("<hr />");
+	        out.print("<table class=\"simpleSearchTable\">");
+          out.print("<tr><th class=\"tdLeft\">Variable</th><th class=\"tdMiddle\">Label</th><th class=\"tdRight\">Codebook</th></tr>");
 	        
 			// Create a list of variables and info to be displayed, with the variable clickable to see more info
-			out.print("<table class=\"simpleSearchTable\">");
 			for (int i = 0; i < variableNames.getLength(); i++) {
 				out.print("<tr>");
 				Element element = (Element) variableNames.item(i);
 				
 
 				String codebookTitle = element.getAttribute("codeBook");
-								
+				//***TODO: Noticed this used to go to a Login redirect - just making sure it was supposed to be changed				
 				out.print("<td class=\"tdLeft\"><a href=\"SimpleSearchViewVariable?variableName=" + element.getAttributes().getNamedItem("name").getNodeValue() + "&codebook=" + codebookTitle + "\" class=\"variableName\">" + element.getAttributes().getNamedItem("name").getNodeValue() + "</a></td>");
 				
 				try { NodeList label = element.getElementsByTagName("labl");

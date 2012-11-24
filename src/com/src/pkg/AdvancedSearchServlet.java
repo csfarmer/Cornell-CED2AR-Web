@@ -136,13 +136,11 @@ public class AdvancedSearchServlet extends HttpServlet {
 			NodeList codebookNames = doc.getElementsByTagName("titl");
 			
 		    // Header table HTML
-	        out.print(variableNames.getLength() + " results returned.");
+	        out.print("<span class=\"searchResultHeader\">" + variableNames.getLength() + " results returned.</span>");
 			out.print("<span class=\"alignRight\"><span id=\"advancedSearchBack\">&lt;&lt;Search again.</span></span><br />");
-		    out.print("<hr />");
-		    out.print("<table class=\"simpleSearchTable\"><tr><td class=\"tdLeft\">Variable</td><td class=\"tdMiddle\">Label</td><td class=\"tdRight\">Codebook</td></tr></table>");
-		    out.print("<hr />");
-		    
 		    out.print("<table class=\"simpleSearchTable\">");
+		    out.print("<tr><th class=\"tdLeft\">Variable</th><th class=\"tdMiddle\">Label</th><th class=\"tdRight\">Codebook</th></tr>");
+		    
 			for (int i = 0; i < variableNames.getLength(); i++) {
 				out.print("<tr>");
 				Element element = (Element) variableNames.item(i);

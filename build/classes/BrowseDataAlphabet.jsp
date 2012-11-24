@@ -21,19 +21,17 @@
 <title>CED2AR</title>
 </head>
 <body>
-<%@include file='loginBar.jsp'%>
-  <div id="header">
-    <h1 class="center">CED2AR</h1>
-  </div>
+<%@include file='header.jsp'%>
   
   <div id="main">
   
   	<div id="navDiv">
-	  <ul id="navList">
-	    <li id="tab-simple"><a href="index.jsp">Simple Search</a></li>
-	    <li id="tab-advanced"><a href="AdvancedSearch.jsp">Advanced Search</a></li>
-	    <li id="tab-browse"><a href="BrowseDataCodebook.jsp" class="selected">Browse Data</a></li>
-	  </ul>
+  	  <ul id="navList">
+  	    <li id="tab-simple"><a href="index.jsp">Simple Search</a></li>
+  	    <li id="tab-advanced"><a href="AdvancedSearch.jsp">Advanced Search</a></li>
+  	    <li id="tab-browse" class="selected"><a href="BrowseDataCodebook.jsp">Browse Data</a></li>
+  	  </ul>
+      <div class="clear"></div>
     </div>
      
     <div id="content">
@@ -48,7 +46,7 @@
 	      <%  }
 	       } %>
 	       
-	  <div id="browseAlphabetHeader"></div>
+	  <div id="browseAlphabetHeader" class="searchResultHeader"></div>
 	        
 	  <div id="browseAlphabetContent"></div>
 	

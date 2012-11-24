@@ -10,6 +10,7 @@
 	<link type="text/css" rel="stylesheet" href="reset.css" />
 </head>
 <body>
+<%@include file='header.jsp'%>
 	<div id="errors"></div>
 	<form action="Test" method="post">
 		First Name<input type="text" name="fname"/><br />
