@@ -21,20 +21,21 @@
 <title>CED2AR</title>
 </head>
 <body>
-<%@include file='loginBar.jsp'%>
+<%@include file='header.jsp'%>
 <div id="main">
-  <div id="header">
-    <h1 class="center">CED2AR</h1>
+  <div id="navDiv">
+    <ul id="navList">
+      <li id="tab-simple" class="selected"><a href="index.jsp">Simple Search</a></li>
+      <li id="tab-advanced"><a href="AdvancedSearch.jsp">Advanced Search</a></li>
+      <li id="tab-browse"><a href="BrowseDataCodebook.jsp">Browse Data</a></li>
+    </ul>
+    <div class="clear"></div>
   </div>
-    <div id="navDiv">
-	  <ul id="navList">
-	    <li id="tab-simple"><a href="index.jsp" class="selected">Simple Search</a></li>
-	    <li id="tab-advanced"><a href="AdvancedSearch.jsp">Advanced Search</a></li>
-	    <li id="tab-browse"><a href="BrowseDataCodebook.jsp">Browse Data</a></li>
-	  </ul> 
-	</div>
   <div id="content">
      <div id="simpleSearchDiv">
+			Enter keywords below to do a broad search of the available codebook metadata.  
+      <br>
+			<span class="smallText">(Hint: For a more refined search, use the <a href="AdvancedSearch.jsp">Advanced Search</a> form.)</span>
 	    <form id="simple_search" name="simple_search" action="" method="get">
 	      <table id="simple_table">
 	        <tr>
@@ -48,7 +49,7 @@
 	      </table>
 	    </form>
 	  </div>
-	    <div id="simpleSearchHeader"></div>
+	    <div id="simpleSearchHeader" class="searchResultHeader"></div>
 	    <div id="results"></div>
   </div> 
 

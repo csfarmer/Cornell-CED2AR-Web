@@ -9,7 +9,7 @@
     <script src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
 <body>
-	<%@include file='loginBar.jsp'%>
+	<%@include file='header.jsp'%>
 	<p>Sandbox Page for Testing Stuff</p>
 	<%
 		java.text.DateFormat df = new java.text.SimpleDateFormat("MM/dd/yyyy"); 
