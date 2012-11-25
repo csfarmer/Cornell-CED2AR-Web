@@ -13,8 +13,7 @@ $(document).ready(function(){
    		$("#browseAlphabetHeader").html(alphabetHeader);
       $("#"+variableName).addClass("selected-browse");
    		
-		$("#browseAlphabetContent").html("<img src=\"images/loading.gif\">");
-    
+      $("#browseAlphabetContent").html("<img src=\"../images/loading.gif\">");    
 		// AJAX Call to ViewBrowseCodebook and retrieve HTML Data
 		$.ajax({
 			type: "get",

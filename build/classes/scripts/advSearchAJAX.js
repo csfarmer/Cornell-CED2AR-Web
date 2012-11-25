@@ -2,7 +2,7 @@ $(document).ready(function() {
 	var query = "";
 	if (location.hash.length) {
 		$("#advanced_search").hide();
-		$("#results").html("<img src=\"images/loading.gif\">");
+		$("#results").html("<img src=\"../images/loading.gif\">");
 		$("#results").show();
 		query = location.hash.replace('#', '');
 		query = query.replace(/!/g, '&');
