@@ -12,7 +12,7 @@ $(document).ready(function(){
 			 <hr />';
 
     		$("#browseCodebookHeader").html(codebookHeader);
-    		$("#browseCodebookContent").html("<img src=\"../images/loading.gif\">");
+    		$("#browseCodebookContent").html("<img src=\"images/loading.gif\">");
     		// AJAX Call to BrowseServlet and retrieve HTML Data
     		$.ajax({
     			type: "get",
@@ -59,7 +59,7 @@ $(document).ready(function(){
 		 <hr />';
 
 		$("#browseCodebookHeader").html(codebookHeader);
-		$("#browseCodebookContent").html("<img src=\"../images/loading.gif\">");
+		$("#browseCodebookContent").html("<img src=\"images/loading.gif\">");
 		// AJAX Call to BrowseServlet and retrieve HTML Data
 		$.ajax({
 			type: "get",

@@ -4,7 +4,7 @@ $(document).ready(function() {
 	
 	if (location.hash.length) {
 		$("#simpleSearchDiv").hide();
-		$("#results").html("<img src=\"../images/loading.gif\">");
+		$("#results").html("<img src=\"images/loading.gif\">");
 		$("#results").show();
 		query = location.hash.replace('#', '');
 		$.ajax({
@@ -24,7 +24,7 @@ $(document).ready(function() {
 	
 	$("#simple_search").submit(function() {
 		$("#simpleSearchDiv").hide();
-		$("#results").html("<img src=\"../images/loading.gif\">");
+		$("#results").html("<img src=\"images/loading.gif\">");
 		$("#results").show();
 		var query = document.getElementsByName("query")[0].value;
 		location.hash = query;
