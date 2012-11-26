@@ -53,6 +53,9 @@ public class SearchServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String APIString = "http://rschweb.ciserrsch.cornell.edu:8080/CED2AR_Query/search?return=variables&where=";
+		String pageNo = request.getParameter("page");
+		int page = pageNo == null ? 0 : Integer.parseInt(pageNo);
+		
 		String[] query  = request.getParameter("query").split(" ");
 		for(int i = 0; i < query.length; i++){
 			if (i != query.length-1) {
@@ -70,7 +73,6 @@ public class SearchServlet extends HttpServlet {
                                 cn.getInputStream()));
         String inputLine;
         
-        //************************ I ADDED THE STRING BUILDER HERE - MUCH MUCH MUCH FASTER **************************
         StringBuilder sb = new StringBuilder();
         String xmlString = "";
         while ((inputLine = in.readLine()) != null) {
@@ -78,78 +80,35 @@ public class SearchServlet extends HttpServlet {
 		}
         
         xmlString = sb.toString();
-        //************************ THIS SHOULD BE CHANGED ON ALL SERVLETS FOR PERFORMANCE ***************************
         
 		try {
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder();
-//			InputSource is = new InputSource();
-//			is.setCharacterStream(new StringReader(xmlString));
 
-//			Document doc = db.parse(is);
-//
-//			NodeList variableNames = doc.getElementsByTagName("var");
-//			NodeList codebookNames = doc.getElementsByTagName("titl");
-//			
-//		    // Header table HTML
-//	        out.print("You are searching for \"" + request.getParameter("query") + "\", " + variableNames.getLength() + " results returned.");
-//	        out.print("<span class=\"alignRight\"><span id=\"simpleSearchBack\">&lt;&lt;Search again.</span></span>");
-//	        out.print("<hr />");
-//	        out.print("<table class=\"simpleSearchTable\"><tr><td class=\"tdLeft\">Variable</td><td class=\"tdMiddle\">Label</td><td class=\"tdRight\">Codebook</td></tr></table>");
-//	        out.print("<hr />");
-//	        
-//			// Create a list of variables and info to be displayed, with the variable clickable to see more info
-//			out.print("<table class=\"simpleSearchTable\">");
-//			for (int i = 0; i < variableNames.getLength(); i++) {
-//				out.print("<tr>");
-//				Element element = (Element) variableNames.item(i);
-//				
-//				// Calculate the name of the codebook by using the location of the codebook tag and the variable node
-//				String codebookTitle = "";
-//				Element codebookTagLocation = (Element) element.getParentNode().getParentNode();
-//
-//				// Loop through all codebook titles and find the one between the codebook tag and variable name
-//				for (int j=0; j < codebookNames.getLength(); j++) {
-//					Element codebookNode = (Element) codebookNames.item(j);
-//					if (codebookTagLocation.compareDocumentPosition(codebookNode) == 20)
-//						codebookTitle = codebookNode.getFirstChild().getNodeValue();
-//				}
-//
-//				
-//				out.print("<td class=\"tdLeft\"><a href=\"SimpleSearchViewVariable?variableName=" + element.getAttributes().getNamedItem("name").getNodeValue() + "&codebook=" + codebookTitle + "\" class=\"variableName\">" + element.getAttributes().getNamedItem("name").getNodeValue() + "</a></td>");
-//				try { NodeList label = element.getElementsByTagName("labl");
-//					  out.print("<td class=\"tdMiddle\">" + label.item(0).getFirstChild().getNodeValue() + "</td>"); 
-//					  out.print("<td class=\"tdRight\">" + codebookTitle + "</td>"); 
-//					  out.print("</tr>"); }
-//				catch (NullPointerException ne){ out.print("<td class=\"tdMiddle\"></td>");
-//												 out.print("<td class=\"tdRight\">" + codebookTitle + "</td>"); 
-//												 out.print("</tr>");}
-//			}
-//			out.print("</table>");
 			ServletContext context = this.getServletContext();
 			
-			String tXML = XmlUtil.getXmlPage(xmlString, 0, context.getRealPath("/xsl/page.xsl"));
+			String tXML = XmlUtil.getXmlPage(xmlString, page, context.getRealPath("/xsl/page.xsl"));
 			InputSource is = new InputSource();
 			is.setCharacterStream(new StringReader(tXML));
 			Document doc = db.parse(is);
 
 			NodeList variableNames = doc.getElementsByTagName("var");
+			int count = Integer.parseInt(XmlUtil.getNodeCount("var", xmlString));
 						
 		    // Header table HTML
-	        out.print("<span class=\"searchResultHeader\">You searched for \"" + request.getParameter("query") + "\", " + XmlUtil.getNodeCount("var", xmlString) + " results returned.</span>");
+	        out.print("<span class=\"searchResultHeader\">You searched for \"" + request.getParameter("query") + "\", " + String.format("%s", count) + " results returned.</span>");
 	        out.print("<span class=\"alignRight\"><span id=\"simpleSearchBack\">&lt;&lt;Search again.</span></span>");
 	        out.print("<table class=\"simpleSearchTable\">");
-          out.print("<tr><th class=\"tdLeft\">Variable</th><th class=\"tdMiddle\">Label</th><th class=\"tdRight\">Codebook</th></tr>");
+            out.print("<tr><th class=\"tdLeft\">Variable</th><th class=\"tdMiddle\">Label</th><th class=\"tdRight\">Codebook</th></tr>");
 	        
 			// Create a list of variables and info to be displayed, with the variable clickable to see more info
 			for (int i = 0; i < variableNames.getLength(); i++) {
 				out.print("<tr>");
 				Element element = (Element) variableNames.item(i);
 				
-
 				String codebookTitle = element.getAttribute("codeBook");
-				//***TODO: Noticed this used to go to a Login redirect - just making sure it was supposed to be changed				
-				out.print("<td class=\"tdLeft\"><a href=\"SimpleSearchViewVariable?variableName=" + element.getAttributes().getNamedItem("name").getNodeValue() + "&codebook=" + codebookTitle + "\" class=\"variableName\">" + element.getAttributes().getNamedItem("name").getNodeValue() + "</a></td>");
+		
+				out.print("<td class=\"tdLeft\"><a href=\"Login?redirect=SimpleSearchViewVariable?variableName=" + element.getAttributes().getNamedItem("name").getNodeValue() + "&codebook=" + codebookTitle + "\" class=\"variableName\">" + element.getAttributes().getNamedItem("name").getNodeValue() + "</a></td>");
 				
 				try { NodeList label = element.getElementsByTagName("labl");
 					  out.print("<td class=\"tdMiddle\">" + label.item(0).getFirstChild().getNodeValue() + "</td>"); 
@@ -159,7 +118,20 @@ public class SearchServlet extends HttpServlet {
 												 out.print("<td class=\"tdRight\">" + codebookTitle + "</td>"); 
 												 out.print("</tr>");}
 			}
+
 			out.print("</table>");
+			
+			if (count > 20) {
+				String prevDisabled = (page == 0) ? "" : "\"<< Last 20\"";				
+				String nextDisabled = (((page + 1) * 20) > count) ? "" : "\"Next 20 >>\"";
+				
+				out.print(String
+						.format("<div class=\"pageContainer\">"
+								+ "<input type=\"button\" class=\"pageButton\" name=\"prev\" onclick=\"queryRepository('%s')\" value=" + prevDisabled + "></input>"
+								+ "<span class=\"page\">Results: %s - %s</span>"
+								+ "<input type=\"button\" class=\"pageButton\" name=\"prev\" onclick=\"queryRepository('%s')\" value=" + nextDisabled + "></input></div>",
+								page - 1, (page * 20) + 1, (page + 1) * 20, page + 1));
+			}			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

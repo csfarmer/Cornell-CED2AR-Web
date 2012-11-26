@@ -13,6 +13,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -60,6 +61,8 @@ public class AdvancedSearchServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		response.setContentType("text/html");
 		String apiString = "http://rschweb.ciserrsch.cornell.edu:8080/CED2AR_Query/search?return=variables&where=";
+		String pageNo = request.getParameter("page");
+		int page = pageNo == null ? 0 : Integer.parseInt(pageNo);
 		
 		//Gets list of fields that are 
 		List<String> queries = new ArrayList<String>();
@@ -118,25 +121,31 @@ public class AdvancedSearchServlet extends HttpServlet {
                                 new InputStreamReader(
                                 cn.getInputStream()));
         String inputLine;
+        
+        StringBuilder sb = new StringBuilder();
         String xmlString = "";
         while ((inputLine = in.readLine()) != null) {
-			xmlString += inputLine;
+			sb.append(inputLine);
 		}
+        
+        xmlString = sb.toString();
 		
         backInfo = backInfo.substring(0, backInfo.length()-1);
 		try {
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder();
+			ServletContext context = this.getServletContext();
+			
+			String tXML = XmlUtil.getXmlPage(xmlString, page, context.getRealPath("/xsl/page.xsl"));
 			InputSource is = new InputSource();
-			is.setCharacterStream(new StringReader(xmlString));
-
+			is.setCharacterStream(new StringReader(tXML));
 			Document doc = db.parse(is);
 
 			NodeList variableNames = doc.getElementsByTagName("var");
 			NodeList codebookNames = doc.getElementsByTagName("titl");
-			
+			int count = Integer.parseInt(XmlUtil.getNodeCount("var", xmlString));
 		    // Header table HTML
-	        out.print("<span class=\"searchResultHeader\">" + variableNames.getLength() + " results returned.</span>");
+	        out.print("<span class=\"searchResultHeader\">" + String.format("%s", count) + " results returned.</span>");
 			out.print("<span class=\"alignRight\"><span id=\"advancedSearchBack\">&lt;&lt;Search again.</span></span><br />");
 		    out.print("<table class=\"simpleSearchTable\">");
 		    out.print("<tr><th class=\"tdLeft\">Variable</th><th class=\"tdMiddle\">Label</th><th class=\"tdRight\">Codebook</th></tr>");
@@ -146,15 +155,8 @@ public class AdvancedSearchServlet extends HttpServlet {
 				Element element = (Element) variableNames.item(i);
 				
 				// Calculate the name of the codebook by using the location of the codebook tag and the variable node
-				String codebookTitle = "";
-				Element codebookTagLocation = (Element) element.getParentNode().getParentNode();
-
-				// Loop through all codebook titles and find the one between the codebook tag and variable name
-				for (int j=0; j < codebookNames.getLength(); j++) {
-					Element codebookNode = (Element) codebookNames.item(j);
-					if (codebookTagLocation.compareDocumentPosition(codebookNode) == 20)
-						codebookTitle = codebookNode.getFirstChild().getNodeValue();
-				}
+				String codebookTitle = element.getAttribute("codeBook");
+				
 				//"&backInfo=" + request.getParameter("query") +
 				String urlHTML = "<td class=\"tdLeft\">"
 				+"<a href=\"Login?redirect=AdvancedSearchViewVariable?variableName=" 
@@ -174,6 +176,19 @@ public class AdvancedSearchServlet extends HttpServlet {
 												 out.print("</tr>");}
 			}
 			out.print("</table>");
+			
+			if (count > 20) {
+				String prevDisabled = (page == 0) ? "" : "\"<< Last 20\"";				
+				String nextDisabled = (((page + 1) * 20) > count) ? "" : "\"Next 20 >>\"";
+				
+				out.print(String
+						.format("<div class=\"pageContainer\">"
+								+ "<input type=\"button\" class=\"pageButton\" name=\"prev\" onclick=\"queryRepository('%s')\" value=" + prevDisabled + "></input>"
+								+ "<span class=\"page\">Results: %s - %s</span>"
+								+ "<input type=\"button\" class=\"pageButton\" name=\"prev\" onclick=\"queryRepository('%s')\" value=" + nextDisabled + "></input></div>",
+								page - 1, (page * 20) + 1, (page + 1) * 20, page + 1));
+
+			}		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

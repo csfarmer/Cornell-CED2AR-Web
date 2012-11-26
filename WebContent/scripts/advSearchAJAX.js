@@ -1,47 +1,37 @@
+var query = "";
 $(document).ready(function() {
-	var query = "";
 	if (location.hash.length) {
-		$("#advanced_search").hide();
-		$("#results").html("<img src=\"../images/loading.gif\">");
-		$("#results").show();
 		query = location.hash.replace('#', '');
 		query = query.replace(/!/g, '&');
-
-		$.ajax({
-			type: "POST",
-			url: "AdvancedSearchServlet",
-			data: query,
-			success: function(response) {
-				$("#results").html(response);
-				
-				$("#advancedSearchBack").on("click", function() { 
-					$("#results").hide();
-					$("#advanced_search").show();
-				});
-			}
-		});
+		
+		queryRepository('0');
 	}
 	
 	$("#advanced_search").submit(function() {
-		$("#advanced_search").hide();
-		$("#results").html("<img src=\"images/loading.gif\">");
-		$("#results").show();
 		location.hash = $('#advanced_search').serialize();
-		$.ajax({
-			type: "POST",
-			url: "AdvancedSearchServlet",
-			data: $('#advanced_search').serialize(),
-			success: function(response) {
-				$("#results").html(response);
-
-				$("#advancedSearchBack").on("click", function() { 
-					$("#results").hide();
-					$("#advanced_search").show();
-				});
-			}
-		}); 
-
+		query = $('#advanced_search').serialize();
+		queryRepository('0');
 		return false;
 	}); 
 
 });
+
+function queryRepository(currpage){
+	$("#advanced_search").hide();
+	$("#results").html("<img src=\"../images/loading.gif\">");
+	$("#results").show();
+	
+	$.ajax({
+		type: "POST",
+		url: "AdvancedSearchServlet",
+		data: query + "&page=" + currpage,
+		success: function(response) {
+			$("#results").html(response);
+
+			$("#advancedSearchBack").on("click", function() { 
+				$("#results").hide();
+				$("#advanced_search").show();
+			});
+		}
+	}); 
+}

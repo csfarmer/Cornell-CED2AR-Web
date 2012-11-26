@@ -8,6 +8,7 @@ import java.io.StringReader;
 import java.net.URL;
 import java.net.URLConnection;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -42,6 +43,8 @@ public class ViewBrowseCodebook extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
 
+		String pageNo = request.getParameter("page");
+		int page = pageNo == null ? 0 : Integer.parseInt(pageNo);
 		// Get the list of all variables for browse by the selected codebook
 		if (request.getParameter("codebook") != null) {
 			response.setContentType("text/html");
@@ -51,20 +54,29 @@ public class ViewBrowseCodebook extends HttpServlet {
 	                                new InputStreamReader(
 	                                cn.getInputStream()));
 	        String inputLine;
+	        
+	        StringBuilder sb = new StringBuilder();
 	        String xmlString = "";
 	        while ((inputLine = in.readLine()) != null) {
-				xmlString += inputLine;
+				sb.append(inputLine);
 			}
+	        
+	        xmlString = sb.toString();
 	         
 			try {
 				DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 				DocumentBuilder db = dbf.newDocumentBuilder();
+
+				ServletContext context = this.getServletContext();
+				
+				String tXML = XmlUtil.getXmlPage(xmlString, page, context.getRealPath("/xsl/page.xsl"));
 				InputSource is = new InputSource();
-				is.setCharacterStream(new StringReader(xmlString));
+				is.setCharacterStream(new StringReader(tXML));
 
 				Document doc = db.parse(is);
 
 				NodeList variableNames = doc.getElementsByTagName("var");
+				int count = Integer.parseInt(XmlUtil.getNodeCount("var", xmlString));
 				//out.print(doc.getElementsByTagName("var").getLength());
 				out.print("<table class=\"codebookTable\">");
 				for (int i = 0; i < variableNames.getLength(); i++) {
@@ -79,6 +91,19 @@ public class ViewBrowseCodebook extends HttpServlet {
 				}
 				
 				out.print("</table>");
+				
+				if (count > 20) {
+					String prevDisabled = (page == 0) ? "" : "\"<< Last 20\"";				
+					String nextDisabled = (((page + 1) * 20) > count) ? "" : "\"Next 20 >>\"";
+					
+					out.print(String
+							.format("<div class=\"pageContainer\">"
+									+ "<input type=\"button\" class=\"pageButton\" name=\"prev\" onclick=\"getCodebook('%s')\" value=" + prevDisabled + "></input>"
+									+ "<span class=\"page\">Results: %s - %s</span>"
+									+ "<input type=\"button\" class=\"pageButton\" name=\"prev\" onclick=\"getCodebook('%s')\" value=" + nextDisabled + "></input></div>",
+									page - 1, (page * 20) + 1, (page + 1) * 20, page + 1));
+
+				}	
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

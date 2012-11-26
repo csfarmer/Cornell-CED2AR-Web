@@ -8,6 +8,7 @@ import java.io.StringReader;
 import java.net.URL;
 import java.net.URLConnection;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -45,26 +46,34 @@ public class BrowseServlet extends HttpServlet {
 		// Get the variable info for browse by the selected codebook
 		if (request.getParameter("codebook") != null) {
 			response.setContentType("text/html");
-			URL handle = new URL("http://localhost:8000/api/v1/codebooks/" + request.getParameter("codebook") + "/variables.xml");
+			URL handle = new URL("http://rschweb.ciserrsch.cornell.edu:8080/CED2AR_Query/codebooks/" + request.getParameter("codebook") + "/variables.xml");
 			URLConnection cn = handle.openConnection();
 	        BufferedReader in = new BufferedReader(
 	                                new InputStreamReader(
 	                                cn.getInputStream()));
 	        String inputLine;
+	        
+	        StringBuilder sb = new StringBuilder();
 	        String xmlString = "";
 	        while ((inputLine = in.readLine()) != null) {
-				xmlString += inputLine;
+				sb.append(inputLine);
 			}
+	        
+	        xmlString = sb.toString();
 	         
 			try {
 				DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 				DocumentBuilder db = dbf.newDocumentBuilder();
+				ServletContext context = this.getServletContext();
+				
+				String tXML = XmlUtil.getXmlPage(xmlString, 0, context.getRealPath("/xsl/page.xsl"));
 				InputSource is = new InputSource();
-				is.setCharacterStream(new StringReader(xmlString));
-
+				is.setCharacterStream(new StringReader(tXML));
+				
 				Document doc = db.parse(is);
 
 				NodeList variableNames = doc.getElementsByTagName("var");
+				int count = Integer.parseInt(XmlUtil.getNodeCount("var", xmlString));
 				out.print("<table class=\"codebookTable\">");
 				for (int i = 0; i < variableNames.getLength(); i++) {
 					out.print("<tr>");
