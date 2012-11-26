@@ -18,7 +18,7 @@ $(document).ready(function() {
 
 function queryRepository(currpage){
 	$("#advanced_search").hide();
-	$("#results").html("<img src=\"../images/loading.gif\">");
+	$("#results").html("<img src=\"images/loading.gif\">");
 	$("#results").show();
 	
 	$.ajax({
