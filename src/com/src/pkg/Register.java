@@ -59,7 +59,7 @@ public class Register extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		DBhandle db = new DBhandle();
 		String regex = "^[a-zA-Z]+[- ]?[a-zA-Z]+$";
-		String regex2 = "^[a-zA-Z -]+$";
+		String regex2 = "^[a-zA-Z0-9 -]+$";
 		String regexPwd = "^[a-zA-Z0-9!@#$%^&*()-_+=~` ]+$";
 		boolean error = false;
 		
