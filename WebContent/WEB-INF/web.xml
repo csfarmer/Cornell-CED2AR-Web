@@ -9,17 +9,25 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-
   <servlet>
     <display-name>Test</display-name>
     <servlet-name>Test</servlet-name>
     <servlet-class>com.src.pkg.Test</servlet-class>
   </servlet>
   <servlet-mapping>
+    <servlet-name>Register</servlet-name>
+    <url-pattern>/Register</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <display-name>Register</display-name>
+    <servlet-name>Register</servlet-name>
+    <servlet-class>com.src.pkg.Register</servlet-class>
+  </servlet>
+  <servlet-mapping>
     <servlet-name>Test</servlet-name>
     <url-pattern>/Test</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <display-name>AdvancedSearchServlet</display-name>
     <servlet-name>AdvancedSearchServlet</servlet-name>
     <servlet-class>com.src.pkg.AdvancedSearchServlet</servlet-class>
@@ -27,7 +35,7 @@
   <servlet-mapping>
     <servlet-name>AdvancedSearchServlet</servlet-name>
     <url-pattern>/AdvancedSearchServlet</url-pattern>
-  </servlet-mapping> 
+  </servlet-mapping>
   <servlet>
     <display-name>LoginServlet</display-name>
     <servlet-name>LoginServlet</servlet-name>

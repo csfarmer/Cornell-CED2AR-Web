@@ -19,14 +19,14 @@ public class Security {
 	/*
 	 * 
 	 * */		
-	public void signup(String password, String fname, String lname, String org, String field, String Email) {
+	public static void signup(String password, String fname, String lname, String org, String field, String email) {
+		String personID = "-1";
 		DBhandle db = new DBhandle();
 		try{
 			//This block of code generates a new PersonID for user
 			//The PersonID is simply the number of users + 1 (starting 
 			ResultSet results = db.execSQL("SELECT Count(*) as c FROM public.\"Person\"");
 			try{
-				String personID = "-1";
 				if(results != null){
 					try {
 							results.next();
@@ -60,7 +60,8 @@ public class Security {
 			String dateStamp = dateFormat.format(date);
 			
 			//TODO: Finish SQL insert query
-			String insertQuery = "INSERT INTO public.\"Person\" VALUES()";
+			String insertQuery = "INSERT INTO public.\"Person\" " +
+			"VALUES('"+personID+"','"+fname+"','"+lname+"','"+org+"','"+field+"','"+email+"','"+hash+"','"+salt+"','"+dateStamp+"')";
 			
 			/*Fields for Person table:
 				PersonID
@@ -73,20 +74,6 @@ public class Security {
 				Salt
 				DateCreated
 			 */
-			
-			/*Fields for SecurityQuestions table
-			 		Question ID
-			 		Question Text
-			 */
-			
-			/*Fields for SecurityAnswer table
-	 			AnswerID
-	 			PersonID
-	 			QuestionID
-	 			AnswerHash
-	 			AnswerSalt
-			*/
-			
 			db.execSQL(insertQuery);
 		}
 		finally{
@@ -200,17 +187,21 @@ public class Security {
 	 * */
 	public static boolean testInput(String input, String regex)
 	{
-		input = input.trim();
-		if(input.length() == 0)
-		{
+		try{
+			input = input.trim();
+			if(input.length() == 0)
+			{
+				return false;
+			}
+			if(input.matches(regex)){
+				return true;
+			}else{
+				return false;
+			}
+		}
+		catch(NullPointerException ex){
 			return false;
 		}
-		if(input.matches(regex)){
-			return true;
-		}else{
-			return false;
-		}	
-		
 	}
 	
 	/*Validates Email address input using java.mail package*/
@@ -219,6 +210,9 @@ public class Security {
 	            new InternetAddress(email).validate();
 	        } catch (AddressException ex) {
 	            return false;
+	        }
+	        catch(NullPointerException ex){
+	        	return false;
 	        }
 	        return true;
 	}	
