@@ -31,22 +31,14 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
-		
+
 		//TODO: Add CAPTCHA to help prevent bruteforce attack
-		
+
 		//Sets the redirect header
 		String redirect = request.getParameter("redirect");
 		if(redirect == null){
 			redirect = "index.jsp";	
-		} 
-		String varName = request.getParameter("variableName");
-		if (varName != null && !varName.equals("null"))
-			redirect += "?variableName=" + request.getParameter("variableName");
-		if (request.getParameter("codebook") != null)
-			redirect += "&codebook=" + request.getParameter("codebook");
-		if (request.getParameter("backInfo") != null)
-			redirect += "&backInfo=" + request.getParameter("backInfo");
-		
+		}	
 		//Redirect if already logged in
 		HttpSession userSession = request.getSession();
 		try
@@ -55,26 +47,23 @@ public class LoginServlet extends HttpServlet {
 			response.sendRedirect(redirect);
 		}
 		catch(Exception e){}
-		
-		
+
+
 		//Determines if previous attempt was invalid
 		String loginError = " ";
 		if(badPassword){
 			loginError = "Invalid Username or Password";
 			badPassword = false;
 		}
-		
+
 		//If already logged in, forward to address
 		String loggedIn = request.getParameter("loggedIn");
 		if(loggedIn!=null)
 		{
 			response.sendRedirect(redirect);
 		}
-		
-		String linkString = ""; // Used for the redirect, blank when goes to index.jsp
-		if (redirect != "index.jsp")
-			linkString += request.getParameter("redirect") +"&variableName=" + request.getParameter("variableName") + "&codebook=" + request.getParameter("codebook") + "&backInfo=" + request.getParameter("backInfo");
-		
+
+
 		//Print login for HTMl code
 		String html = ""
 		+"<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN' 'http://www.w3.org/TR/html4/loose.dtd'>"
@@ -84,7 +73,7 @@ public class LoginServlet extends HttpServlet {
 		+"	<script src='http://code.jquery.com/jquery-latest.js'></script>"
 		+"	<title>Please Login to Continue</title>"
 		+"</head><body>"
-		+"	<form action='Login?redirect="+ linkString + "' method='post'>"
+		+"	<form action='Login?redirect="+ redirect+"' method='post'>"
 		+"	<div id='passwordTable'><h2>Please Login</h2>"
 		+"		<table><tr><td>Email</td><td><input name='email' type='text' method='post'/> </td></tr>"
 		+"		<tr><td>Password</td><td><input name='password' size=15 type='password' /></td></tr>" 
@@ -100,26 +89,17 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		String redirect = request.getParameter("redirect");
 		if(redirect == null){
 			redirect = "index.jsp";
-		}	
-		
-		String varName = request.getParameter("variableName");
-		if (varName != null && !varName.equals("null"))
-			redirect += "?variableName=" + request.getParameter("variableName");
-		if (request.getParameter("codebook") != null)
-			redirect += "&codebook=" + request.getParameter("codebook");
-		if (request.getParameter("backInfo") != null)
-			redirect += "&backInfo=" + request.getParameter("backInfo");
-		
+		}
 		String loggedIn = request.getParameter("loggedIn");
 		if(loggedIn!=null)
 		{
 			response.sendRedirect(redirect);
 		}
-		
+
 		String email = request.getParameter("email");  
 		String password = request.getParameter("password");  
 		boolean auth = Security.login(email, password);
