@@ -45,6 +45,19 @@ public class DBhandle {
 		}	
 		return results;
 	}
+	
+	public void insertSQL(String query){
+		if (connection != null) {
+	        try {
+	        	PreparedStatement sql = connection.prepareStatement(query);
+				sql.execute();
+			} catch (SQLException e) {
+				Logger lgr = Logger.getLogger(DBhandle.class.getName());
+	            lgr.log(Level.SEVERE, e.getMessage(), e);
+			}
+		}	
+	}
+	
 	public void close(){
 		try {
 			connection.close();

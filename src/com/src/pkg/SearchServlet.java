@@ -10,6 +10,11 @@ import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -17,6 +22,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Transformer;
@@ -65,6 +71,73 @@ public class SearchServlet extends HttpServlet {
 				APIString += "allfields=*" + query[i] + "*";
 			}
 		}
+		
+		// Store the query in the database if the user is logged in.
+		HttpSession userSession = request.getSession();
+		try { 
+		  String loggedIn = userSession.getAttribute("loggedIn").toString();
+	  	  DBhandle database = new DBhandle();
+		  DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+		  Date date = new Date();
+		  String dateStamp = dateFormat.format(date);
+		  String queryID = "-1";
+		  // Generates a new QueryID
+		  ResultSet results = database.execSQL("SELECT Count(*) as c FROM public.\"Queries\"");
+			try{
+				if(results != null){
+					try {
+							results.next();
+							int qID = Integer.parseInt(results.getString("c"));
+							qID++;
+							queryID = Integer.toString(qID);
+						} 
+						catch (SQLException e) {
+							e.printStackTrace();
+						}
+				   }
+			}
+			//Close ResultSet object. NOTE add these blocks around SQL functions to close once finished
+			finally{
+				try {
+					results.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+
+		  String personID = "-1";
+		  ResultSet personResults = database.execSQL("SELECT \"PersonID\" as p FROM public.\"Person\" WHERE \"Email\" = '" + loggedIn + "'");
+				  try{
+						if(personResults != null){
+							try {
+									personResults.next();
+									int pID = Integer.parseInt(personResults.getString("p"));
+									personID = Integer.toString(pID);
+								} 
+								catch (SQLException e) {
+									e.printStackTrace();
+								}
+						   }
+					}
+					//Close ResultSet object. NOTE add these blocks around SQL functions to close once finished
+					finally{
+						try {
+							personResults.close();
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+					}
+		  
+		  String insertQuery = "INSERT INTO public.\"Queries\" Values(";
+		  insertQuery = insertQuery + queryID + ", ";
+		  insertQuery = insertQuery + personID + ", ";
+		  insertQuery = insertQuery + "'"+dateStamp+"', ";
+		  insertQuery = insertQuery + "'"+APIString+"', ";
+		  insertQuery = insertQuery + "''";
+		  insertQuery = insertQuery + ")";
+		  database.insertSQL(insertQuery); }
+		catch (Exception e) {}
+		
 		PrintWriter out = response.getWriter();
 		response.setContentType("text/html");
 		URL handle = new URL(APIString);
