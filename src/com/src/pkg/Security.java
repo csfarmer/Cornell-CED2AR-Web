@@ -15,11 +15,9 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
 public class Security {
-	//TODO:Check Password requirements? Length, letters, numbers, special characters?
-	/*
-	 * 
-	 * */		
-	public static void signup(String password, String fname, String lname, String org, String field, String email) {
+
+	/*Creates New User*/
+	public static void signup(String password, String fname, String lname, String org, String field, String email,String qID, String qAnswer) {
 		String personID = "-1";
 		DBhandle db = new DBhandle();
 		try{
@@ -58,28 +56,67 @@ public class Security {
 			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 			Date date = new Date();
 			String dateStamp = dateFormat.format(date);
+	
 			
-			//TODO: Finish SQL insert query
 			String insertQuery = "INSERT INTO public.\"Person\" " +
 			"VALUES('"+personID+"','"+fname+"','"+lname+"','"+org+"','"+field+"','"+email+"','"+hash+"','"+salt+"','"+dateStamp+"')";
-			
-			/*Fields for Person table:
-				PersonID
-				FirstName
-				LastName
-				OrganizationName
-				DeptField
-				Email
-				PassHash
-				Salt
-				DateCreated
-			 */
 			db.execSQL(insertQuery);
+			challenge(personID,qID,qAnswer);
 		}
 		finally{
 			db.close();
 		}
 	}
+	/*Creates security questions*/
+	public static void challenge(String personID, String qID, String answer){
+		String answerID = "-1";
+		DBhandle db = new DBhandle();
+		try{
+			//This block of code generates a new answerID
+			ResultSet results = db.execSQL("SELECT Count(*) as c FROM public.\"SecurityAnswers\"");
+			try{
+				if(results != null){
+					try {
+							results.next();
+							int aID = Integer.parseInt(results.getString("c"));
+							aID++;
+							answerID = Integer.toString(aID);
+						} 
+						catch (SQLException e) {
+							e.printStackTrace();
+						}
+				   }
+			}
+			//Close ResultSet object. NOTE add these blocks around SQL functions to close once finished
+			finally{
+				try {
+					results.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			//java.security.signedObject?
+			//Creates random 20 byte salt for password
+			Random r = new SecureRandom();
+			byte[] s = new byte[20];
+			r.nextBytes(s);
+			String salt = s.toString();
+			String hash = hash(salt + answer);
+			
+			String insertQuery = "INSERT INTO public.\"SecurityAnswers\" VALUES"
+			+"('"+answerID+"','"+personID+"','"+qID+"','"+hash+"','"+salt+"')";
+			db.execSQL(insertQuery);
+			//return insertQuery;
+		}
+		finally{
+			db.close();
+		}
+		
+		
+	}
+	
+	
 	/*Given email and inputed password, checks in password is correct. If email isn't found, returns false.*/
 	public static boolean login(String email, String password) {
 		String salt = "";

@@ -16,6 +16,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/Register")
 public class Register extends HttpServlet {
+	//Available challenge questions
+	String q1= "What is your favorite color?";
+	String q2 ="Where were you born?";
+	String q3 ="What is your father's middle name?";
+
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -47,6 +52,11 @@ public class Register extends HttpServlet {
 				+"	Department Field<input type='text' name='field'/><br />"
 				+"	Password<input type='password' name='password1'/><br />"
 				+"	Confirm Password<input type='password' name='password2'/><br />"
+				+"	Select a Security Question <select name='question'>"
+				+"		<option value='1'>"+q1+"</option>"
+				+"		<option value='2'>"+q2+"</option>"
+				+"		<option value='3'>"+q3+"</option>"
+				+"  Answer the Security Question<input type='text' name='challenge'/><br />"
 				+"<input type='submit' value='Register'/></form>"
 				+"</body></html>";
 				out.print(html); 
@@ -58,9 +68,11 @@ public class Register extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
 		DBhandle db = new DBhandle();
-		String regex = "^[a-zA-Z]+[- ]?[a-zA-Z]+$";
-		String regex2 = "^[a-zA-Z0-9 -]+$";
-		String regexPwd = "^[a-zA-Z0-9!@#$%^&*()-_+=~` ]+$";
+		//These are the rules for input requirements
+		//In additional, all fields must be <100 characters
+		String regex = "^[a-zA-Z]+[- ]?[a-zA-Z]+$";//Letters, can contain spaces or hyphens in the middle
+		String regex2 = "^[a-zA-Z0-9 -]+$";//Alphanumeric and hyphen
+		String regexPwd = "^[a-zA-Z0-9!@#$%^&*()-_+=~` ]+$";//Password characters allowed
 		boolean error = false;
 		
 		//HTML page header
@@ -123,7 +135,20 @@ public class Register extends HttpServlet {
 			error = true;
 		}
 		
+		//Checks challenge question answer
+		String challenge = request.getParameter("challenge");
+		if(!Security.testInput(challenge, regexPwd) || challenge.length() > 100){
+			out.write("<p class='regError'>Invalid Security Question Answer</p>");
+			error = true;
+		}	
 		
+		//Checks challenge question post data was manipulated
+		String q = request.getParameter("question");
+		if(!q.equals("1") && !q.equals("2") && !q.equals("3")){
+					out.write("<p class='regError'>There was an error submiting the form</p>");
+					error = true;
+		}	
+
 		//Checks if account exists
 		ResultSet results = db.execSQL("SELECT Count(*) as c FROM public.\"Person\" where \"Person\".\"Email\" ='"+email+"'");
 		if(results != null){
@@ -151,7 +176,7 @@ public class Register extends HttpServlet {
 			out.write("<p><a href='Register'>Try again</a></p></body></html>");
 			return;
 		}else{
-			Security.signup(password1, fname, lname, org, field, email);
+			Security.signup(password1, fname, lname, org, field, email,q,challenge);
 			request.setAttribute(email, "");
 			request.setAttribute(fname, "");
 			request.setAttribute(lname, "");

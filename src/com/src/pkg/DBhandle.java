@@ -16,10 +16,12 @@ import java.util.logging.Logger;
 public class DBhandle {
 	Connection connection = null;
 	//Connects to CEDDAR DB
+	//TODO: Would be good to add transaction support
 	public DBhandle(){
 		try {
 			Class.forName("org.postgresql.Driver");
 			connection = DriverManager.getConnection("jdbc:postgresql://rschdata.ciserrsch.cornell.edu:5432/CED2AR_ADM","CED2AR_WEB", "BigredCU!");
+			//connection.setAutoCommit(false);
 		} catch (SQLException e) {
 			Logger lgr = Logger.getLogger(DBhandle.class.getName());
             lgr.log(Level.SEVERE, e.getMessage(), e);
