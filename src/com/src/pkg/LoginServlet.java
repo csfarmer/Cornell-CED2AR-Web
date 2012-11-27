@@ -33,12 +33,19 @@ public class LoginServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		//TODO: Add CAPTCHA to help prevent bruteforce attack
-
 		//Sets the redirect header
 		String redirect = request.getParameter("redirect");
 		if(redirect == null){
 			redirect = "index.jsp";	
-		}	
+		} 
+		String varName = request.getParameter("variableName");
+		if (varName != null && !varName.equals("null"))
+			redirect += "?variableName=" + request.getParameter("variableName");
+		if (request.getParameter("codebook") != null)
+			redirect += "&codebook=" + request.getParameter("codebook");
+		if (request.getParameter("backInfo") != null)
+			redirect += "&backInfo=" + request.getParameter("backInfo");
+
 		//Redirect if already logged in
 		HttpSession userSession = request.getSession();
 		try
@@ -47,6 +54,7 @@ public class LoginServlet extends HttpServlet {
 			response.sendRedirect(redirect);
 		}
 		catch(Exception e){}
+
 
 
 		//Determines if previous attempt was invalid
@@ -95,9 +103,13 @@ public class LoginServlet extends HttpServlet {
 			redirect = "index.jsp";
 		}
 		
-		redirect += "?variableName=" + request.getParameter("variableName");
-		redirect += "&codebook=" + request.getParameter("codebook");
-		redirect += "&backInfo=" + request.getParameter("backInfo");
+		String varName = request.getParameter("variableName");
+		if (varName != null && !varName.equals("null"))
+			redirect += "?variableName=" + request.getParameter("variableName");
+		if (request.getParameter("codebook") != null)
+			redirect += "&codebook=" + request.getParameter("codebook");
+		if (request.getParameter("backInfo") != null)
+			redirect += "&backInfo=" + request.getParameter("backInfo");
 		
 		String loggedIn = request.getParameter("loggedIn");
 		if(loggedIn!=null)

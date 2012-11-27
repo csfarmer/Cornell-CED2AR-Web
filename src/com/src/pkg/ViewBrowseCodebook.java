@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -41,6 +42,17 @@ public class ViewBrowseCodebook extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//Redirects if not logged in
+		HttpSession session=request.getSession(false);
+		try{
+			String loggedIn = session.getAttribute("loggedIn").toString();
+		}
+		catch(NullPointerException e){
+			response.sendRedirect("index.jsp");
+			return;
+		}
+
+
 		PrintWriter out = response.getWriter();
 
 		String pageNo = request.getParameter("page");

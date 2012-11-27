@@ -56,7 +56,7 @@ public class SearchServlet extends HttpServlet {
 		String backInfo = "";
 		String pageNo = request.getParameter("page");
 		int page = pageNo == null ? 0 : Integer.parseInt(pageNo);
-		
+
 		String[] query  = request.getParameter("query").split(" ");
 		for(int i = 0; i < query.length; i++){
 			if (i != query.length-1) {
@@ -87,7 +87,7 @@ public class SearchServlet extends HttpServlet {
 			DocumentBuilder db = dbf.newDocumentBuilder();
 
 			ServletContext context = this.getServletContext();
-			
+
 			String tXML = XmlUtil.getXmlPage(xmlString, page, context.getRealPath("/xsl/page.xsl"));
 			InputSource is = new InputSource();
 			is.setCharacterStream(new StringReader(tXML));
@@ -95,22 +95,22 @@ public class SearchServlet extends HttpServlet {
 
 			NodeList variableNames = doc.getElementsByTagName("var");
 			int count = Integer.parseInt(XmlUtil.getNodeCount("var", xmlString));
-						
+
 		    // Header table HTML
 	        out.print("<span class=\"searchResultHeader\">You searched for \"" + request.getParameter("query") + "\", " + String.format("%s", count) + " results returned.</span>");
 	        out.print("<span class=\"alignRight\"><span id=\"simpleSearchBack\">&lt;&lt;Search again.</span></span>");
 	        out.print("<table class=\"simpleSearchTable\">");
             out.print("<tr><th class=\"tdLeft\">Variable</th><th class=\"tdMiddle\">Label</th><th class=\"tdRight\">Codebook</th></tr>");
-	        
+
 			// Create a list of variables and info to be displayed, with the variable clickable to see more info
 			for (int i = 0; i < variableNames.getLength(); i++) {
 				out.print("<tr>");
 				Element element = (Element) variableNames.item(i);
-				
+
 				String codebookTitle = element.getAttribute("codeBook");
-		
+
 				out.print("<td class=\"tdLeft\"><a href=\"Login?redirect=SimpleSearchViewVariable?variableName=" + element.getAttributes().getNamedItem("name").getNodeValue() + "&backInfo=" + request.getParameter("query") + "&codebook=" + codebookTitle + "\" class=\"variableName\">" + element.getAttributes().getNamedItem("name").getNodeValue() + "</a></td>");
-				
+
 				try { NodeList label = element.getElementsByTagName("labl");
 					  out.print("<td class=\"tdMiddle\">" + label.item(0).getFirstChild().getNodeValue() + "</td>"); 
 					  out.print("<td class=\"tdRight\">" + codebookTitle + "</td>"); 
@@ -121,11 +121,11 @@ public class SearchServlet extends HttpServlet {
 			}
 
 			out.print("</table>");
-			
+
 			if (count > 20) {
 				String prevDisabled = (page == 0) ? "" : "\"<< Last 20\"";				
 				String nextDisabled = (((page + 1) * 20) > count) ? "" : "\"Next 20 >>\"";
-				
+
 				out.print(String
 						.format("<div class=\"pageContainer\">"
 								+ "<input type=\"button\" class=\"pageButton\" name=\"prev\" onclick=\"queryRepository('%s')\" value=" + prevDisabled + "></input>"
@@ -136,7 +136,7 @@ public class SearchServlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		out.close();
 	}
 
