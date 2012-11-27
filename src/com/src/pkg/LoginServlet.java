@@ -94,6 +94,11 @@ public class LoginServlet extends HttpServlet {
 		if(redirect == null){
 			redirect = "index.jsp";
 		}
+		
+		redirect += "?variableName=" + request.getParameter("variableName");
+		redirect += "&codebook=" + request.getParameter("codebook");
+		redirect += "&backInfo=" + request.getParameter("backInfo");
+		
 		String loggedIn = request.getParameter("loggedIn");
 		if(loggedIn!=null)
 		{
