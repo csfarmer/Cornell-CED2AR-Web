@@ -31,7 +31,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
-
+		
 		//TODO: Add CAPTCHA to help prevent bruteforce attack
 		//Sets the redirect header
 		String redirect = request.getParameter("redirect");

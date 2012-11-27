@@ -116,6 +116,37 @@ public class Security {
 		
 	}
 	
+	/*Gets challenge question*/
+	public static String getChallenge(String email){
+		String question = "";
+		String query ="select q.\"QuestionText\" as q from public.\"SecurityAnswers\" as a" 
+						+" JOIN public.\"Person\" as p ON(p.\"PersonID\" = a.\"PersonID\")" 
+						+" JOIN public.\"SecurityQuestions\" as q ON (q.\"QuestionID\" = a.\"QuestionID\")"
+						+" WHERE p.\"Email\" = '"+email+"'";
+		DBhandle db = new DBhandle();
+		try{
+			ResultSet results = db.execSQL(query);
+			try{
+				results.next();
+				question =results.getString("q");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			finally{
+				try {
+					results.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		finally{
+			db.close();
+		}
+		return question;
+	
+	}
+	
 	
 	/*Given email and inputed password, checks in password is correct. If email isn't found, returns false.*/
 	public static boolean login(String email, String password) {
@@ -186,9 +217,7 @@ public class Security {
 			//Compares given hash with stored db hash
 			if(givenHash.equals(hash)){
 				authenicated = true;
-			}else{
-				authenicated = false;
-			}	
+			}
 		}
 		finally{
 			db.close();
@@ -196,6 +225,49 @@ public class Security {
 		
 		return authenicated;
 		
+	}
+	
+	public static boolean testQuestion(String answer,String email){
+		String hash = "";
+		String salt = "";
+		Boolean authenicated = false;
+		DBhandle db = new DBhandle();
+		String query ="select a.\"AnswerHash\", a.\"AnswerSalt\" from public.\"SecurityAnswers\" as a" 
+				+" JOIN public.\"Person\" as p ON(p.\"PersonID\" = a.\"PersonID\")" 
+				+" JOIN public.\"SecurityQuestions\" as q ON (q.\"QuestionID\" = a.\"QuestionID\")"
+				+" WHERE p.\"Email\" = '"+email+"'";
+		try{
+			ResultSet results = db.execSQL(query);
+			try{
+				results.next();
+				hash =results.getString("AnswerHash");
+				salt =results.getString("AnswerSalt");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			finally{
+				try {
+					results.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		finally{
+			db.close();
+		}
+
+		String givenSalted = salt + answer;
+		String givenHash = hash(givenSalted);
+		
+		//Compares given hash with stored db hash
+		if(givenHash.equals(hash)){
+			authenicated = true;
+		}
+
+		return authenicated;
+		
+	
 	}
 	//Creates a new hash given a string
 	public static String hash(String password) {
