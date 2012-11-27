@@ -41,16 +41,6 @@ public class ViewBrowseAlphabet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//Redirects if not logged in
-		HttpSession session=request.getSession(false);
-		try{
-			String loggedIn = session.getAttribute("loggedIn").toString();
-		}
-		catch(NullPointerException e){
-			response.sendRedirect("index.jsp");
-			return;
-		}
-
 		PrintWriter out = response.getWriter();
 
 		// Get the list of all variables for browse by the selected codebook
