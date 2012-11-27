@@ -59,6 +59,7 @@ public class Register extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		DBhandle db = new DBhandle();
 		String regex = "^[a-zA-Z]+[- ]?[a-zA-Z]+$";
+		String regex2 = "^[a-zA-Z -]+$";
 		String regexPwd = "^[a-zA-Z0-9!@#$%^&*()-_+=~` ]+$";
 		boolean error = false;
 		
@@ -96,15 +97,15 @@ public class Register extends HttpServlet {
 		
 		//Checks if valid last org
 		String org = request.getParameter("org");
-		if(!Security.testInput(org, regex) || org.length() > 100){
+		if(!Security.testInput(org, regex2) || org.length() > 100){
 			out.write("<p class='regError'>Invalid Organization</p>");
 			error = true;
 		}
 		
 		//Checks if valid last org
 		String field = request.getParameter("field");
-		if(!Security.testInput(field, regex) || field.length() > 100){
-			out.write("<p class='regError'>Invalid Field</p>");
+		if(!Security.testInput(field, regex2) || field.length() > 100){
+			out.write("<p class='regError'>Invalid Departments Field</p>");
 			error = true;
 		}		
 		
