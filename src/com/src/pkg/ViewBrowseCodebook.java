@@ -101,14 +101,14 @@ public class ViewBrowseCodebook extends HttpServlet {
 				out.print("</table>");
 				
 				if (count > 20) {
-					String prevDisabled = (page == 0) ? "" : "\"<< Last 20\"";				
-					String nextDisabled = (((page + 1) * 20) > count) ? "" : "\"Next 20 >>\"";
+					String prevDisabled = (page == 0) ? "none" : "inline";				
+					String nextDisabled = (((page + 1) * 20) > count) ? "none" : "inline";	
 					
 					out.print(String
 							.format("<div class=\"pageContainer\">"
-									+ "<input type=\"button\" class=\"pageButton\" name=\"prev\" onclick=\"getCodebook('%s')\" value=" + prevDisabled + "></input>"
+									+ "<input type=\"button\" class=\"pageButton\" name=\"prev\" style=\"display:" + prevDisabled + "\" onclick=\"getCodebook('%s')\" value=\"<< Last 20\"></input>"
 									+ "<span class=\"page\">Results: %s - %s</span>"
-									+ "<input type=\"button\" class=\"pageButton\" name=\"prev\" onclick=\"getCodebook('%s')\" value=" + nextDisabled + "></input></div>",
+									+ "<input type=\"button\" class=\"pageButton\" name=\"prev\" style=\"display:" + nextDisabled + "\" onclick=\"getCodebook('%s')\" value=\"Next 20 >>\"></input></div>",
 									page - 1, (page * 20) + 1, (page + 1) * 20, page + 1));
 
 				}	

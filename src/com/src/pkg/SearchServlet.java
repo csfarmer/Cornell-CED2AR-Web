@@ -196,14 +196,14 @@ public class SearchServlet extends HttpServlet {
 			out.print("</table>");
 
 			if (count > 20) {
-				String prevDisabled = (page == 0) ? "" : "\"<< Last 20\"";				
-				String nextDisabled = (((page + 1) * 20) > count) ? "" : "\"Next 20 >>\"";
+				String prevDisabled = (page == 0) ? "none" : "inline";				
+				String nextDisabled = (((page + 1) * 20) > count) ? "none" : "inline";	
 
 				out.print(String
 						.format("<div class=\"pageContainer\">"
-								+ "<input type=\"button\" class=\"pageButton\" name=\"prev\" onclick=\"queryRepository('%s')\" value=" + prevDisabled + "></input>"
+								+ "<input type=\"button\" class=\"pageButton\" name=\"prev\" style=\"display:" + prevDisabled + "\" onclick=\"queryRepository('%s')\" value=\"<< Last 20\"></input>"
 								+ "<span class=\"page\">Results: %s - %s</span>"
-								+ "<input type=\"button\" class=\"pageButton\" name=\"prev\" onclick=\"queryRepository('%s')\" value=" + nextDisabled + "></input></div>",
+								+ "<input type=\"button\" class=\"pageButton\" name=\"prev\" style=\"display:" + nextDisabled + "\" onclick=\"queryRepository('%s')\" value=\"Next 20 >>\"></input></div>",
 								page - 1, (page * 20) + 1, (page + 1) * 20, page + 1));
 			}			
 		} catch (Exception e) {
