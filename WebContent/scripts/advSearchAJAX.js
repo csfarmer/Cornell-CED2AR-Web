@@ -2,7 +2,7 @@ var query = "";
 $(document).ready(function() {
 	if (location.hash.length) {
 		query = location.hash.replace('#', '');
-		query = query.replace(/!/g, '&');
+		query = query.replace(/ong !/g, '&');
 		
 		queryRepository('0');
 	}
