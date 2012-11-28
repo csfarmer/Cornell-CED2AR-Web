@@ -77,6 +77,14 @@ public class ViewBrowseCodebook extends HttpServlet {
 
 				NodeList variableNames = doc.getElementsByTagName("var");
 				int count = Integer.parseInt(XmlUtil.getNodeCount("var", xmlString));
+				
+				// Header HTML
+			   	out.print("<h2>Browsing Codebook: " + request.getParameter("codebook") + "</h2>");
+			   	out.print("<h4>" + count + " results returned.</h4>");
+			   	out.print("<hr />");
+			   	out.print("<table class=\"alphabetTable\"><tr><td class=\"tdLeft\">Variable</td><td class=\"tdMiddle\">Label</td><td class=\"tdRight\">Codebook</td></tr></table>");   		
+			   	out.print("<hr />");
+			   	
 				//out.print(doc.getElementsByTagName("var").getLength());
 				out.print("<table class=\"codebookTable\">");
 				for (int i = 0; i < variableNames.getLength(); i++) {

@@ -24,14 +24,8 @@ $(document).ready(function(){
 });
 
 function getCodebook(currpage){
-	var codebookHeader = '<h2>Browsing Codebook: ' + codebookName + '</h2> \
-	 <hr /> \
-	 <table class="codebookTable"><tr><td class=\"tdLeft\">Variable</td><td class=\"tdRight\">Label</td></tr></table> \
-	 <hr />';
 	
-	$("#browseCodebookHeader").html(codebookHeader);
-	
-	$("#browseAlphabetContent").html("<img src=\"images/loading.gif\">");    
+	$("#browseCodebookContent").html("<img src=\"images/loading.gif\">");    
 	// AJAX Call to ViewBrowseCodebook and retrieve HTML Data
 	$.ajax({
 		type: "get",
