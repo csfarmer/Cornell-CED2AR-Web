@@ -14,7 +14,16 @@
     <servlet-name>Test</servlet-name>
     <servlet-class>com.src.pkg.Test</servlet-class>
   </servlet>
-   <servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Logout</servlet-name>
+    <url-pattern>/Logout</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <display-name>Logout</display-name>
+    <servlet-name>Logout</servlet-name>
+    <servlet-class>com.src.pkg.Logout</servlet-class>
+  </servlet>
+  <servlet-mapping>
     <servlet-name>Forgot</servlet-name>
     <url-pattern>/Forgot</url-pattern>
   </servlet-mapping>

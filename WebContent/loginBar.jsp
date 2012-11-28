@@ -6,7 +6,8 @@
 		String html = "<div id='topLoginBar'><a href='Login'>Login or Register</a></div>";
 		out.println(html);
 	}else{  
-		String html = "<div id='topLoginBar'>You are logged in as "+loggedIn+"</div>";
+		String html = "<div id='topLoginBar'>You are logged in as "+loggedIn
+				+" | <a href='Logout'>Logout</a></div>";
 		out.println(html);  
 	}  
 
