@@ -43,6 +43,11 @@ jQuery(function(){
 
 	addRow(); // When the page first loads add a listener to last text input field for the advanced search 
 	
+	// toggle the boolean search instruction display
+	$("#showBooleanInstr").click(function() {
+		$("#booleanInstr").toggle();
+	});
+	
 	// Reset the value of search fields to nothing when page is loaded
 	$("input[type='text']").val('');
 });

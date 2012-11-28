@@ -20,7 +20,7 @@ td.alignRight { float: none; text-align: right; }
 	height: 0;
 }		  
 /* form field styling */ 
-input[type="text"], select { border: 1px solid #000000; font-size: 14px; padding: 5px; }
+input[type="text"], input[type="password"], select { border: 1px solid #000000; font-size: 14px; padding: 5px; }
 input[type="submit"] { background-color: #4d4e53; 
        border: none;
        border-radius: 4px;
@@ -37,14 +37,14 @@ input[type="submit"]:hover { background-color: #666666; }
 		  padding: 15px 0 30px 0; }
 		  
 #header h1 { color: #ffffff; font-family: Verdana, Geneva, sans-serif; margin: auto; width: 715px; }
+#header h1 a { color: #ffffff; text-decoration: none; }
 #header .subhead { font-size: 0.4em; font-weight: normal; }
 
 #navTop { font-size: 0.8em; margin: auto; text-align: right; width: 715px; }
 #navTop a { color: #000000; padding: 0 5px; text-decoration: none; } 
 #navTop a:hover { text-decoration: underline; }
 #topLoginBar{
-	text-align:right;
-	padding:.25em;
+	display: inline-block;
 }		
 
 /* body */
@@ -116,6 +116,10 @@ a.selected-browse, .alphabetChar.selected-browse { color: #000; cursor: default;
 
 .searchResultHeader { font-size: 1.1em; font-weight: bold; }
 
+#booleanInstr { display: none; }
+
+#about { margin: 0 50px; width: 715px; }
+
 
 /* Styles for the tables displaying the variables for browsing and searching */
 .codebookTable { width: 600px; }
@@ -148,33 +152,33 @@ a.selected-browse, .alphabetChar.selected-browse { color: #000; cursor: default;
 						    padding: 10px 0px; }
 
 /* login page */						    
-#passwordTable{
-
+#passwordTable {
 	margin-right:auto;
 	margin-left:auto;
 	padding:1em;
 	width:20em;	
 }
-#passwordTable * input[type=password]{
-	margin-left:.25em;
-	width:12em;
-}
-#passwordTable * input[type=text]{
-	margin-left:.25em;
-	width:12em;
+#passwordTable.register { width: 30em; }
+#passwordTable table { width: 100%; }
+#passwordTable * input[type=text], #passwordTable * input[type=password], #passwordTable * select {
+	width:100%;
 }
 #passwordTable * td{
 	padding:.125em .5em;
 	margin-left:auto;
 	margin-right:auto;
+	vertical-align: middle;
+	white-space: nowrap;
 }
 .loginExtra{
-	text-align:right;
+	text-align: right;
 	line-height: 1.5em;
 }
-#loginError{
-	font-style:italic;
-	color:#F00;
+.loginExtra.smaller { font-size: .8em; }
+#loginError, .regError {
+	color: #b31b1b;
+	font-style: italic;
+	font-weight: bold;
 }
 
 /* pagination */
