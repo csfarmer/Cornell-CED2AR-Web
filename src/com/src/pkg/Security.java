@@ -146,7 +146,49 @@ public class Security {
 		return question;
 	
 	}
-	
+	/*Resets password*/
+	public static void reset(String email,String password){
+		String salt = "";
+		DBhandle db = new DBhandle();
+		String query ="select p.\"Salt\" from public.\"Person\" as p" 
+				+" WHERE p.\"Email\" = '"+email+"'";
+		try{
+			ResultSet results = db.execSQL(query);
+			try{
+				results.next();
+				salt =results.getString("Salt");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			finally{
+				try {
+					results.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			/*
+			 * UPDATE public."Person" as p SET 
+			 * "PassHash"='10eeacaf8e8b3685564525247120afac4eb78824af20f654a31b7c8d36ac30420156d258cd1eccb9568ed4cee9b8da09ffadb00e80fd1fd1a7d4f41beb01d373' 
+			 * WHERE p."Email" = 'bap63@cornell.edu'
+			 * 
+			 * 
+			 * 
+			 * */
+			String hash = hash(salt + password) ;
+			String query2 = "UPDATE public.\"Person\" as p"
+					+" SET \"PassHash\"='"+hash+"'"
+					+" WHERE p.\"Email\" = '"+email+"'";
+			db.execSQL(query2);
+		}
+		finally{
+			db.close();
+		}
+		
+
+		
+		
+	}
 	
 	/*Given email and inputed password, checks in password is correct. If email isn't found, returns false.*/
 	public static boolean login(String email, String password) {

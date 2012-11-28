@@ -79,14 +79,16 @@ public class Test extends HttpServlet {
 		}else{
 			out.write("Bad email");
 		}*/
-
+		/*
 		boolean question = Security.testQuestion("red","bap63@cornell.edu");
 		if(question){
 			out.write("Good");
 		}else{
 			out.write("Bad");
-		}
-		
+		}*/
+		/*
+		Security.reset("bap63@cornell.edu", "password");
+		*/
 	}
 
 	/**

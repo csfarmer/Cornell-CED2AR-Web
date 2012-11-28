@@ -125,7 +125,7 @@ public class Forgot extends HttpServlet {
 							+"	<title>Reset Password</title>"
 							+"</head><body>";
 					out.write(html);
-					//TODO:Actually change password in db
+					Security.reset(email, password1);
 					out.write("Your Password has been reset. You can now <a href='Login'>login</a></body><html>");
 				}else{
 					errorMsg+="Security Question was answered incorrectly <br />";	
