@@ -42,7 +42,7 @@ public class ViewBrowseAlphabet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
-
+		
 		// Get the list of all variables for browse by the selected codebook
 		if (request.getParameter("variableName") != null) {
 			response.setContentType("text/html");
@@ -67,6 +67,14 @@ public class ViewBrowseAlphabet extends HttpServlet {
 
 				NodeList variableNames = doc.getElementsByTagName("var");
 				NodeList codebookNames = doc.getElementsByTagName("titl");
+				
+				// Header HTML
+			   	out.print("<h2>Variables Starting with \"" + request.getParameter("variableName") + "\"</h2>");
+			   	out.print("<h4>" + variableNames.getLength() + " results returned.</h4>");
+			   	out.print("<hr />");
+			   	out.print("<table class=\"alphabetTable\"><tr><td class=\"tdLeft\">Variable</td><td class=\"tdMiddle\">Label</td><td class=\"tdRight\">Codebook</td></tr></table>");   		
+			   	out.print("<hr />");
+			   	
 				if (variableNames.getLength() == 0) {
 					out.print("<p>There are no variables beginning with the letter \"" + request.getParameter("variableName") + "\"");
 				} else {
