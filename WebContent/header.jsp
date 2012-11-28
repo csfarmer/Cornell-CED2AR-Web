@@ -2,11 +2,11 @@
     pageEncoding="ISO-8859-1"%>
 <div id="header">
   <div id="navTop">
-  	<a href="#">About CED<sup>2</sup>AR</a>
+  	<a href="About.jsp">About CED<sup>2</sup>AR</a>
 	|
 <%@include file='loginBar.jsp'%>
   </div>
-  <h1>CED<sup>2</sup>AR 
+  <h1><a href="index.jsp">CED<sup>2</sup>AR</a> 
   	<span class="subhead">The Comprehensive Extensible Data Documentation and Access Repository</span>
 	</h1>
 </div>

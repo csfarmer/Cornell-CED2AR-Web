@@ -30,7 +30,7 @@
   	  <ul id="navList">
   	    <li id="tab-simple"><a href="index.jsp">Simple Search</a></li>
   	    <li id="tab-advanced" class="selected"><a href="AdvancedSearch.jsp">Advanced Search</a></li>
-  	    <li id="tab-browse"><a href="BrowseDataCodebook.jsp">Browse Data</a></li>
+  	    <li id="tab-browse"><a href="BrowseDataCodebook.jsp">Browse Metadata</a></li>
   	  </ul>
       <div class="clear"></div>
     </div>
@@ -41,7 +41,13 @@
           <ul>
             <li>The dropdown lists on the left contain all searchable fields.</li>
             <li>Type your keyword into the middle field.</li>
-            <li>The dropdown lists on the right can be used to construct a boolean search.</li>
+            <li>The dropdown lists on the right can be used to construct a <a href="javascript:void(0);" id="showBooleanInstr">boolean search</a>.
+            	<ul id="booleanInstr">
+            		<li><b>AND</b> is a connector that requires both words to be present in each record in the results. Use AND to narrow your search.</li>
+					<li><b>OR</b> is a connector that allows either word to be present in each record in the results. Use OR to expand your search.</li>
+					<li><b>AND NOT</b> is a connector that requires the first word be present in each record in the results, but only if the record does not contain the second word.</li>
+            	</ul>
+            </li>
           </ul> 
         <table id="advanced_table">
 	        <tr>
