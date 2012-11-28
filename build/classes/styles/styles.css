@@ -158,7 +158,7 @@ a.selected-browse, .alphabetChar.selected-browse { color: #000; cursor: default;
 	padding:1em;
 	width:20em;	
 }
-#passwordTable.register { width: 30em; }
+#passwordTable.register, #passwordTable.forgot { width: 30em; }
 #passwordTable table { width: 100%; }
 #passwordTable * input[type=text], #passwordTable * input[type=password], #passwordTable * select {
 	width:100%;
@@ -170,6 +170,7 @@ a.selected-browse, .alphabetChar.selected-browse { color: #000; cursor: default;
 	vertical-align: middle;
 	white-space: nowrap;
 }
+#passwordTable.forgot td { padding-left: 0; }
 .loginExtra{
 	text-align: right;
 	line-height: 1.5em;

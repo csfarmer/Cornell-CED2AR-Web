@@ -38,34 +38,49 @@ public class Forgot extends HttpServlet {
 					+"<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN' 'http://www.w3.org/TR/html4/loose.dtd'>"
 					+"<html><head><meta http-equiv='Content-Type' content='text/html; charset=ISO-8859-1'>"
 					+"	<link rel='stylesheet' type='text/css' href='styles/styles.css' />"
-					+"	<link rel='stylesheet' type='text/css' href='styles/reset.css' />"
 					+"	<script src='http://code.jquery.com/jquery-latest.js'></script>"
 					+"	<title>Reset Password</title>"
 					+"</head><body>"
-					+"<p id='forgotError'>"+errorMsg+"<p>"
+					+"	<div id='header'>"
+					+"		<div id='navTop'><a href='About.jsp'>About CED<sup>2</sup>AR</a> | <a href='Login'>Login or Register</a></div>"
+					+"		<h1><a href='index.jsp'>CED<sup>2</sup>AR</a> "
+					+"			<span class='subhead'>The Comprehensive Extensible Data Documentation and Access Repository</span>"
+					+"		</h1>"
+					+"	</div><div id='passwordTable' class='forgot'>"
+					+"<h2>Forgot Your Password?</h2>"
+					+"<p>Step 1: Enter your registered email address.</p>"
+					+"<p id='forgotError'>"+errorMsg+"</p>"
 					+"<form action='Forgot' method='post'>"
-					+"	Email Address<input type='text' name='email'/><br />"
-					+"	<input type='submit' value='Continue'/></form>"
-					+"</body></html>";
+					+"	<table><tr><td>Email Address</td><td><input type='text' name='email'/></td></tr>"
+					+"			<tr><td></td><td><input type='submit' value='Continue'/></td></tr></table></form>"
+					+"</div></body></html>";
 					out.print(html); 
 		}else{
 			String html = ""
 					+"<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN' 'http://www.w3.org/TR/html4/loose.dtd'>"
 					+"<html><head><meta http-equiv='Content-Type' content='text/html; charset=ISO-8859-1'>"
 					+"	<link rel='stylesheet' type='text/css' href='styles/styles.css' />"
-					+"	<link rel='stylesheet' type='text/css' href='styles/reset.css' />"
 					+"	<script src='http://code.jquery.com/jquery-latest.js'></script>"
 					+"	<title>Reset Password</title>"
 					+"</head><body>"
-					+"<p id='forgotError'>"+errorMsg+"<p>"
+					+"	<div id='header'>"
+					+"		<div id='navTop'><a href='About.jsp'>About CED<sup>2</sup>AR</a> | <a href='Login'>Login or Register</a></div>"
+					+"		<h1><a href='index.jsp'>CED<sup>2</sup>AR</a> "
+					+"			<span class='subhead'>The Comprehensive Extensible Data Documentation and Access Repository</span>"
+					+"		</h1>"
+					+"	</div><div id='passwordTable' class='forgot'>"
+					+"<h2>Forgot Your Password?</h2>"
+					+"<p>Step 2: Answer your security challenge question and choose your new password.</p>"
+					+"<p id='forgotError'>"+errorMsg+"</p>"
 					+"<form action='Forgot' method='post'>"
-					+"<p>"+question+"</p>"
-					+"<input type='text' name='answer'/><br />"
-					+"New Password<input type='password' name='password1'/><br />"
-					+"Retype new password<input type='password' name='password2'/><br />"
-					+"<input type='hidden' value='"+email+"' name='email'/>"
-					+"	<input type='submit' value='Continue'/></form>"
-					+"</body></html>";
+					+"<table><tr><td>"+question+"</td>"
+					+"<td><input type='text' name='answer'/></td></tr>"
+					+"<tr><td>New Password</td><td><input type='password' name='password1'/></td></tr>"
+					+"<tr><td>Retype new password</td><td><input type='password' name='password2'/></td></tr>"
+					+"<tr><td></td><td><input type='hidden' value='"+email+"' name='email'/>"
+					+"	<input type='submit' value='Continue'/></td></tr>"
+					+"</table></form>"
+					+"</div></body></html>";
 					out.print(html); 
 		}
 		errorMsg = " ";
@@ -120,13 +135,18 @@ public class Forgot extends HttpServlet {
 							+"<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN' 'http://www.w3.org/TR/html4/loose.dtd'>"
 							+"<html><head><meta http-equiv='Content-Type' content='text/html; charset=ISO-8859-1'>"
 							+"	<link rel='stylesheet' type='text/css' href='styles/styles.css' />"
-							+"	<link rel='stylesheet' type='text/css' href='styles/reset.css' />"
 							+"	<script src='http://code.jquery.com/jquery-latest.js'></script>"
 							+"	<title>Reset Password</title>"
-							+"</head><body>";
+							+"</head><body>"
+							+"	<div id='header'>"
+							+"		<div id='navTop'><a href='About.jsp'>About CED<sup>2</sup>AR</a> | <a href='Login'>Login or Register</a></div>"
+							+"		<h1><a href='index.jsp'>CED<sup>2</sup>AR</a> "
+							+"			<span class='subhead'>The Comprehensive Extensible Data Documentation and Access Repository</span>"
+							+"		</h1>"
+							+"	</div><div id='passwordTable' class='forgot'>";
 					out.write(html);
 					Security.reset(email, password1);
-					out.write("Your Password has been reset. You can now <a href='Login'>login</a></body><html>");
+					out.write("Your Password has been reset. You can now <a href='Login'>login</a></div></body><html>");
 				}else{
 					errorMsg+="Security Question was answered incorrectly <br />";	
 					response.sendRedirect("Forgot?email="+email);
