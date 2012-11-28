@@ -140,7 +140,7 @@ public class SearchServlet extends HttpServlet {
 		
 		PrintWriter out = response.getWriter();
 		response.setContentType("text/html");
-		URL handle = new URL(APIString);
+		URL handle = new URL(APIString + "&sort=variablename");
 		URLConnection cn = handle.openConnection();
         BufferedReader in = new BufferedReader(
                                 new InputStreamReader(

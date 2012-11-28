@@ -189,7 +189,7 @@ public class AdvancedSearchServlet extends HttpServlet {
 		catch (Exception e) {}
 		
 		
-		URL handle = new URL(apiString);
+		URL handle = new URL(apiString + "&sort=variablename");
 		URLConnection cn = handle.openConnection();
         BufferedReader in = new BufferedReader(
                                 new InputStreamReader(
